@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Models;
 using Domain.Repositories.Users;
+using JetBrains.Annotations;
 
 namespace Api.Helpers
 {
-    public class UserHelper : IUserHelper
+    [UsedImplicitly]
+    public sealed class UserHelper : IUserHelper
     {
         private readonly IUserRepository _db;
 

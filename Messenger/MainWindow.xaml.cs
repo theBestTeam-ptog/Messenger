@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Windows;
+using Api.Helpers;
+using JetBrains.Annotations;
 
 namespace Messenger
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    [UsedImplicitly]
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly IUserHelper _userHelper;
+        
+        public MainWindow(IUserHelper userHelper)
         {
+            _userHelper = userHelper;
             InitializeComponent();
             
             frame.NavigationService.Navigate(new Uri("Pages/PageNoDialog.xaml", UriKind.Relative));

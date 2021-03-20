@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace Domain.Mappers
 {
+    [UsedImplicitly]
     public sealed class ChatDocumentMapper : IMapper<Chat, ChatDocument>, IMapper<ChatDocument, Chat>
     {
         [CanBeNull]

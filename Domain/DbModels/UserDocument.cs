@@ -19,5 +19,7 @@ namespace Domain.DbModels
         [BsonIgnoreIfDefault]
         public bool Private { get; set; }
         public DateTime Registration { get; set; }
+        public DateTime Authorize { get; set; }
+        public bool InNetwork { get; set; } // зашел или вышел из аккаунта
     }
 }

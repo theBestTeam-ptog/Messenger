@@ -5,22 +5,34 @@ using Domain.Constants;
 using Domain.DbModels;
 using Domain.Mappers;
 using Domain.Models;
+using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Domain.Repositories.Users
 {
-    public class UserRepository : Repository, IUserRepository
+    [UsedImplicitly]
+    public sealed class UserRepository : IUserRepository
     {
-        public UserRepository() : base() { }
-        private readonly UserDocumentMapper _userDocumentMapper = new UserDocumentMapper();
+        private readonly Repository _repository;
+        private readonly IMapper<User, UserDocument> _userDocumentMapper;
+        private readonly IMapper<UserDocument, User> _documentUserMapper;
 
-        private IMongoCollection<UserDocument> Users => Database.GetCollection<UserDocument>(CollectionsNames.Users);
+        public UserRepository(Repository repository, 
+            UserDocumentMapper userDocumentMapper, 
+            IMapper<UserDocument, User> documentUserMapper)
+        {
+            _repository = repository;
+            _userDocumentMapper = userDocumentMapper;
+            _documentUserMapper = documentUserMapper;
+        }
+
+        private IMongoCollection<UserDocument> Users => _repository.Database.GetCollection<UserDocument>(CollectionsNames.Users);
         
         public async Task<User> GetUser(string id)
         {
             var user = await Users.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
-            return _userDocumentMapper.Map(user);
+            return _documentUserMapper.Map(user);
         }
 
         // проверка есть ли уже такой логин в бд 
@@ -35,7 +47,7 @@ namespace Domain.Repositories.Users
                 return null;
             
             var user = await Users.Find(Builders<UserDocument>.Filter.Eq(u=> u.Login, login)).FirstOrDefaultAsync();
-            return _userDocumentMapper.Map(user);
+            return _documentUserMapper.Map(user);
         }
 
         public async Task Create(User user)
@@ -48,7 +60,7 @@ namespace Domain.Repositories.Users
             return Users
                 .Find(Builders<UserDocument>.Filter.Eq(u => u.UserName, name))
                 .ToEnumerable()
-                .Select(_userDocumentMapper.Map);
+                .Select(_documentUserMapper.Map);
         }
     }
 }
