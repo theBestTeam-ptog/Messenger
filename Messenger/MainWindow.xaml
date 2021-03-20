@@ -13,25 +13,5 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280">
     <Grid ShowGridLines="False">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="270px"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <!-- Левая часть -->
-        <DockPanel Grid.Column="0">
-            <!-- Шапка -->
-            <Menu DockPanel.Dock="Top" Height="50px"></Menu>
-            <!-- Body Список диалогов -->
-            <ListBox Style="{DynamicResource MaterialDesignCardsListBox}">
-                <!-- Как я понял, Card - чето типа области или элемента materialDesign -->
-                <materialDesign:Card>
-                    <ListBoxItem MouseUp="ButtonBase_OnClick" Height="50px">
-                        dialog 1
-                    </ListBoxItem>
-                </materialDesign:Card>
-            </ListBox>
-        </DockPanel>
-        <!-- Правая часть -->
-        <Frame Grid.Column="1" Name="frame" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>
