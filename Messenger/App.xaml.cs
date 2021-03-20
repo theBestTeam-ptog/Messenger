@@ -8,7 +8,7 @@ namespace Messenger
     public partial class App : Application
     {
         private static readonly ILogger<App> Logger = new ConsoleLogger<App>();
-        private IKernel _container;
+        private static IKernel _container;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -23,9 +23,17 @@ namespace Messenger
             _container = new StandardKernel(new Registry());
 
             _container.Bind<MainWindow>().ToSelf().InSingletonScope();
+            _container.Bind<ApplicationWindow>().ToSelf().InSingletonScope();
             
             Logger.Info($"{nameof(Messenger.MainWindow)} put into container");
+            Logger.Info($"{nameof(ApplicationWindow)} put into container");
             //_container.Bind<>()
+        }
+
+        public static void InitApp()
+        {
+            var app = _container.Get<ApplicationWindow>();
+            app.Show();
         }
     }
 }

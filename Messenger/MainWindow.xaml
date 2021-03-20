@@ -13,5 +13,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280">
     <Grid ShowGridLines="False">
+        <Button Click="test"></Button>
     </Grid>
 </Window>

@@ -15,7 +15,11 @@ namespace Messenger
             _userHelper = userHelper;
             InitializeComponent();
         }
-
         
+        private void test(object sender, RoutedEventArgs e)
+        {
+            App.InitApp();
+            Close();
+        }
     }
 }
