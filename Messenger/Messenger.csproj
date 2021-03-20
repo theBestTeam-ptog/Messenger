@@ -19,4 +19,10 @@
       <Compile Remove="AssemblyInfo.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Api\Api.csproj" />
+      <ProjectReference Include="..\Core\Core.csproj" />
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace Domain.Mappers
 {
+    [UsedImplicitly]
     public sealed class UserDocumentMapper : IMapper<User, UserDocument>, IMapper<UserDocument, User>
     {
         [CanBeNull]
@@ -17,6 +18,10 @@ namespace Domain.Mappers
                 Password = source.Password,
                 Chats = source.Chats,
                 ProfileImage = source.ProfileImage,
+                Private = source.Private,
+                Authorize = source.Authorize,
+                Registration = source.Registration,
+                InNetwork = source.InNetwork,
             };
 
         [CanBeNull]
@@ -30,6 +35,10 @@ namespace Domain.Mappers
                 Password = source.Password,
                 Chats = source.Chats,
                 ProfileImage = source.ProfileImage,
+                Private = source.Private,
+                Authorize = source.Authorize,
+                Registration = source.Registration,
+                InNetwork = source.InNetwork,
             };
     }
 }

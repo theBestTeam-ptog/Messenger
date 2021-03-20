@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Domain.Models;
-using Domain.Repositories.Chats;
+﻿using Domain.Repositories.Chats;
 using JetBrains.Annotations;
 
 namespace Api.Helpers
 {
-    public class ChatHelper
+    [UsedImplicitly]
+    public sealed class ChatHelper : IChatHelper
     {
         private IChatRepository _db;
 

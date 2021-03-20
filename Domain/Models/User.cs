@@ -12,8 +12,10 @@ namespace Domain.Models
         public List<string> Chats { get; set; }
         public bool Private { get; set; }
         public DateTime Registration { get; set; }
+        public DateTime Authorize { get; set; }
         // пусть пока будет стринг
         public string ProfileImage { get; set; }
+        public bool InNetwork { get; set; }
         
         public bool HasImage() => !string.IsNullOrWhiteSpace(ProfileImage);
     }
