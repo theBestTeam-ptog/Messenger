@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Messenger.ChatService.Protos";
+
+package greet;
+
+service Greeter {
+  rpc TakeUser (PickUpUser) returns (PickUpUserReply);
+}
+
+message PickUpUser {
+  string Login = 1;
+  string Password = 2;
+}
+
+message PickUpUserReply {
+  User user = 1;
+}
+
+message User{
+  string Id = 1;
+  string UserName = 2;
+  string Login = 3;
+  string Password = 4;
+  repeated Chat chats = 5;
+  bool Private = 6;
+  google.protobuf.Timestamp Registration = 7;
+  google.protobuf.Timestamp Authorize = 8;
+  string  ProfileImage = 9;
+  bool InNetwork = 10;
+  bool HasImage = 11;
+}
+
+message Chat{
+  string Id = 1;
+  repeated string UserIds = 2;
+  repeated Message History = 3;
+}
+
+message Message{
+  string Content = 1;
+  string AuthorId = 2;
+  google.protobuf.Timestamp Time = 3;
+}
