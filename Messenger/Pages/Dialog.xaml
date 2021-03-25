@@ -14,7 +14,7 @@
         <!-- Шапка  -->
         <Border Grid.Row="0" Background="Indigo" Height="50"></Border>
         <!-- Body Диалог -->
-        <Border Grid.Row="1" BorderBrush="Bisque" BorderThickness="1px 0 0 1">
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1px 0 0 1">
             <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"
                      Focusable="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
@@ -32,7 +32,7 @@
             </ListBox>
         </Border>
         <!-- Footer Message -->
-        <Border Grid.Row="2" BorderBrush="Bisque" BorderThickness="1px 0 0 0">
+        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1px 0 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MaxWidth="60px"/>
@@ -51,11 +51,19 @@
                     MouseUp="UIElement_OnMouseUp2"
                     />
                 <materialDesign:Card Grid.Column="1" Margin="3">
-                    <TextBox x:Name="TextBox" TextAlignment="Justify" Padding="2" Margin="2" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
+                    <TextBox x:Name="message" 
+                             TextAlignment="Justify" 
+                             Padding="2" 
+                             Margin="2" 
+                             Style="{DynamicResource MaterialDesignTextBox}"
+                             Foreground="White"
+                             FontWeight="Regular"
+                             FontSize="17"
+                             />
                 </materialDesign:Card>
                 <materialDesign:PackIcon 
                     Grid.Column="2" 
-                    Kind="ChevronRightCircleOutline" 
+                    Kind="Send" 
                     Foreground="{DynamicResource MaterialDesignBody}"
                     Height="30" 
                     Width="30" 

@@ -13,6 +13,15 @@
         mc:Ignorable="d"
         Title="ApplicationWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280">
     <Grid ShowGridLines="False">
+        <Grid.Resources>
+            <DataTemplate x:Key="itemTemplate">
+                <materialDesign:Card>
+                    <ListBoxItem MouseUp="OpenDialog" Height="50px">
+                        <TextBlock Text="{Binding UserName}"></TextBlock>
+                    </ListBoxItem>
+                </materialDesign:Card>
+            </DataTemplate>
+        </Grid.Resources>    
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="270px"/>
             <ColumnDefinition/>
@@ -20,18 +29,37 @@
         <!-- Левая часть -->
         <DockPanel Grid.Column="0">
             <!-- Шапка -->
-            <Menu DockPanel.Dock="Top" Height="50px"></Menu>
+            <Grid DockPanel.Dock="Top" Height="50px">
+                <TextBox x:Name="Searcher"
+                         TextWrapping="Wrap"
+                         Width="225"
+                         Height="30"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Margin="5 0 0 0"
+                         TextChanged="Search"
+                         Background="Azure"
+                         Foreground="Black"
+                         FontSize="17"
+                         FontWeight="Regular"
+                />
+                <materialDesign:PackIcon 
+                    Kind="Search"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0 0 7 0"
+                />
+            </Grid>
             <!-- Body Список диалогов -->
-            <ListBox Style="{DynamicResource MaterialDesignCardsListBox}">
-                <!-- Как я понял, Card - чето типа области или элемента materialDesign -->
-                <materialDesign:Card>
-                    <ListBoxItem MouseUp="ButtonBase_OnClick" Height="50px">
-                        dialog 1
-                    </ListBoxItem>
-                </materialDesign:Card>
-            </ListBox>
+            <ListBox Name="list"
+                     Style="{DynamicResource MaterialDesignCardsListBox}" 
+                     ItemTemplate="{Binding Source={StaticResource itemTemplate}}"
+                     ItemsSource="{Binding Users}"
+            />
         </DockPanel>
         <!-- Правая часть -->
-        <Frame Grid.Column="1" Name="frame" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Grid.Column="1" x:Name="dialogFrame" x:FieldModifier="public" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

@@ -12,24 +12,21 @@ namespace Domain.Repositories.Chats
     public sealed class ChatRepository : IChatRepository
     {
         private readonly Repository _repository;
-        private readonly IMapper<Chat, ChatDocument> _chatDocumentMapper;
-        private readonly IMapper<ChatDocument, Chat> _documentChatMapper;
+        private readonly IDuplexMapper<Chat, ChatDocument> _chatDocumentMapper;
 
         public ChatRepository(Repository repository, 
-            ChatDocumentMapper chatDocumentMapper, 
-            IMapper<ChatDocument, Chat> documentChatMapper)
+            IDuplexMapper<Chat, ChatDocument> chatDocumentMapper) 
         {
             _repository = repository;
             _chatDocumentMapper = chatDocumentMapper;
-            _documentChatMapper = documentChatMapper;
         }
 
-        private IMongoCollection<ChatDocument> Chats => _repository.Database.GetCollection<ChatDocument>(CollectionsNames.Chats);
+        private IMongoCollection<ChatDocument> Chats => _repository.GetCollection<ChatDocument>(CollectionsNames.Chats);
         
         public async Task<Chat> Get(string id)
         {
             var chat = await Chats.Find(Builders<ChatDocument>.Filter.Eq(c => c.Id, id)).FirstOrDefaultAsync();
-            return _documentChatMapper.Map(chat);
+            return _chatDocumentMapper.Map(chat);
         }
 
         public async Task AddMessage(string chatId, Message message)

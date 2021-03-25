@@ -5,10 +5,9 @@ using JetBrains.Annotations;
 namespace Domain.Mappers
 {
     [UsedImplicitly]
-    public sealed class UserDocumentMapper : IMapper<User, UserDocument>, IMapper<UserDocument, User>
+    public sealed class UserDocumentMapper : IDuplexMapper<User, UserDocument>
     {
-        [CanBeNull]
-        public UserDocument Map([CanBeNull] User source) => source is null 
+        public UserDocument Map(User source) => source is null 
             ? null 
             : new UserDocument
             {
@@ -24,8 +23,7 @@ namespace Domain.Mappers
                 InNetwork = source.InNetwork,
             };
 
-        [CanBeNull]
-        public User Map([CanBeNull] UserDocument source) => source is null
+        public User Map(UserDocument source) => source is null
             ? null
             : new User
             {

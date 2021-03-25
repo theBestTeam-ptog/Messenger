@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Domain.DbModels;
 using Domain.Models;
 using JetBrains.Annotations;
 
@@ -13,6 +14,8 @@ namespace Api.Helpers
         Task RegisterUser([CanBeNull] User user);
 
         [CanBeNull]
-        IEnumerable<User> FindUser([NotNull] string name);
+        IEnumerable<User> FindUsers([NotNull] string name);
+        
+        IEnumerable<UserViewModel> Search([NotNull] string suggest);
     }
 }

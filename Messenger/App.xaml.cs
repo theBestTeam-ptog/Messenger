@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using Core;
 using Core.Log;
+using Messenger.Pages;
+using Messenger.ViewModels;
 using Ninject;
 
 namespace Messenger
@@ -24,7 +26,9 @@ namespace Messenger
 
             _container.Bind<MainWindow>().ToSelf().InSingletonScope();
             _container.Bind<ApplicationWindow>().ToSelf().InSingletonScope();
-            
+            _container.Bind<IDialogListViewModel>().To<DialogListViewModel>().InSingletonScope();
+            _container.Bind<ISearchResultViewModel>().To<SearchResultViewModel>().InSingletonScope();
+
             Logger.Info($"{nameof(Messenger.MainWindow)} put into container");
             Logger.Info($"{nameof(ApplicationWindow)} put into container");
             //_container.Bind<>()

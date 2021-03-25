@@ -12,12 +12,12 @@ namespace Messenger.Pages
 
         private void UIElement_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            //System.Windows.Controls.TextBox.Text = "its work";
+            message.Text = "its work";
         }
         
         private void UIElement_OnMouseUp2(object sender, MouseButtonEventArgs e)
         {
-            //System.Windows.Controls.TextBox.Text = "";
+            message.Text = "";
         }
     }
 }

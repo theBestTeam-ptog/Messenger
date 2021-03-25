@@ -7,6 +7,8 @@ using Domain.Repositories;
 using Domain.Repositories.Chats;
 using Domain.Repositories.Users;
 using JetBrains.Annotations;
+using Ninject.Extensions.Factory;
+using Ninject.Extensions.Conventions;
 using Ninject.Modules;
 
 namespace Core
@@ -36,17 +38,15 @@ namespace Core
             Bind<IChatHelper>().To<ChatHelper>().InSingletonScope();
             Bind<IUserHelper>().To<UserHelper>().InSingletonScope();
 
-            Bind<IMapper<Chat, ChatDocument>>().To<ChatDocumentMapper>();
-            Bind<IMapper<ChatDocument, Chat>>().To<ChatDocumentMapper>();
-            
-            Bind<IMapper<User, UserDocument>>().To<UserDocumentMapper>();
-            Bind<IMapper<UserDocument, User>>().To<UserDocumentMapper>();
+            Bind<IDuplexMapper<Chat, ChatDocument>>().To<ChatDocumentMapper>().InSingletonScope();
+            Bind<IDuplexMapper<User, UserDocument>>().To<UserDocumentMapper>().InSingletonScope();
+
+            Bind<IMapper<User, UserViewModel>, IMapper<UserDocument, UserViewModel>>().To<UserViewModelMapper>();
 
             foreach (var binding in Bindings)
             {
                 Logger.Info($"implementer for {binding.Service.Name} put into container");
             }
-            //Bind(typeof(ILogger<>)).To(typeof(ConsoleLogger<>)).InSingletonScope();
         }
     }
 }

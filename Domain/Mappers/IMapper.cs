@@ -1,7 +1,10 @@
-﻿namespace Domain.Mappers
+﻿using JetBrains.Annotations;
+
+namespace Domain.Mappers
 {
     public interface IMapper<in TSource, out TResult>
     {
-        TResult Map(TSource source);
+        [CanBeNull]
+        TResult Map([CanBeNull] TSource source);
     }
 }

@@ -5,7 +5,7 @@ namespace Domain.Models
 {
     public sealed class User
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string UserName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }

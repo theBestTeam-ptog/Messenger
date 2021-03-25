@@ -7,19 +7,23 @@ namespace Domain.DbModels
 {
     public sealed class UserDocument
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
+        public Guid Id { get; set; }
         public string UserName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
         public List<string> Chats { get; set; }
-        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
         public string ProfileImage { get; set; }
         [BsonIgnoreIfDefault]
         public bool Private { get; set; }
+        [BsonIgnoreIfDefault]
         public DateTime Registration { get; set; }
+        [BsonIgnoreIfDefault]
         public DateTime Authorize { get; set; }
+        [BsonIgnoreIfDefault]
         public bool InNetwork { get; set; } // зашел или вышел из аккаунта
     }
 }
