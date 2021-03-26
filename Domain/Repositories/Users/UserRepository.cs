@@ -15,24 +15,24 @@ namespace Domain.Repositories.Users
     public sealed class UserRepository : IUserRepository
     {
         private readonly Repository _repository;
-        private readonly IMapper<User, UserDocument> _userDocumentMapper;
-        private readonly IMapper<UserDocument, User> _documentUserMapper;
+        private readonly IDuplexMapper<User, UserDocument> _userDocumentMapper;
+        private readonly IMapper<UserDocument, UserViewModel> _userViewModelMapper;
 
         public UserRepository(Repository repository, 
-            UserDocumentMapper userDocumentMapper, 
-            IMapper<UserDocument, User> documentUserMapper)
+            IDuplexMapper<User, UserDocument> userDocumentMapper, 
+            IMapper<UserDocument, UserViewModel> userViewModelMapper)
         {
             _repository = repository;
             _userDocumentMapper = userDocumentMapper;
-            _documentUserMapper = documentUserMapper;
+            _userViewModelMapper = userViewModelMapper;
         }
 
-        private IMongoCollection<UserDocument> Users => _repository.Database.GetCollection<UserDocument>(CollectionsNames.Users);
+        private IMongoCollection<UserDocument> Users => _repository.GetCollection<UserDocument>(CollectionsNames.Users);
         
         public async Task<User> GetUser(string id)
         {
             var user = await Users.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
-            return _documentUserMapper.Map(user);
+            return _userDocumentMapper.Map(user);
         }
 
         // проверка есть ли уже такой логин в бд 
@@ -47,12 +47,13 @@ namespace Domain.Repositories.Users
                 return null;
             
             var user = await Users.Find(Builders<UserDocument>.Filter.Eq(u=> u.Login, login)).FirstOrDefaultAsync();
-            return _documentUserMapper.Map(user);
+            return _userDocumentMapper.Map(user);
         }
 
         public async Task Create(User user)
         {
-            await Users.InsertOneAsync(_userDocumentMapper.Map(user));
+            var doc = _userDocumentMapper.Map(user);
+            await Users.InsertOneAsync(doc);
         }
         
         public IEnumerable<User> GetUsersByName(string name)
@@ -60,7 +61,17 @@ namespace Domain.Repositories.Users
             return Users
                 .Find(Builders<UserDocument>.Filter.Eq(u => u.UserName, name))
                 .ToEnumerable()
-                .Select(_documentUserMapper.Map);
+                .Select(_userDocumentMapper.Map);
+        }
+
+        [ItemCanBeNull]
+        public IEnumerable<UserViewModel> Search(string suggest)
+        {
+            return Users.Find(
+                    Builders<UserDocument>.Filter.Where(u => u.UserName.StartsWith(suggest))
+                )
+                .ToEnumerable()
+                .Select(_userViewModelMapper.Map);
         }
     }
 }

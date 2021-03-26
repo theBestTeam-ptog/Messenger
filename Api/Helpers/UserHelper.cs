@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Domain.DbModels;
 using Domain.Models;
 using Domain.Repositories.Users;
 using JetBrains.Annotations;
@@ -30,6 +31,8 @@ namespace Api.Helpers
             await _db.Create(user);
         }
         
-        public IEnumerable<User> FindUser(string name) => _db.GetUsersByName(name);
+        public IEnumerable<User> FindUsers(string name) => _db.GetUsersByName(name);
+        
+        public IEnumerable<UserViewModel> Search(string suggest) => _db.Search(suggest);
     } 
 }
