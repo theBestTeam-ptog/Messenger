@@ -5,10 +5,9 @@ using JetBrains.Annotations;
 namespace Domain.Mappers
 {
     [UsedImplicitly]
-    public sealed class ChatDocumentMapper : IMapper<Chat, ChatDocument>, IMapper<ChatDocument, Chat>
+    public sealed class ChatDocumentMapper : IDuplexMapper<Chat, ChatDocument>
     {
-        [CanBeNull]
-        public ChatDocument Map([CanBeNull] Chat source) => source is null 
+        public ChatDocument Map(Chat source) => source is null 
             ? null 
             : new ChatDocument
             {
@@ -16,9 +15,8 @@ namespace Domain.Mappers
                 UserIds = source.UserIds,
                 History = source.History,
             };
-
-        [CanBeNull]
-        public Chat Map([CanBeNull] ChatDocument source) => source is null 
+    
+        public Chat Map(ChatDocument source) => source is null 
             ? null 
             : new Chat
             {

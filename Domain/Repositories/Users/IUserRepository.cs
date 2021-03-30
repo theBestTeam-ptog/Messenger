@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Domain.DbModels;
 using Domain.Models;
 using JetBrains.Annotations;
 
@@ -19,5 +20,7 @@ namespace Domain.Repositories.Users
 
         [CanBeNull]
         IEnumerable<User> GetUsersByName([NotNull] string name);
+
+        IEnumerable<UserViewModel> Search([NotNull] string suggest);
     }
 }
