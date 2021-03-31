@@ -17,6 +17,6 @@ namespace Domain.Models
         public string ProfileImage { get; set; }
         public bool InNetwork { get; set; }
         
-        public bool HasImage() => !string.IsNullOrWhiteSpace(ProfileImage);
+        // public bool HasImage() => !string.IsNullOrWhiteSpace(ProfileImage);
     }
 }
