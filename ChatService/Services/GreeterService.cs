@@ -24,13 +24,13 @@ namespace ChatService
     public class GreeterService : Greeter.GreeterBase
     {
         private readonly ILogger<GreeterService> _logger;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
         private readonly Repository _repository;
 
-        public GreeterService(ILogger<GreeterService> logger, Repository repository)
+        public GreeterService(ILogger<GreeterService> logger, Repository repository, IMapper mapper)
         {
             _logger = logger;
-            _mapper = new Mapper(MappConfig.Create());
+            _mapper = mapper;
             _repository = repository;
         }
 
@@ -39,7 +39,9 @@ namespace ChatService
             var users = _repository.GetCollection<UserDocument>("Users");
             var user = users.Find(Builders<UserDocument>.Filter.Eq(x => x.Login, "kirill")).FirstOrDefault();
             
-            return new PickUpUserReply{User = _mapper.Map<Messenger.ChatService.Protos.User>(user)};
+            return new PickUpUserReply { User = _mapper.Map<Messenger.ChatService.Protos.User>(user) };
         }
+
+        
     }
 }

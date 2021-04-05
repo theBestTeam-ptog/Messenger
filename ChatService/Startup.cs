@@ -36,7 +36,7 @@ namespace ChatService
             services.AddSingleton<Repository>();
 
             services.AddGrpc();
-            //services.AddAutoMapper(typeof(Startup).Assembly);
+            services.AddAutoMapper(typeof(Startup).Assembly);
             services.AddGrpcReflection();
         }
 
