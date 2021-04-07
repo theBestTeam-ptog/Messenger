@@ -9,7 +9,7 @@ namespace Domain.Models
         public string UserName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public List<string> Chats { get; set; }
+        public List<string> ChatsIds { get; set; }
         public bool Private { get; set; }
         public DateTime Registration { get; set; }
         public DateTime Authorize { get; set; }

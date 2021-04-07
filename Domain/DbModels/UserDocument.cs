@@ -14,7 +14,7 @@ namespace Domain.DbModels
         public string Login { get; set; }
         public string Password { get; set; }
         [BsonIgnoreIfDefault]
-        public List<string> Chats { get; set; }
+        public List<string> ChatsIds { get; set; }
         [BsonIgnoreIfDefault]
         public string ProfileImage { get; set; }
         [BsonIgnoreIfDefault]

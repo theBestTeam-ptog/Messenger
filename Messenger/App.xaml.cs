@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Core;
 using Core.Log;
+using Domain.Models;
 using Messenger.Pages;
 using Messenger.ViewModels;
 using Ninject;
@@ -9,6 +10,7 @@ namespace Messenger
 {
     public partial class App : Application
     {
+        public static UserViewModel CurrentUser; 
         private static readonly ILogger<App> Logger = new ConsoleLogger<App>();
         private static IKernel _container;
 

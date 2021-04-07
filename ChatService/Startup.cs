@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper.Configuration;
+﻿using ChatService.Data;
 using Domain;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -9,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Domain.Repositories.Users;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using IUserRepository = ChatService.Data.IUserRepository;
 
 
 namespace ChatService
@@ -32,8 +31,10 @@ namespace ChatService
 
             services.AddSingleton<IDataBaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<DataBaseSettings>>().Value);
-
+            
             services.AddSingleton<Repository>();
+            services.AddTransient<IUserRepository, UserRepositorys>();
+            services.AddTransient<IChatRepository, ChatRepositorys>();
 
             services.AddGrpc();
             services.AddAutoMapper(typeof(Startup).Assembly);

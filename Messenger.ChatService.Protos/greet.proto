@@ -9,7 +9,8 @@ package greet;
 
 service Greeter {
   rpc TakeUser (PickUpUser) returns (PickUpUserReply);
-  rpc TakeChats (ChatRequest) returns (stream ChatReply);
+  rpc TakeChats (ChatRequest) returns (ChatReply);
+  rpc CreateUser (UserCreate) returns (Reply);
 }
 
 message PickUpUser {
@@ -21,12 +22,16 @@ message PickUpUserReply {
   User user = 1;
 }
 
+message UserCreate{
+  User user = 1;
+}
+
 message User{
   string Id = 1;
   string UserName = 2;
   string Login = 3;
   string Password = 4;
-  repeated Chat chats = 5;
+  repeated string chatsIds = 5;
   bool Private = 6;
   google.protobuf.Timestamp Registration = 7;
   google.protobuf.Timestamp Authorize = 8;
@@ -35,7 +40,7 @@ message User{
 }
 
 message ChatRequest{
-  
+  repeated string id = 1;
 }
 
 message ChatReply{
