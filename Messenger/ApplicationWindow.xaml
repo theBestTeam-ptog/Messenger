@@ -11,7 +11,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:local="clr-namespace:Messenger"
         mc:Ignorable="d"
-        Title="ApplicationWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280">
+        Title="ApplicationWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280" WindowStartupLocation="CenterScreen">
     <Grid ShowGridLines="False">
         <Grid.Resources>
             <DataTemplate x:Key="itemTemplate">

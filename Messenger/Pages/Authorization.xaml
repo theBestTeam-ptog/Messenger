@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Messenger.Pages"
       mc:Ignorable="d"
-      Title="Authorization" Height="250" Width="350" >
+      Title="Authorization" Height="250" Width="350">
     <Grid  Background="DodgerBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>

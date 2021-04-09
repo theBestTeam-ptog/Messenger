@@ -40,6 +40,7 @@ namespace Messenger
         {
             var app = _container.Get<ApplicationWindow>();
             app.Show();
+            Current.MainWindow.Close();
         }
     }
 }
