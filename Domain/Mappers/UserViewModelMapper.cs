@@ -14,7 +14,7 @@ namespace Domain.Mappers
                 {
                     Id = source.Id,
                     UserName = source.UserName,
-                    Chats = source.Chats,
+                    ChatsIds = source.ChatsIds,
                     InNetwork = source.InNetwork,
                     ProfileImage = source.ProfileImage,
                 };
@@ -26,7 +26,7 @@ namespace Domain.Mappers
                 {
                     Id = source.Id,
                     UserName = source.UserName,
-                    Chats = source.Chats,
+                    ChatsIds = source.ChatsIds,
                     InNetwork = source.InNetwork,
                     ProfileImage = source.ProfileImage,
                 };

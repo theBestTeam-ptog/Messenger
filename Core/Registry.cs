@@ -1,5 +1,6 @@
 ﻿using Api.Helpers;
 using Core.Log;
+using Domain;
 using Domain.DbModels;
 using Domain.Mappers;
 using Domain.Models;
@@ -29,6 +30,10 @@ namespace Core
                 mappers.BindAllInterfaces();
             });*/ 
             //todo хз почему не работает код выше, поэтому мапперы ручками биндить придется
+
+            Bind<IDataBaseSettings>().To<DataBaseSettings>()
+                .WithPropertyValue("ConnectionString", "mongodb://localhost:27017")
+                .WithPropertyValue("DatabaseName", "MessengerDB");
 
             Bind<Repository>().ToSelf().InSingletonScope();
                 

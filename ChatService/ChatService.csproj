@@ -9,12 +9,20 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="Grpc.AspNetCore" Version="2.27.0" />
         <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.36.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.12.1" />
+        <PackageReference Include="MongoDB.Driver.Core" Version="2.12.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Api\Api.csproj" />
       <ProjectReference Include="..\Domain\Domain.csproj" />
       <ProjectReference Include="..\Messenger.ChatService.Protos\Messenger.ChatService.Protos.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+        <HintPath>..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Configuration.ConfigurationManager.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
