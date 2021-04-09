@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using Core;
 using Core.Log;
-using Messenger.Pages;
 using Messenger.ViewModels;
 using Ninject;
 
@@ -38,6 +37,7 @@ namespace Messenger
         {
             var app = _container.Get<ApplicationWindow>();
             app.Show();
+            Current.MainWindow.Close();
         }
     }
 }

@@ -11,8 +11,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:local="clr-namespace:Messenger"
         mc:Ignorable="d"
-        Title="MainWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280">
+        Title="MainWindow" Height="560" Width="820" MinWidth="350px" MinHeight="280" WindowStartupLocation="CenterScreen">
     <Grid ShowGridLines="False">
-        <Button Click="test"></Button>
+        <Frame NavigationUIVisibility="Hidden" x:Name="Frame"></Frame>
     </Grid>
 </Window>
