@@ -1,14 +1,16 @@
 ﻿using System.Threading.Tasks;
+using Core.IoC;
+using DataAccess.DbModels;
 using Domain.Constants;
-using Domain.DbModels;
 using Domain.Mappers;
 using Domain.Models;
+using Domain.Repositories;
 using JetBrains.Annotations;
 using MongoDB.Driver;
 
-namespace Domain.Repositories.Chats
+namespace DataAccess.Repositories.Chats
 {
-    [UsedImplicitly]
+    [PutInIoC, UsedImplicitly]
     public sealed class ChatRepository : IChatRepository
     {
         private readonly Repository _repository;

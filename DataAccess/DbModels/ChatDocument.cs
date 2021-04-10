@@ -3,7 +3,7 @@ using Domain.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Domain.DbModels
+namespace DataAccess.DbModels
 {
     public sealed class ChatDocument
     {

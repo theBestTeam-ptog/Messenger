@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.DbModels;
+using Core.IoC;
 using Domain.Models;
-using Domain.Repositories.Users;
+using Domain.Repositories;
 using JetBrains.Annotations;
 
 namespace Api.Helpers
 {
-    [UsedImplicitly]
+    [PutInIoC, UsedImplicitly]
     public sealed class UserHelper : IUserHelper
     {
         private readonly IUserRepository _db;

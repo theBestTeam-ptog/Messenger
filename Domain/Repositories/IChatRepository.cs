@@ -2,7 +2,7 @@
 using Domain.Models;
 using JetBrains.Annotations;
 
-namespace Domain.Repositories.Chats
+namespace Domain.Repositories
 {
     public interface IChatRepository
     {

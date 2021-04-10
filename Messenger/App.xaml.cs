@@ -1,43 +1,26 @@
 ﻿using System.Windows;
-using Core;
-using Core.Log;
-using Messenger.Pages;
-using Messenger.ViewModels;
-using Ninject;
 
 namespace Messenger
 {
-    public partial class App : Application
+    public partial class App
     {
-        private static readonly ILogger<App> Logger = new ConsoleLogger<App>();
-        private static IKernel _container;
+        //private static IKernel _container;
 
+        public App()
+        {
+            Bootstrapper.Init();
+        }
+        
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-            ConfigureContainer();
-            var window = _container.Get<MainWindow>();
-            window.Show();
+            var mainWindow = Bootstrapper.Container.GetInstance<MainWindow>();
+            mainWindow.Show();
         }
-
-        private void ConfigureContainer()
-        {
-            _container = new StandardKernel(new Registry());
-
-            _container.Bind<MainWindow>().ToSelf().InSingletonScope();
-            _container.Bind<ApplicationWindow>().ToSelf().InSingletonScope();
-            _container.Bind<IDialogListViewModel>().To<DialogListViewModel>().InSingletonScope();
-            _container.Bind<ISearchResultViewModel>().To<SearchResultViewModel>().InSingletonScope();
-
-            Logger.Info($"{nameof(Messenger.MainWindow)} put into container");
-            Logger.Info($"{nameof(ApplicationWindow)} put into container");
-            //_container.Bind<>()
-        }
-
+        
         public static void InitApp()
         {
-            var app = _container.Get<ApplicationWindow>();
-            app.Show();
+            var applicationWindow = Bootstrapper.Container.GetInstance<ApplicationWindow>();
+            applicationWindow.Show();
         }
     }
 }

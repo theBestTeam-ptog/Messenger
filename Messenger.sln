@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{04FD69E7-F44F-4C6C-A554-3A1B93ACC2E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Test", "Api.Test\Api.Test.csproj", "{3CA26E90-E28E-43A3-B022-0127ED1E3780}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{2844EF89-CF8F-4C63-841A-EA457F9210C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +32,9 @@ Global
 		{04FD69E7-F44F-4C6C-A554-3A1B93ACC2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04FD69E7-F44F-4C6C-A554-3A1B93ACC2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04FD69E7-F44F-4C6C-A554-3A1B93ACC2E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CA26E90-E28E-43A3-B022-0127ED1E3780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CA26E90-E28E-43A3-B022-0127ED1E3780}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CA26E90-E28E-43A3-B022-0127ED1E3780}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CA26E90-E28E-43A3-B022-0127ED1E3780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

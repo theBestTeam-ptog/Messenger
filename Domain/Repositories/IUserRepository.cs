@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.DbModels;
 using Domain.Models;
 using JetBrains.Annotations;
 
-namespace Domain.Repositories.Users
+namespace Domain.Repositories
 {
     public interface IUserRepository
     {

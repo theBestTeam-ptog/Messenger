@@ -1,10 +1,12 @@
-﻿using Domain.DbModels;
+﻿using Core.IoC;
+using DataAccess.DbModels;
+using Domain.Mappers;
 using Domain.Models;
 using JetBrains.Annotations;
 
-namespace Domain.Mappers
+namespace DataAccess.Mappers
 {
-    [UsedImplicitly]
+    [PutInIoC, UsedImplicitly]
     public sealed class ChatDocumentMapper : IDuplexMapper<Chat, ChatDocument>
     {
         public ChatDocument Map(Chat source) => source is null 
