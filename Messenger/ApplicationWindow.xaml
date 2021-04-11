@@ -21,43 +21,134 @@
                     </ListBoxItem>
                 </materialDesign:Card>
             </DataTemplate>
-        </Grid.Resources>    
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="270px"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <!-- Левая часть -->
-        <DockPanel Grid.Column="0">
-            <!-- Шапка -->
-            <Grid DockPanel.Dock="Top" Height="50px">
-                <TextBox x:Name="Searcher"
+        <Grid Grid.Column="0" DockPanel.Dock="Top" Width="205" Margin="25,-8,25,235">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="13*"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="Searcher"
                          TextWrapping="Wrap"
-                         Width="225"
+                         Width="185"
                          Height="30"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Margin="5 0 0 0"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
                          TextChanged="Search"
                          Background="Azure"
                          Foreground="Black"
                          FontSize="17"
-                         FontWeight="Regular"
+                         FontWeight="Regular" Margin="0,10,-23,0" RenderTransformOrigin="0.512,0.501"
                 />
-                <materialDesign:PackIcon 
+            <materialDesign:PackIcon 
                     Kind="Search"
-                    Width="30"
+                    Width="36"
                     Height="30"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0 0 7 0"
+                    Margin="0,10,-23,0"
                 />
-            </Grid>
-            <!-- Body Список диалогов -->
+            <!--Body Список диалогов-->
             <ListBox Name="list"
                      Style="{DynamicResource MaterialDesignCardsListBox}" 
                      ItemTemplate="{Binding Source={StaticResource itemTemplate}}"
-                     ItemsSource="{Binding Users}"
+                     ItemsSource="{Binding Users}" Margin="42,42,-23,-230" Grid.RowSpan="2"
             />
+        </Grid>
+        <DockPanel Grid.Column="0">
+            <!-- Шапка -->
+            <Grid Grid.Column="0" DockPanel.Dock="Left" Height="520" Width="252">
+                <UserControl Margin="0,0,-9,0">
+                    <!--Анимация-->
+                    <UserControl.Resources>
+                        <Storyboard x:Key="OpenMenu">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="280"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="CloseMenu">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="280"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </UserControl.Resources>
+
+                    <!--Запуск анимации-->
+                    <UserControl.Triggers>
+                        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+                            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+                            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+                        </EventTrigger>
+                    </UserControl.Triggers>
+                    <Grid x:Name="GridMenu" Width="66" HorizontalAlignment="Left" Background="#FF31577E" Margin="-8,-13,0,-12">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"/>
+                        </Grid.Effect>
+                        <StackPanel HorizontalAlignment="Left" Width="238">
+                            <!--Кнопка открытия-закрытия-->
+                            <Grid Height="85" RenderTransformOrigin="0.5,0.5">
+                                <Grid.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Grid.RenderTransform>
+                                <Button x:Name="ButtonOpenMenu" Height="60" Width="60" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF5C99D6" Click="ButtonOpenMenu_Click">
+                                    <materialDesign:PackIcon Kind="Menu" Width="25" Height="25"/>
+                                </Button>
+                                <Button x:Name="ButtonCloseMenu" Visibility="Collapsed" Height="60" Width="60" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF5C99D6" Click="ButtonCloseMenu_Click">
+                                    <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
+                                </Button>
+                            </Grid>
+                            <!--Собственно само меню-->
+                            <ListView x:Name="ListViewMenu" Foreground="#FF5C99D6" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged" Height="700" Width="262" >
+                                <!--Account info-->
+                                <ListViewItem x:Name="Profile" Height="100">
+                                    <!--Лучше здесь еще добавить аватарку-->
+                                    <!--<Image Name="Avatar" Width="25" VerticalAlignment="Bottom"></Image>-->
+                                    <TextBlock Text="Name" FontSize="14" ></TextBlock>
+                                </ListViewItem>
+                                <!--Наполнение-->
+                                <ListViewItem x:Name="Friends" Height="60" Width="265">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind= "People" Height="25" Width="25" Margin="10"/>
+                                        <TextBlock Text="Friends" VerticalAlignment="Center" Margin="20 10"/>
+                                    </StackPanel>
+                                </ListViewItem>
+                                <ListViewItem x:Name="Groups" Height="60">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="PeopleGroup" Height="25" Width="25" Margin="10"/>
+                                        <TextBlock Text="Groups" VerticalAlignment="Center" Margin="20 10"/>
+                                    </StackPanel>
+                                </ListViewItem>
+                                <ListViewItem x:Name="Settings" Height="60">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Settings" Height="25" Width="25" Margin="10"/>
+                                        <TextBlock Text="Settings" VerticalAlignment="Center"  Margin="20 10"/>
+                                    </StackPanel>
+                                </ListViewItem>
+                                <ListViewItem x:Name="Help" Height="60">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Help" Height="25" Width="25" Margin="10"/>
+                                        <TextBlock Text="Help" VerticalAlignment="Center"  Margin="20 10"/>
+                                    </StackPanel>
+                                </ListViewItem>
+                                <ListViewItem x:Name="ChangeTheme" Height="60">
+                                    <ToggleButton x:Name="ToggleTheme"/>
+                                </ListViewItem>
+                            </ListView>
+                        </StackPanel>
+                    </Grid>
+                </UserControl>
+            </Grid>
         </DockPanel>
         <!-- Правая часть -->
         <Frame Grid.Column="1" x:Name="dialogFrame" x:FieldModifier="public" NavigationUIVisibility="Hidden"></Frame>
