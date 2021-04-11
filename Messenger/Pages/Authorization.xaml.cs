@@ -1,37 +1,58 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
-using Domain.Mappers;
+using Core;
+using Domain.Models;
 using Grpc.Net.Client;
 using Messenger.ChatService.Protos;
+using Ninject;
 
 namespace Messenger.Pages
 {
     public partial class Authorization : Page
     {
         private readonly MainWindow _mainWindow;
+        private static IKernel _container;
         public Authorization(MainWindow mainWindow)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            Application.Current.MainWindow.Height = MinHeight;
-            Application.Current.MainWindow.Width = MinWidth;
+            Application.Current.MainWindow.Height = MinHeight + 200;
+            Application.Current.MainWindow.Width = MinWidth + 200;
             Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+            _container = new StandardKernel(new Registry());
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.OpenPage(MainWindow.Pages.Registration);
         }
-        private void LogButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.InitApp();
-        }
+        
+        // private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        // {
+        //     App.InitApp();
+        // }
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
+            
             var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            var reply = client.TakeUser(new PickUpUser {Login = login.Text});
-            var p = reply.User;
-            var map = new UserDocumentMapper();
+            var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});
+            if (reply.User is null) throw new NullReferenceException();
+            var chatReply = await client.TakeChatsAsync(new TakeChatRequest() {UserId = reply.User.Id});
+            var user = reply.User;
+            // var chat = new Domain.Models.Chat()
+            // {
+            //     History = chatReply.Chats.ToList()
+            // };
+            // App.CurrentUser = new UserViewModel
+            // {
+            //     ChatsIds = chatReply.Chats.ToList(),
+            //     Id = Guid.Parse(user.Id),
+            //     ProfileImage = null,
+            //     InNetwork = user.InNetwork,
+            //     UserName = user.UserName
+            // };
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using AutoMapper;
 using Domain.DbModels;
-using Domain.Models;
 using Google.Protobuf.WellKnownTypes;
+using Messenger.ChatService.Protos;
 
 namespace ChatService
 {
@@ -10,7 +10,7 @@ namespace ChatService
     {
         public MappingProfile()
         {
-            CreateMap<UserDocument, Messenger.ChatService.Protos.User>()
+            CreateMap<UserDocument, User>()
                 .ForMember(m => m.Authorize, op => op.MapFrom(src => Timestamp.FromDateTime(new DateTime
                 (
                     src.Authorize.Year,
@@ -40,7 +40,7 @@ namespace ChatService
                 //.ForMember(m => m.ProfileImage, opt => opt.MapFrom(src => src.ProfileImage))
                 .ForMember(m => m.UserName, opt => opt.MapFrom(src => src.UserName));
 
-            CreateMap<Messenger.ChatService.Protos.User, UserDocument>()
+            CreateMap<User, UserDocument>()
                 .ForMember(m => m.Authorize, op => op.MapFrom(src => src.Authorize.ToDateTime()))
                 .ForMember(m => m.ChatsIds, opt => opt.MapFrom(src => src.ChatsIds))
                 .ForMember(m => m.Id, opt => opt.MapFrom(src => src.Id))
@@ -52,12 +52,12 @@ namespace ChatService
                 //.ForMember(m => m.ProfileImage, opt => opt.MapFrom(src => src.ProfileImage))
                 .ForMember(m => m.UserName, opt => opt.MapFrom(src => src.UserName));
 
-            CreateMap<ChatDocument, Messenger.ChatService.Protos.Chat>()
+            CreateMap<ChatDocument, Chat>()
                 .ForMember(c => c.History, op => op.MapFrom(src => src.History))
                 .ForMember(c => c.Id, op => op.MapFrom(src => Guid.Parse(src.Id)))
                 .ForMember(c => c.UserIds, op => op.MapFrom(src => src.UserIds));
 
-            CreateMap<Messenger.ChatService.Protos.Chat, ChatDocument>()
+            CreateMap<Chat, ChatDocument>()
                 .ForMember(c => c.History, op => op.MapFrom(src => src.History))
                 .ForMember(c => c.Id, op => op.MapFrom(src => Guid.Parse(src.Id)))
                 .ForMember(c => c.UserIds, op => op.MapFrom(src => src.UserIds));

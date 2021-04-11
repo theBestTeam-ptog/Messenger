@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.DbModels;
-using Domain.Models;
+using Messenger.ChatService.Protos;
 
 namespace ChatService.Data
 {
     public interface IUserRepository
     {
-        Task<Messenger.ChatService.Protos.User> GetUser(string id);
-        Task<bool> CheckLogin(string login);
-        Task<Messenger.ChatService.Protos.User> GetUserValidation(string login);
-        Task Create(UserDocument user);
-        IEnumerable<Messenger.ChatService.Protos.User> GetUsersByName(string name);
-        IEnumerable<Messenger.ChatService.Protos.User> Search(string suggest);
-        Task<Messenger.ChatService.Protos.User> UserIsValid(string login, string password);
+        Task<User> GetUserAsync(string id);
+        Task<bool> CheckLoginAsync(string login);
+        Task<User> GetUserValidationAsync(string login, string password);
+        Task CreateUserAsync(User user);
+        IEnumerable<User> GetUsersByNameAsync(string name);
+        IEnumerable<User> SearchAsync(string suggest);
     }
 }

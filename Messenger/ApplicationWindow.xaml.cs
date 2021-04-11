@@ -12,8 +12,6 @@ namespace Messenger
 {
     public partial class ApplicationWindow : Window
     {
-        public static readonly UserViewModel CurrentUser; 
-        
         private readonly IChatHelper _chatHelper;
         private readonly IUserHelper _userHelper;
         private readonly IDialogListViewModel _dialogList;

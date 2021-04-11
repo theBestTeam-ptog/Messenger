@@ -24,36 +24,39 @@ namespace ChatService.Data
             _repository = repository;
         }
         
-        public async Task<User> GetUser(string id)
+        public async Task<User> GetUserAsync(string id)
         {
-            var user = await Users.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
+            var user = await Users
+                .Find(new BsonDocument("_id", id))
+                .FirstOrDefaultAsync();
+            
             return _mapper.Map<User>(user);
         }
 
-        public async Task<bool> CheckLogin(string login)
+        public async Task<bool> CheckLoginAsync(string login)
         {
             return await Users
                 .Find(Builders<UserDocument>.Filter.Eq(u => u.Login, login))
                 .FirstOrDefaultAsync() is null;
         }
 
-        public async Task<User> GetUserValidation(string login)
+        public async Task<User> GetUserValidationAsync(string login, string password)
         {
             if (string.IsNullOrWhiteSpace(login)) return null;
             
             var user = await Users
                 .Find(Builders<UserDocument>.Filter.Eq(u=> u.Login, login))
                 .FirstOrDefaultAsync();
-            
-            return _mapper.Map<User>(user);
+
+            return _mapper.Map<User>(UserIsValidAsync(user, password));
         }
 
-        public async Task Create(UserDocument user)
+        public async Task CreateUserAsync(User user)
         {
-            await Users.InsertOneAsync(user);
+            await Users.InsertOneAsync(_mapper.Map<UserDocument>(user));
         }
 
-        public IEnumerable<User> GetUsersByName(string name)
+        public IEnumerable<User> GetUsersByNameAsync(string name)
         {
             return Users
                 .Find(Builders<UserDocument>.Filter.Eq(u => u.UserName, name))
@@ -61,14 +64,13 @@ namespace ChatService.Data
                 .Select(_mapper.Map<User>);
         }
 
-        public IEnumerable<User> Search(string suggest)
+        public IEnumerable<User> SearchAsync(string suggest)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<User> UserIsValid(string login, string password)
+        private UserDocument UserIsValidAsync(UserDocument user, string password)
         {
-            var user = await GetUserValidation(login);
             return user != null && user.Password.Equals(password) ? user : null;
         }
     }

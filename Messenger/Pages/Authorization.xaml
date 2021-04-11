@@ -26,9 +26,9 @@
         <Label Grid.Row="1" Grid.Column="1" Content="Авторизация" HorizontalAlignment="Center" VerticalAlignment="Top" Height="38" Width="140" Grid.ColumnSpan="2" FontFamily="Calibri" FontSize="24" />
         <Label Grid.Row="2" Grid.Column="1" Content="Логин" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="56" Foreground="White"/>
         <Label Grid.Row="3" Grid.Column="1" Content="Пароль" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="56" Foreground="White"/>
-        <PasswordBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="185" Height="22" />
+        <PasswordBox x:Name="password" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="185" Height="22" />
         <TextBox x:Name="login" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="185" Height="22"/>
-        <Button Grid.Row="4" Grid.Column="1" Content="Регистрация" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="110" Height="28" Grid.ColumnSpan="2"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Регистрация" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="110" Height="28" Click="RegButton_Click" Grid.ColumnSpan="2"/>
         <Button Grid.Row="4" Grid.Column="2" Content="Войти" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="28" Click="ButtonBase_OnClick"/>
     </Grid>
 </Page>

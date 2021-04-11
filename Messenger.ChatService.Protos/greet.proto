@@ -9,8 +9,9 @@ package greet;
 
 service Greeter {
   rpc TakeUser (PickUpUser) returns (PickUpUserReply);
-  rpc TakeChats (ChatRequest) returns (ChatReply);
+  rpc TakeChats (TakeChatRequest) returns (TakeChatReply);
   rpc CreateUser (UserCreate) returns (Reply);
+  rpc CreateChat (ChatCreate) returns (Reply);
 }
 
 message PickUpUser {
@@ -20,10 +21,16 @@ message PickUpUser {
 
 message PickUpUserReply {
   User user = 1;
+  Response response = 2;
 }
 
 message UserCreate{
   User user = 1;
+}
+
+message ChatCreate{
+  repeated string UserIds = 2;
+  repeated Message History = 3;
 }
 
 message User{
@@ -39,12 +46,13 @@ message User{
   bool HasImage = 11;
 }
 
-message ChatRequest{
-  repeated string id = 1;
+message TakeChatRequest{
+  string UserId = 1;
 }
 
-message ChatReply{
-  repeated Chat Chats = 1;
+message TakeChatReply{
+  Response response = 1;
+  repeated Chat Chats = 2;
 }
 
 message Chat{
@@ -60,5 +68,10 @@ message Message{
 }
 
 message Reply{
- string reply = 1; 
+ Response response = 1; 
+}
+
+enum Response{
+  OK = 0;
+  Error = 1;
 }

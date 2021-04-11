@@ -1,24 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Api.Helpers;
 using AutoMapper;
 using ChatService.Data;
-using Domain.DbModels;
-using Domain.Mappers;
-using Domain.Models;
-using Domain.Repositories;
-using Domain.Repositories.Users;
-using Google.Protobuf.WellKnownTypes;
+using Google.Protobuf.Collections;
 using Grpc.Core;
 using Messenger.ChatService.Protos;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Chat = Domain.Models.Chat;
-using User = Domain.Models.User;
 
 namespace ChatService
 {
@@ -26,10 +13,10 @@ namespace ChatService
     {
         private readonly ILogger<GreeterService> _logger;
         private readonly IMapper _mapper;
-        private readonly Data.IUserRepository _userRepository;
-        private readonly Data.IChatRepository _chatRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IChatRepository _chatRepository;
 
-        public GreeterService(ILogger<GreeterService> logger, Data.IUserRepository repository,
+        public GreeterService(ILogger<GreeterService> logger, IUserRepository repository,
             IMapper mapper, IChatRepository chatRepository)
         {
             _logger = logger;
@@ -40,26 +27,53 @@ namespace ChatService
 
         public override async Task<PickUpUserReply> TakeUser(PickUpUser request, ServerCallContext context)
         {
-            var user = await _userRepository.GetUserValidation(request.Login);
-
-            return new PickUpUserReply {User = _mapper.Map<Messenger.ChatService.Protos.User>(user)};
+            _logger.LogInformation($"Started search User: {request.Login}");
+            var user = await _userRepository.GetUserValidationAsync(request.Login, request.Password);
+            
+            if (user is null)
+            {
+                _logger.LogError($"There is no user with this Login: {request.Login}, or you made a mistake when entering the data");
+                return new PickUpUserReply { Response = Response.Error };
+            }
+            
+            _logger.LogInformation($"User: {request.Login} found, await response");
+            return new PickUpUserReply { User = _mapper.Map<User>(user) };
         }
 
-        public override async Task<ChatReply> TakeChats(ChatRequest request, ServerCallContext context)
+        public override async Task<TakeChatReply> TakeChats(TakeChatRequest request, ServerCallContext context)
         {
-            var chats = _mapper.Map<Messenger.ChatService.Protos.Chat>(await _chatRepository.GetChats(request.Id));
+            _logger.LogInformation("Chats search started");
+            var chats = await _chatRepository.GetChatsAsync(request.UserId);
 
-            return new ChatReply {Chats = {chats}};
+            if (chats is null)
+            {
+                _logger.LogError("No chat found");
+                return new TakeChatReply { Response = Response.Error };
+            }
+            
+            _logger.LogInformation("Chat(s) found await reply");
+            return new TakeChatReply {
+                Response = Response.Ok,
+                Chats = { _mapper.Map<RepeatedField<Chat>>(chats) }
+            };
         }
 
-        public override Task<Reply> CreateUser(UserCreate request, ServerCallContext context)
+        public override async Task<Reply> CreateUser(UserCreate request, ServerCallContext context)
         {
-            _userRepository.Create(_mapper.Map<UserDocument>(request.User));
+            await _userRepository.CreateUserAsync(request.User);
+            return new Reply { Response = Response.Ok };
+        }
 
-            return Task.FromResult
-            (
-                new Reply {Reply_ = "Ok"}
-            );
+        public override async Task<Reply> CreateChat(ChatCreate request, ServerCallContext context)
+        {
+            await _chatRepository.CreateChatAsync(new Chat
+            {
+                Id = Guid.NewGuid().ToString(),
+                History = { request.History},
+                UserIds = { request.UserIds}
+            });
+            
+            return new Reply { Response = Response.Ok };
         }
     }
 }

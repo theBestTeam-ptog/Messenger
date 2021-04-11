@@ -8,11 +8,11 @@ namespace ChatService.Data
 {
     public interface IChatRepository
     {
-        Task<List<ChatDocument>> GetChats(IEnumerable<string> ids);
-        Task<Chat> GetChat([NotNull] string id);
+        Task<IEnumerable<ChatDocument>> GetChatsAsync(string userId);
+        Task<Chat> GetChatAsync([NotNull] string id);
 
-        Task AddMessage([NotNull] string chatId, [NotNull] Message message);
+        Task AddMessageAsync([NotNull] string chatId, [NotNull] Message message);
 
-        Task Create([NotNull] Chat chat);
+        Task CreateChatAsync([NotNull] Chat chat);
     }
 }

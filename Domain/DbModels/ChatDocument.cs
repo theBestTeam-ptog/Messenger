@@ -7,7 +7,7 @@ namespace Domain.DbModels
 {
     public sealed class ChatDocument
     {
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonRepresentation(BsonType.String)]
         public string Id { get; set; }
         public List<string> UserIds {get;set;}
         public List<Message> History { get; set; }
