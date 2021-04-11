@@ -16,7 +16,6 @@ namespace DataAccess.Mappers
                 {
                     Id = source.Id,
                     UserName = source.UserName,
-                    ChatsIds = source.ChatsIds,
                     InNetwork = source.InNetwork,
                     ProfileImage = source.ProfileImage,
                 };
@@ -28,7 +27,6 @@ namespace DataAccess.Mappers
                 {
                     Id = source.Id,
                     UserName = source.UserName,
-                    ChatsIds = source.ChatsIds,
                     InNetwork = source.InNetwork,
                     ProfileImage = source.ProfileImage,
                 };

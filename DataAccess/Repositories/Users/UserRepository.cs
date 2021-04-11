@@ -18,7 +18,7 @@ namespace DataAccess.Repositories.Users
     {
         private readonly IMapper _mapper;
         private readonly Repository _repository;
-        
+
         private IMongoCollection<UserDocument> Users => _repository.GetCollection<UserDocument>(CollectionsNames.Users);
 
         public UserRepository(IMapper mapper, Repository repository)
@@ -26,13 +26,13 @@ namespace DataAccess.Repositories.Users
             _mapper = mapper;
             _repository = repository;
         }
-        
+
         public async Task<User> GetUserAsync(string id)
         {
             var user = await Users
                 .Find(new BsonDocument("_id", id))
                 .FirstOrDefaultAsync();
-            
+
             return _mapper.Map<User>(user);
         }
 
@@ -46,9 +46,9 @@ namespace DataAccess.Repositories.Users
         public async Task<User> GetUserValidationAsync(string login, string password)
         {
             if (string.IsNullOrWhiteSpace(login)) return null;
-            
+
             var user = await Users
-                .Find(Builders<UserDocument>.Filter.Eq(u=> u.Login, login))
+                .Find(Builders<UserDocument>.Filter.Eq(u => u.Login, login))
                 .FirstOrDefaultAsync();
 
             return _mapper.Map<User>(UserIsValidAsync(user, password));

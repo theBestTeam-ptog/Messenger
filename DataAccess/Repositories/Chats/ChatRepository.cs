@@ -30,15 +30,15 @@ namespace DataAccess.Repositories.Chats
         {
             var chats = _mapper.Map<List<Chat>>(await Chats.Find(Builders<ChatDocument>.Filter.Empty).ToListAsync());
             var list = new List<Chat>();
-            
+
             foreach (var chat in chats)
             {
                 foreach (var id in chat.UserIds)
                 {
-                    if(id == userId) list.Add(chat);
+                    if (id == userId) list.Add(chat);
                 }
             }
-            
+
             return list;
         }
 

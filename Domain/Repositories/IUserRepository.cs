@@ -9,7 +9,7 @@ namespace Domain.Repositories
     {
         Task<User> GetUserAsync([NotNull] string id);
         Task<bool> CheckLoginAsync([NotNull] string login);
-        Task<User> GetUserValidationAsync([NotNull] string login,[NotNull] string password);
+        Task<User> GetUserValidationAsync([NotNull] string login, [NotNull] string password);
         Task CreateUserAsync([NotNull] User user);
         IEnumerable<User> GetUsersByNameAsync([NotNull] string name);
         IEnumerable<User> SearchAsync([NotNull] string suggest);

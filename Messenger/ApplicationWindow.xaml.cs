@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Api.Helpers;
 using Domain.Models;
 using Messenger.ViewModels;
 
@@ -109,10 +107,6 @@ namespace Messenger
                     GridMenu.Children.Add(usc);
                     break;
                 case "Help":
-                    usc = new UserControl();
-                    GridMenu.Children.Add(usc);
-                    break;
-                case "ChangeTheme":
                     usc = new UserControl();
                     GridMenu.Children.Add(usc);
                     break;

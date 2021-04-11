@@ -29,12 +29,12 @@ namespace Messenger.Pages
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});
+            //var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+            //var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});
             
-            if (reply.User is null) throw new NullReferenceException();
-            var chatReply = await client.TakeChatsAsync(new TakeChatRequest() {UserId = reply.User.Id});
-            var user = reply.User;
+            //if (reply.Response != Response.Ok) throw new NullReferenceException();
+            //var chatReply = await client.TakeChatsAsync(new TakeChatRequest() {UserId = reply.User.Id});
+            //var user = reply.User;
             App.InitApp();
             // var chat = new Domain.Models.Chat()
             // {

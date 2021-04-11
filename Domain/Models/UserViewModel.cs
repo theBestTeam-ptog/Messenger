@@ -10,7 +10,7 @@ namespace Domain.Models
         public Guid Id { get; set; }
         public string UserName { get; set; }
         public string ProfileImage { get; set; }
-        public List<string> ChatsIds { get; set; }
+        public List<ChatViewModel> Chats { get; set; }
         public bool InNetwork { get; set; }
     }
 }

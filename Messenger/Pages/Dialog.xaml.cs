@@ -14,7 +14,7 @@ namespace Messenger.Pages
         {
             message.Text = "its work";
         }
-        
+
         private void UIElement_OnMouseUp2(object sender, MouseButtonEventArgs e)
         {
             message.Text = "";
