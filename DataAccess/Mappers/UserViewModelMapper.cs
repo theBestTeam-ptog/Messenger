@@ -1,10 +1,12 @@
-﻿using Domain.DbModels;
+﻿using Core.IoC;
+using DataAccess.DbModels;
+using Domain.Mappers;
 using Domain.Models;
 using JetBrains.Annotations;
 
-namespace Domain.Mappers
+namespace DataAccess.Mappers
 {
-    [UsedImplicitly]
+    [PutInIoC, UsedImplicitly]
     public sealed class UserViewModelMapper : IMapper<UserDocument, UserViewModel>, IMapper<User, UserViewModel>
     {
         public UserViewModel Map(UserDocument source) =>

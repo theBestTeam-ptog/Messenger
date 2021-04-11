@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Domain.DbModels
+namespace DataAccess.DbModels
 {
     public sealed class UserDocument
     {

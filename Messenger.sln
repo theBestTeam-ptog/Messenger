@@ -11,6 +11,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatService", "ChatService\ChatService.csproj", "{5C190779-21D8-4B77-B5AE-0D7CB44E859D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.ChatService.Protos", "Messenger.ChatService.Protos\Messenger.ChatService.Protos.csproj", "{3DF3E8B2-E3F8-4696-B38E-061C56222237}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{2844EF89-CF8F-4C63-841A-EA457F9210C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,5 +39,9 @@ Global
 		{5C190779-21D8-4B77-B5AE-0D7CB44E859D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DF3E8B2-E3F8-4696-B38E-061C56222237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3DF3E8B2-E3F8-4696-B38E-061C56222237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2844EF89-CF8F-4C63-841A-EA457F9210C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

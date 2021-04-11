@@ -1,9 +1,10 @@
-﻿using Domain.Repositories.Chats;
+﻿using Core.IoC;
+using Domain.Repositories;
 using JetBrains.Annotations;
 
 namespace Api.Helpers
 {
-    [UsedImplicitly]
+    [PutInIoC, UsedImplicitly]
     public sealed class ChatHelper : IChatHelper
     {
         private IChatRepository _db;

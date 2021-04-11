@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.IoC;
+using DataAccess.DbModels;
 using Domain.Constants;
-using Domain.DbModels;
 using Domain.Mappers;
 using Domain.Models;
+using Domain.Repositories;
 using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Domain.Repositories.Users
+namespace DataAccess.Repositories.Users
 {
-    [UsedImplicitly]
+    [PutInIoC, UsedImplicitly]
     public sealed class UserRepository : IUserRepository
     {
         private readonly Repository _repository;

@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Core.Settings;
 using JetBrains.Annotations;
 using MongoDB.Driver;
 
-namespace Domain.Repositories
+namespace DataAccess.Repositories
 {
     [UsedImplicitly]
     public sealed class Repository
