@@ -59,5 +59,64 @@ namespace Messenger
         {
             dialogFrame.Navigate(new Uri("Pages/Dialog.xaml", UriKind.Relative));
         }
+
+        /// <summary>
+        /// Открывает меню.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Закрывает меню.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Реализует переключение между элементами управления приложением.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UserControl usc = null;
+            GridMenu.Children.Clear();
+
+            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
+            {
+                // В зависимости от выбранного элемента происходит переход на выбранную элемент управления.
+                case "Friends":
+                    //usc - адрес того элемента управления, на который ссылаемся.
+                    usc = new UserControl();
+                    GridMenu.Children.Add(usc);
+                    break;
+                case "Groups":
+                    usc = new UserControl();
+                    GridMenu.Children.Add(usc);
+                    break;
+                case "Settings":
+                    usc = new UserControl();
+                    GridMenu.Children.Add(usc);
+                    break;
+                case "Help":
+                    usc = new UserControl();
+                    GridMenu.Children.Add(usc);
+                    break;
+                case "ChangeTheme":
+                    usc = new UserControl();
+                    GridMenu.Children.Add(usc);
+                    break;
+            }
+        }
     }
 }
