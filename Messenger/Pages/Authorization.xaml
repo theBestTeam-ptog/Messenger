@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Messenger.Pages"
       mc:Ignorable="d"
-      Title="Authorization" Height="250" Width="350" >
+      Title="Authorization" Height="250" Width="350">
     <Grid  Background="DodgerBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -26,9 +26,9 @@
         <Label Grid.Row="1" Grid.Column="1" Content="Авторизация" HorizontalAlignment="Center" VerticalAlignment="Top" Height="38" Width="140" Grid.ColumnSpan="2" FontFamily="Calibri" FontSize="24" />
         <Label Grid.Row="2" Grid.Column="1" Content="Логин" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="56" Foreground="White"/>
         <Label Grid.Row="3" Grid.Column="1" Content="Пароль" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="56" Foreground="White"/>
-        <PasswordBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="185" Height="22" />
-        <TextBox Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="185" Height="22"/>
-        <Button Grid.Row="4" Grid.Column="1" Content="Регистрация" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="110" Height="28" Grid.ColumnSpan="2"/>
-        <Button Grid.Row="4" Grid.Column="2" Content="Войти" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="28"/>
+        <PasswordBox Grid.Row="3" Grid.Column="2" Name="PasswordBox" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="185" Height="22" />
+        <TextBox Grid.Row="2" Grid.Column="2" Name="LoginBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="185" Height="22"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Регистрация" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="120" Height="28" Grid.ColumnSpan="2" Click="RegButton_Click"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="Войти" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="120" Height="28" Click="LogButton_Click"/>
     </Grid>
 </Page>
