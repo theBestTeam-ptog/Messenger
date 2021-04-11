@@ -1,12 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
 using Core.IoC;
 using DataAccess.DbModels;
 using Domain.Constants;
-using Domain.Mappers;
-using Domain.Models;
 using Domain.Repositories;
 using JetBrains.Annotations;
 using MongoDB.Driver;
+using Messenger.ChatService.Protos;
 
 namespace DataAccess.Repositories.Chats
 {
@@ -14,32 +16,47 @@ namespace DataAccess.Repositories.Chats
     public sealed class ChatRepository : IChatRepository
     {
         private readonly Repository _repository;
-        private readonly IDuplexMapper<Chat, ChatDocument> _chatDocumentMapper;
-
-        public ChatRepository(Repository repository, 
-            IDuplexMapper<Chat, ChatDocument> chatDocumentMapper) 
-        {
-            _repository = repository;
-            _chatDocumentMapper = chatDocumentMapper;
-        }
+        private readonly IMapper _mapper;
 
         private IMongoCollection<ChatDocument> Chats => _repository.GetCollection<ChatDocument>(CollectionsNames.Chats);
-        
-        public async Task<Chat> Get(string id)
+
+        public ChatRepository(Repository repository, IMapper mapper)
         {
-            var chat = await Chats.Find(Builders<ChatDocument>.Filter.Eq(c => c.Id, id)).FirstOrDefaultAsync();
-            return _chatDocumentMapper.Map(chat);
+            _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task AddMessage(string chatId, Message message)
+        public async Task<IEnumerable<Chat>> GetChatsAsync(string userId)
         {
-            var chat = await Get(chatId);
+            var chats = _mapper.Map<List<Chat>>(await Chats.Find(Builders<ChatDocument>.Filter.Empty).ToListAsync());
+            var list = new List<Chat>();
+            
+            foreach (var chat in chats)
+            {
+                foreach (var id in chat.UserIds)
+                {
+                    if(id == userId) list.Add(chat);
+                }
+            }
+            
+            return list;
+        }
+
+        public async Task<Chat> GetChatAsync(string chatId)
+        {
+            var chat = await Chats.Find(Builders<ChatDocument>.Filter.Eq(c => c.Id, chatId)).FirstOrDefaultAsync();
+            return _mapper.Map<Chat>(chat);
+        }
+
+        public async Task AddMessageAsync(string chatId, Message message)
+        {
+            var chat = await GetChatAsync(chatId);
             chat?.History.Add(message);
         }
-        
-        public async Task Create(Chat chat)
+
+        public async Task CreateChatAsync(Chat chat)
         {
-            await Chats.InsertOneAsync(_chatDocumentMapper.Map(chat));
+            await Chats.InsertOneAsync(_mapper.Map<ChatDocument>(chat));
         }
     }
 }

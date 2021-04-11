@@ -16,9 +16,9 @@ namespace Messenger
         {
             Container = new Container(x =>
             {
-                x.AddRegistry<ApiRegistry>();
+                //x.AddRegistry<ApiRegistry>();
                 x.AddRegistry<CoreRegistry>();
-                x.AddRegistry<DataAccessRegistry>();
+                //x.AddRegistry<DataAccessRegistry>();
                 x.ForSingletonOf<ApplicationWindow>().Use<ApplicationWindow>();
                 x.ForSingletonOf<MainWindow>().Use<MainWindow>();
                 x.ForSingletonOf<IDialogListViewModel>().Use<DialogListViewModel>();

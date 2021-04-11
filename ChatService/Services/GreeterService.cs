@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using ChatService.Data;
+using Domain.Repositories;
 using Google.Protobuf.Collections;
 using Grpc.Core;
 using Messenger.ChatService.Protos;

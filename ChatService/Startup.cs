@@ -1,15 +1,15 @@
-﻿using ChatService.Data;
-using Domain;
-using Domain.Repositories;
+﻿using Core.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Domain.Repositories.Users;
+using DataAccess.Repositories;
 using Microsoft.Extensions.Options;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-using IUserRepository = ChatService.Data.IUserRepository;
+using Microsoft.Extensions.Configuration;
+using Domain.Repositories;
+using DataAccess.Repositories.Chats;
+using DataAccess.Repositories.Users;
 
 
 namespace ChatService
@@ -33,8 +33,8 @@ namespace ChatService
                 sp.GetRequiredService<IOptions<DataBaseSettings>>().Value);
             
             services.AddSingleton<Repository>();
-            services.AddTransient<IUserRepository, UserRepositorys>();
-            services.AddTransient<IChatRepository, ChatRepositorys>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IChatRepository, ChatRepository>();
 
             services.AddGrpc();
             services.AddAutoMapper(typeof(Startup).Assembly);

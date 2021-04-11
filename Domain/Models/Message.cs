@@ -7,7 +7,7 @@ namespace Domain.Models
         // содержимое сообщения
         public string Content { get; set; }
         // Id отправителя сообщения
-        public string AuthorId { get; set; }
+        public Guid AuthorId { get; set; }
         // время отправки сообщения
         public DateTime Time { get; set; }
     }

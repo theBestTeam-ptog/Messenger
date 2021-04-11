@@ -1,6 +1,6 @@
 ﻿using System;
 using AutoMapper;
-using Domain.DbModels;
+using DataAccess.DbModels;
 using Google.Protobuf.WellKnownTypes;
 using Messenger.ChatService.Protos;
 

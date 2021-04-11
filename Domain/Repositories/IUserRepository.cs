@@ -1,25 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Models;
+using Messenger.ChatService.Protos;
 using JetBrains.Annotations;
 
 namespace Domain.Repositories
 {
     public interface IUserRepository
     {
-        [CanBeNull]
-        Task<User> GetUser([NotNull] string id);
-
-        Task<bool> CheckLogin([NotNull] string login);
-
-        [CanBeNull]
-        Task<User> GetUserValidation([NotNull] string login);
-
-        Task Create([NotNull] User user);
-
-        [CanBeNull]
-        IEnumerable<User> GetUsersByName([NotNull] string name);
-
-        IEnumerable<UserViewModel> Search([NotNull] string suggest);
+        Task<User> GetUserAsync([NotNull] string id);
+        Task<bool> CheckLoginAsync([NotNull] string login);
+        Task<User> GetUserValidationAsync([NotNull] string login,[NotNull] string password);
+        Task CreateUserAsync([NotNull] User user);
+        IEnumerable<User> GetUsersByNameAsync([NotNull] string name);
+        IEnumerable<User> SearchAsync([NotNull] string suggest);
     }
 }

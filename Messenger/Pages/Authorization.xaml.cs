@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Core;
-using Domain.Models;
 using Grpc.Net.Client;
 using Messenger.ChatService.Protos;
-using Ninject;
 
 namespace Messenger.Pages
 {
     public partial class Authorization : Page
     {
         private readonly MainWindow _mainWindow;
-        private static IKernel _container;
         public Authorization(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -21,7 +16,6 @@ namespace Messenger.Pages
             Application.Current.MainWindow.Height = MinHeight + 200;
             Application.Current.MainWindow.Width = MinWidth + 200;
             Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
-            _container = new StandardKernel(new Registry());
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
@@ -35,12 +29,13 @@ namespace Messenger.Pages
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            
             var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
             var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});
+            
             if (reply.User is null) throw new NullReferenceException();
             var chatReply = await client.TakeChatsAsync(new TakeChatRequest() {UserId = reply.User.Id});
             var user = reply.User;
+            App.InitApp();
             // var chat = new Domain.Models.Chat()
             // {
             //     History = chatReply.Chats.ToList()

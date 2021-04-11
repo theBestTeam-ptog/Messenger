@@ -4,76 +4,77 @@ using System.Threading.Tasks;
 using Core.IoC;
 using DataAccess.DbModels;
 using Domain.Constants;
-using Domain.Mappers;
-using Domain.Models;
+using Messenger.ChatService.Protos;
 using Domain.Repositories;
 using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using AutoMapper;
 
 namespace DataAccess.Repositories.Users
 {
     [PutInIoC, UsedImplicitly]
     public sealed class UserRepository : IUserRepository
     {
+        private readonly IMapper _mapper;
         private readonly Repository _repository;
-        private readonly IDuplexMapper<User, UserDocument> _userDocumentMapper;
-        private readonly IMapper<UserDocument, UserViewModel> _userViewModelMapper;
-
-        public UserRepository(Repository repository, 
-            IDuplexMapper<User, UserDocument> userDocumentMapper, 
-            IMapper<UserDocument, UserViewModel> userViewModelMapper)
-        {
-            _repository = repository;
-            _userDocumentMapper = userDocumentMapper;
-            _userViewModelMapper = userViewModelMapper;
-        }
-
-        private IMongoCollection<UserDocument> Users => _repository.GetCollection<UserDocument>(CollectionsNames.Users);
         
-        public async Task<User> GetUser(string id)
+        private IMongoCollection<UserDocument> Users => _repository.GetCollection<UserDocument>(CollectionsNames.Users);
+
+        public UserRepository(IMapper mapper, Repository repository)
         {
-            var user = await Users.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
-            return _userDocumentMapper.Map(user);
+            _mapper = mapper;
+            _repository = repository;
+        }
+        
+        public async Task<User> GetUserAsync(string id)
+        {
+            var user = await Users
+                .Find(new BsonDocument("_id", id))
+                .FirstOrDefaultAsync();
+            
+            return _mapper.Map<User>(user);
         }
 
-        // проверка есть ли уже такой логин в бд 
-        public async Task<bool> CheckLogin(string login) =>
-            await Users
+        public async Task<bool> CheckLoginAsync(string login)
+        {
+            return await Users
                 .Find(Builders<UserDocument>.Filter.Eq(u => u.Login, login))
                 .FirstOrDefaultAsync() is null;
-        
-        public async Task<User> GetUserValidation(string login)
-        {
-            if (string.IsNullOrWhiteSpace(login))
-                return null;
-            
-            var user = await Users.Find(Builders<UserDocument>.Filter.Eq(u=> u.Login, login)).FirstOrDefaultAsync();
-            return _userDocumentMapper.Map(user);
         }
 
-        public async Task Create(User user)
+        public async Task<User> GetUserValidationAsync(string login, string password)
         {
-            var doc = _userDocumentMapper.Map(user);
-            await Users.InsertOneAsync(doc);
+            if (string.IsNullOrWhiteSpace(login)) return null;
+            
+            var user = await Users
+                .Find(Builders<UserDocument>.Filter.Eq(u=> u.Login, login))
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<User>(UserIsValidAsync(user, password));
         }
-        
-        public IEnumerable<User> GetUsersByName(string name)
+
+        public async Task CreateUserAsync(User user)
+        {
+            await Users.InsertOneAsync(_mapper.Map<UserDocument>(user));
+        }
+
+        public IEnumerable<User> GetUsersByNameAsync(string name)
         {
             return Users
                 .Find(Builders<UserDocument>.Filter.Eq(u => u.UserName, name))
                 .ToEnumerable()
-                .Select(_userDocumentMapper.Map);
+                .Select(_mapper.Map<User>);
         }
 
-        [ItemCanBeNull]
-        public IEnumerable<UserViewModel> Search(string suggest)
+        public IEnumerable<User> SearchAsync(string suggest)
         {
-            return Users.Find(
-                    Builders<UserDocument>.Filter.Where(u => u.UserName.StartsWith(suggest))
-                )
-                .ToEnumerable()
-                .Select(_userViewModelMapper.Map);
+            throw new System.NotImplementedException();
+        }
+
+        private UserDocument UserIsValidAsync(UserDocument user, string password)
+        {
+            return user != null && user.Password.Equals(password) ? user : null;
         }
     }
 }

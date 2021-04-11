@@ -9,18 +9,18 @@ namespace Messenger
     [UsedImplicitly]
     public partial class MainWindow : Window
     {
-        private readonly IUserHelper _userHelper;
-        public MainWindow(IUserHelper userHelper)
+        public MainWindow()
         {
-            _userHelper = userHelper;
             InitializeComponent();
             OpenPage(Pages.Authorization);
         }
+        
         public enum Pages
         {
             Authorization,
             Registration
         }
+        
         public void OpenPage(Pages pages)
         {
             if (pages == Pages.Authorization)
@@ -28,6 +28,7 @@ namespace Messenger
             else 
                 Frame.Navigate(new Registration(this));
         }
+        
         private void test(object sender, RoutedEventArgs e)
         {
             App.InitApp();

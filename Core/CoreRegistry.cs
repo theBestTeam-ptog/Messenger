@@ -6,7 +6,7 @@ using StructureMap;
 namespace Core
 {
     [UsedImplicitly]
-    public sealed class CoreRegistry : StructureMap.Registry
+    public sealed class CoreRegistry : Registry
     {
         public CoreRegistry()
         {

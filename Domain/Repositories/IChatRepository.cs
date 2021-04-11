@@ -1,16 +1,17 @@
-﻿using System.Threading.Tasks;
-using Domain.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Messenger.ChatService.Protos;
 
 namespace Domain.Repositories
 {
     public interface IChatRepository
     {
-        [CanBeNull]
-        Task<Chat> Get([NotNull] string id);
+        Task<IEnumerable<Chat>> GetChatsAsync([NotNull] string userId);
+        Task<Chat> GetChatAsync([NotNull] string chatId);
 
-        Task AddMessage([NotNull] string chatId, [NotNull] Message message);
+        Task AddMessageAsync([NotNull] string chatId, [NotNull] Message message);
 
-        Task Create([NotNull] Chat chat);
+        Task CreateChatAsync([NotNull] Chat chat);
     }
 }

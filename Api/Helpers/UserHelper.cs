@@ -11,28 +11,47 @@ namespace Api.Helpers
     [PutInIoC, UsedImplicitly]
     public sealed class UserHelper : IUserHelper
     {
-        private readonly IUserRepository _db;
-
-        public UserHelper(IUserRepository db)
+        // private readonly IUserRepository _db;
+        //
+        // public UserHelper(IUserRepository db)
+        // {
+        //     _db = db;
+        // }
+        //
+        // public async Task<Tuple<bool, User>> UserIsValid(User userInfo)
+        // {
+        //     if (userInfo?.Login is null) return null;
+        //     var user = await _db.GetUserValidationAsync(userInfo.Login);
+        //     return Tuple.Create(user != null && user.Password.Equals(userInfo.Password), user);
+        // }
+        //
+        // public async Task RegisterUser(User user)
+        // {
+        //     if (user is null) return;
+        //     await _db.Create(user);
+        // }
+        //
+        // public IEnumerable<User> FindUsers(string name) => _db.GetUsersByName(name);
+        //
+        // public IEnumerable<UserViewModel> Search(string suggest) => _db.Search(suggest);
+        public Task<Tuple<bool, User>> UserIsValid(User userInfo)
         {
-            _db = db;
+            throw new NotImplementedException();
         }
 
-        public async Task<Tuple<bool, User>> UserIsValid(User userInfo)
+        public Task RegisterUser(User user)
         {
-            if (userInfo?.Login is null) return null;
-            var user = await _db.GetUserValidation(userInfo.Login);
-            return Tuple.Create(user != null && user.Password.Equals(userInfo.Password), user);
+            throw new NotImplementedException();
         }
 
-        public async Task RegisterUser(User user)
+        public IEnumerable<User> FindUsers(string name)
         {
-            if (user is null) return;
-            await _db.Create(user);
+            throw new NotImplementedException();
         }
-        
-        public IEnumerable<User> FindUsers(string name) => _db.GetUsersByName(name);
-        
-        public IEnumerable<UserViewModel> Search(string suggest) => _db.Search(suggest);
+
+        public IEnumerable<UserViewModel> Search(string suggest)
+        {
+            throw new NotImplementedException();
+        }
     } 
 }
