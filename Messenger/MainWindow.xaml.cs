@@ -28,10 +28,5 @@ namespace Messenger
             else 
                 Frame.Navigate(new Registration(this));
         }
-        private void test(object sender, RoutedEventArgs e)
-        {
-            App.InitApp();
-            Close();
-        }
     }
 }
