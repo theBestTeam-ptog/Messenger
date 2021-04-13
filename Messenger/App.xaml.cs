@@ -5,7 +5,7 @@ namespace Messenger
 {
     public partial class App
     {
-        public readonly UserViewModel CurrentUser;
+        public static UserViewModel CurrentUser;
         
         public App()
         {

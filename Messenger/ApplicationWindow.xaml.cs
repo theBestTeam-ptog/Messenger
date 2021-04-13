@@ -10,10 +10,8 @@ namespace Messenger
 {
     public partial class ApplicationWindow : Window
     {
-        
         private readonly IDialogListViewModel _dialogList;
         private readonly ISearchResultViewModel _searchResult;
-        
 
         public ApplicationWindow( 
             IDialogListViewModel dialogList, 

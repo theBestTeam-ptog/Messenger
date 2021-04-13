@@ -12,6 +12,7 @@ service Greeter {
   rpc TakeChats (TakeChatRequest) returns (TakeChatReply);
   rpc CreateUser (UserCreate) returns (Reply);
   rpc CreateChat (ChatCreate) returns (Reply);
+  rpc CreateMessage (SendMessage) returns (Reply);
 }
 
 message PickUpUser {
@@ -65,6 +66,11 @@ message Message{
   string Content = 1;
   string AuthorId = 2;
   google.protobuf.Timestamp Time = 3;
+}
+
+message SendMessage{
+  Message message = 1;
+  string ChatId = 2;
 }
 
 message Reply{

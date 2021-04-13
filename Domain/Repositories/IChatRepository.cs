@@ -8,7 +8,6 @@ namespace Domain.Repositories
     public interface IChatRepository
     {
         Task<IEnumerable<Chat>> GetChatsAsync([NotNull] string userId);
-        Task<Chat> GetChatAsync([NotNull] string chatId);
         Task AddMessageAsync([NotNull] string chatId, [NotNull] Message message);
         Task CreateChatAsync([NotNull] Chat chat);
     }

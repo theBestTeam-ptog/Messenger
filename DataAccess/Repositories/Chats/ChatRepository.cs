@@ -42,16 +42,17 @@ namespace DataAccess.Repositories.Chats
             return list;
         }
 
-        public async Task<Chat> GetChatAsync(string chatId)
+        private async Task<ChatDocument> GetChatAsync(string chatId)
         {
-            var chat = await Chats.Find(Builders<ChatDocument>.Filter.Eq(c => c.Id, chatId)).FirstOrDefaultAsync();
-            return _mapper.Map<Chat>(chat);
+            return await Chats
+                .Find(Builders<ChatDocument>.Filter.Eq(c => c.Id, chatId))
+                .FirstOrDefaultAsync();
         }
 
         public async Task AddMessageAsync(string chatId, Message message)
         {
             var chat = await GetChatAsync(chatId);
-            chat?.History.Add(message);
+            chat.History.Add(_mapper.Map<Domain.Models.Message>(message));
         }
 
         public async Task CreateChatAsync(Chat chat)

@@ -75,5 +75,12 @@ namespace ChatService
             
             return new Reply { Response = Response.Ok };
         }
+
+        public override async Task<Reply> CreateMessage(SendMessage request, ServerCallContext context)
+        {
+            await _chatRepository.AddMessageAsync(request.ChatId, request.Message);
+
+            return new Reply {Response = Response.Ok};
+        }
     }
 }

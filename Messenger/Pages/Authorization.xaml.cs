@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using DataAccess.Mappers;
+using Domain.Models;
 using Grpc.Net.Client;
 using Messenger.ChatService.Protos;
 
@@ -29,25 +32,25 @@ namespace Messenger.Pages
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            //var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            //var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});
+            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+            var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});
+            var userReply = reply.User; 
             
-            //if (reply.Response != Response.Ok) throw new NullReferenceException();
-            //var chatReply = await client.TakeChatsAsync(new TakeChatRequest() {UserId = reply.User.Id});
-            //var user = reply.User;
+            var chatReply = await client.TakeChatsAsync(new TakeChatRequest {UserId = reply.User.Id});
+            
+            var mapper = Bootstrapper.Container.GetInstance<ChatViewModelMapper>();
+            var chatViewModels = chatReply.Chats.Select(x => mapper.Map(x));
+
+            var user = new UserViewModel
+            {
+                Chats = chatViewModels.ToList(),
+                Id = Guid.Parse(userReply.Id),
+                InNetwork = userReply.InNetwork,
+                UserName = userReply.UserName
+            };
+
+            App.CurrentUser = user;
             App.InitApp();
-            // var chat = new Domain.Models.Chat()
-            // {
-            //     History = chatReply.Chats.ToList()
-            // };
-            // App.CurrentUser = new UserViewModel
-            // {
-            //     ChatsIds = chatReply.Chats.ToList(),
-            //     Id = Guid.Parse(user.Id),
-            //     ProfileImage = null,
-            //     InNetwork = user.InNetwork,
-            //     UserName = user.UserName
-            // };
         }
     }
 }
