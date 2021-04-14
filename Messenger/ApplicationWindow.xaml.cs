@@ -5,11 +5,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using DataAccess.Mappers;
+using Domain.Mappers;
 using Domain.Models;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Messenger.ChatService.Protos;
 using Messenger.ViewModels;
+using Chat = Messenger.ChatService.Protos.Chat;
 using Message = Domain.Models.Message;
 
 namespace Messenger
@@ -18,14 +20,17 @@ namespace Messenger
     {
         private readonly IDialogListViewModel _dialogList;
         private readonly ISearchResultViewModel _searchResult;
+        private readonly IMapper<Chat, ChatViewModel> _chatViewModelMapper;
         
         public ApplicationWindow( 
             IDialogListViewModel dialogList, 
-            ISearchResultViewModel searchResult)
+            ISearchResultViewModel searchResult, 
+            IMapper<Chat, ChatViewModel> chatViewModelMapper)
         {
             var chats = new ObservableCollection<ChatViewModel>();
             _dialogList = dialogList;
             _searchResult = searchResult;
+            _chatViewModelMapper = chatViewModelMapper;
 
             InitializeComponent();
             
@@ -63,7 +68,6 @@ namespace Messenger
                 ChatId = chatId
             });
             var messages = new ObservableCollection<Message>();
-            var mapper = Bootstrapper.Container.GetInstance<ChatViewModelMapper>();
             var token = new CancellationTokenSource().Token;
             while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
             await foreach(var message in reply.ResponseStream.ReadAllAsync())

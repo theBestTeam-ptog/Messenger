@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Core.IoC;
 using Domain.Mappers;
 using Domain.Models;
 using JetBrains.Annotations;
@@ -7,7 +8,8 @@ using Chat = Messenger.ChatService.Protos.Chat;
 
 namespace DataAccess.Mappers
 {
-    public class ChatViewModelMapper : IMapper<Chat, ChatViewModel>
+    [PutInIoC, UsedImplicitly]
+    public sealed class ChatViewModelMapper : IMapper<Chat, ChatViewModel>
     {
         [NotNull]
         public ChatViewModel Map(Chat source) =>

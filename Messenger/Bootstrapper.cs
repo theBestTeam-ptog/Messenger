@@ -17,14 +17,14 @@ namespace Messenger
         {
             Container = new Container(x =>
             {
-                //x.AddRegistry<ApiRegistry>();
                 x.AddRegistry<CoreRegistry>();
-                //x.AddRegistry<DataAccessRegistry>();
+                x.AddRegistry<DataAccessRegistry>();
+                x.AddRegistry<ApiRegistry>();
                 x.ForSingletonOf<ApplicationWindow>().Use<ApplicationWindow>();
                 x.ForSingletonOf<MainWindow>().Use<MainWindow>();
                 x.ForSingletonOf<IDialogListViewModel>().Use<DialogListViewModel>();
                 x.ForSingletonOf<ISearchResultViewModel>().Use<SearchResultViewModel>();
-                x.ForSingletonOf(typeof(ChatViewModelMapper)).Singleton();
+                // x.ForSingletonOf(typeof(ChatViewModelMapper)).Singleton();
             });
         }
     }
