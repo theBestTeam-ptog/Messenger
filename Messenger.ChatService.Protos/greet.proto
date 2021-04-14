@@ -13,6 +13,7 @@ service Greeter {
   rpc CreateUser (UserCreate) returns (Reply);
   rpc CreateChat (ChatCreate) returns (Reply);
   rpc CreateMessage (SendMessage) returns (Reply);
+  rpc JoinChat (TakeChat) returns (stream Message);
 }
 
 message PickUpUser {
@@ -75,6 +76,10 @@ message SendMessage{
 
 message Reply{
  Response response = 1; 
+}
+
+message TakeChat{
+  string ChatId = 1;
 }
 
 enum Response{

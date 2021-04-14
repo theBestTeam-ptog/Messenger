@@ -70,7 +70,6 @@ namespace ChatService
             CreateMap<Domain.Models.Message, Message>()
                 .ForMember(c => c.Content, op => op.MapFrom(src => src.Content))
                 .ForMember(c => c.Time, op => op.MapFrom(src => Timestamp.FromDateTime(new DateTime(
-                
                     src.Time.Year,
                     src.Time.Month,
                     src.Time.Day,
@@ -79,7 +78,7 @@ namespace ChatService
                     src.Time.Second,
                     DateTimeKind.Utc
                 ))))
-                .ForMember(c => c.AuthorId, op => op.MapFrom(src => src.AuthorId));
+                .ForMember(c => c.AuthorId, op => op.MapFrom(src => src.AuthorId.ToString()));
         }
     }
 }

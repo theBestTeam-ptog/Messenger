@@ -13,8 +13,9 @@ namespace DataAccess.Mappers
         public ChatViewModel Map(Chat source) =>
             new ChatViewModel
             {
-                ChatName = source.UserIds.Last(),
-                History = source.History.Select(HelpChat).ToList()
+                ChatName = source.History.Select(HelpChat).Last().Content,
+                History = source.History.Select(HelpChat).ToList(),
+                ChatId = source.Id
             };
 
         private static Message HelpChat(Messenger.ChatService.Protos.Message message) =>

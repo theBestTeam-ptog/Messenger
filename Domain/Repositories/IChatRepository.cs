@@ -10,5 +10,6 @@ namespace Domain.Repositories
         Task<IEnumerable<Chat>> GetChatsAsync([NotNull] string userId);
         Task AddMessageAsync([NotNull] string chatId, [NotNull] Message message);
         Task CreateChatAsync([NotNull] Chat chat);
+        Task<Chat> GetChatAsync(string chatId);
     }
 }
