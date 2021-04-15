@@ -30,11 +30,11 @@ namespace Messenger.Pages
                     InNetwork = true,
                     HasImage = false,
                     Id = Guid.NewGuid().ToString(),
-                    Login = login.Text,
-                    Password = password.Password,
+                    Login = LoginBox.Text,
+                    Password = PasswordBox.Password,
                     Private = false,
                     Registration = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
-                    UserName = userName.Text
+                    UserName = UserNameBox.Text
                 }
             });
 

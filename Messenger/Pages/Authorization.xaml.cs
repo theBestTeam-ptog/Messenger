@@ -24,10 +24,10 @@ namespace Messenger.Pages
         {
             _mainWindow.OpenPage(MainWindow.Pages.Registration);
         }
-        private void LogButton_Click(object sender, RoutedEventArgs e)
+        private async void LogButton_Click(object sender, RoutedEventArgs e)
         {
             var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});
+            var reply =  await client.TakeUserAsync(new PickUpUser {Login = LoginBox.Text, Password = PasswordBox.Password});
             var userReply = reply.User; 
             
             var chatReply = await client.TakeChatsAsync(new TakeChatRequest {UserId = reply.User.Id});
