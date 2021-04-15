@@ -5,6 +5,6 @@ namespace Messenger.ViewModels
 {
     public interface IDialogListViewModel
     {
-        List<UserViewModel> Users { get; set; }
+        List<ChatViewModel> Chats { get; set; }
     }
 }

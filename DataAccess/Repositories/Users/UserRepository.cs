@@ -67,10 +67,28 @@ namespace DataAccess.Repositories.Users
                 .Select(_mapper.Map<User>);
         }
 
-        public IEnumerable<User> SearchAsync(string suggest)
-        {
-            throw new System.NotImplementedException();
-        }
+        [ItemCanBeNull]
+        public IEnumerable<User> SearchSync(string suggest) =>
+            Users.Find(Builders<UserDocument>.Filter.Where(
+                        u => u.UserName.StartsWith(suggest)
+                    )
+                )
+                .ToEnumerable()
+                .Select(_mapper.Map<User>);
+
+        /*
+         todo для метода выше
+         если для сервиса нужен именно асинхронный, то использовать это ->
+         return Task.Factory.StartNew(() =>
+             {
+                 return Users.Find(Builders<UserDocument>.Filter.Where(
+                             u => u.UserName.StartsWith(suggest)
+                     )
+                     .ToEnumerable()
+                     .Select(_mapper.Map<User>);
+             });
+        todo не забыть переименовать в SearchAsync и поменять возвращаемый тип тут и в интерфейсе на Task<IEnumerable<User>>
+         */
 
         private UserDocument UserIsValidAsync(UserDocument user, string password)
         {

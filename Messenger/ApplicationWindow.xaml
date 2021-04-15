@@ -21,6 +21,13 @@
                     </ListBoxItem>
                 </materialDesign:Card>
             </DataTemplate>
+            <DataTemplate x:Key="searchItemTemplate">
+                <materialDesign:Card>
+                    <ListBoxItem>
+                        <TextBlock Text="{Binding UserName}"></TextBlock>
+                    </ListBoxItem>
+                </materialDesign:Card>
+            </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="270px"/>

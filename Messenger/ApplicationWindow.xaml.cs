@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows;
@@ -34,29 +35,37 @@ namespace Messenger
 
             InitializeComponent();
             
-            var list2 = App.CurrentUser.Chats;
+            _dialogList.Chats = App.CurrentUser.Chats;
 
-            list2.ForEach(x => chats.Add(x));
+            _dialogList.Chats.ForEach(x => chats.Add(x));
 
-            list.DataContext = chats;
+            list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
+            list.DataContext = _dialogList.Chats;
 
             dialogFrame.Navigate(new Uri("Pages/PageNoDialog.xaml", UriKind.Relative));
         }
 
         private void Search(object sender, TextChangedEventArgs e)
         {
-            // if (string.IsNullOrEmpty(Searcher.Text?.Trim()))
-            // {
-            //     list.DataContext = _dialogList;
-            //     return;
-            // }
-            //
-            // var results = _userHelper.Search(Searcher.Text).ToList();
-            // if (results.Count == 0) return;
-            //
-            // _searchResult.Users?.Clear();
-            // _searchResult.Users = results.ToList();
-            // list.DataContext = _searchResult;
+            if (string.IsNullOrEmpty(Searcher.Text.Trim()))
+            {
+                list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
+                list.DataContext = _dialogList.Chats;
+                return;
+            }
+            
+            
+            var users = new List<UserViewModel>
+            {
+                new UserViewModel{UserName = "user1"},
+                new UserViewModel{UserName = "user2"},
+                new UserViewModel{UserName = "user3"},
+            };
+            
+            list.ItemTemplate = (DataTemplate) list.FindResource("searchItemTemplate");
+            _searchResult.Users?.Clear();
+            _searchResult.Users = users;
+            list.DataContext = _searchResult.Users;
         }
 
         private async void OpenDialog(object sender, MouseButtonEventArgs e)
