@@ -16,21 +16,15 @@ namespace Messenger.Pages
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            Application.Current.MainWindow.Height = MinHeight + 200;
-            Application.Current.MainWindow.Width = MinWidth + 200;
-            Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+            Application.Current.MainWindow.Height = 330;
+            Application.Current.MainWindow.Width = 415;
+            //Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.OpenPage(MainWindow.Pages.Registration);
         }
-        
-        // private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        // {
-        //     App.InitApp();
-        // }
-
-        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void LogButton_Click(object sender, RoutedEventArgs e)
         {
             var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
             var reply =  await client.TakeUserAsync(new PickUpUser {Login = login.Text, Password = password.Password});

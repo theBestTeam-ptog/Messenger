@@ -5,34 +5,108 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Messenger.Pages"
       mc:Ignorable="d"
-      Title="Registration" Height="300" Width="350" >
+      Title="Registration" Height="320" Width="400" >
     <Grid Background="DodgerBlue">
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="38"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"></ColumnDefinition>
-            <ColumnDefinition Width="60"></ColumnDefinition>
-            <ColumnDefinition Width="210"></ColumnDefinition>
-            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="45"></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="230"></ColumnDefinition>
+            <ColumnDefinition Width="45"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-        <Label Grid.Row="1" Grid.Column="1" Content="Регистрация" HorizontalAlignment="Center" VerticalAlignment="Top" Height="38" Width="140" Grid.ColumnSpan="2" FontFamily="Calibri" FontSize="24" />
-        <Label Grid.Row="2" Grid.Column="1" Content="Никнейм" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="60"  Foreground="White" />
-        <Label Grid.Row="3" Grid.Column="1" Content="Логин" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Width="48"  Foreground="White" />
-        <Label Grid.Row="4" Grid.Column="1" Content="Пароль" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Width="54"  Foreground="White" />
-        <TextBox Grid.Row="2" Grid.Column="2" x:Name="userName" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="22"/>
-        <TextBox Grid.Row="3" Grid.Column="2" x:Name="login" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="22"/>
-        <PasswordBox Grid.Row="4" Grid.Column="2" x:Name="password" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200" Height="22" />
-        <Button Grid.Row="5" Grid.Column="2" Content="Зарегистрироваться" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="165" Height="28" Background ="Gray" Click="RegButton_Click" />
-        <Button Grid.Row="5" Grid.Column="1" Content="Вернуться" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="28" Grid.ColumnSpan="2" Background ="Gray" Click="BackButton_Click"/>
+        <Label Grid.Row="1" 
+               Grid.Column="1" 
+               Content="Регистрация" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top" 
+               Height="38" 
+               Width="160" 
+               Grid.ColumnSpan="2" 
+               FontFamily="Calibri" 
+               FontSize="26" 
+        />
+        <Label Grid.Row="2" 
+               Grid.Column="1" 
+               Content="Имя" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Bottom" 
+               Height="30" 
+               Width="70"  
+               Foreground="White" 
+               FontSize="16"
+        />
+        <Label Grid.Row="3" 
+               Grid.Column="1" 
+               Content="Логин" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Bottom" 
+               Height="30" 
+               Width="70"  
+               Foreground="White" 
+               FontSize="16"
+        />
+        <Label Grid.Row="4" 
+               Grid.Column="1" 
+               Content="Пароль" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Bottom" 
+               Height="30" 
+               Width="70"  
+               Foreground="White" 
+               FontSize="16"
+        />
+        <TextBox Grid.Row="2"
+                 Grid.Column="2" 
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Bottom" 
+                 Width="210" 
+                 Height="30"
+                 FontSize="16"
+        />
+        <TextBox Grid.Row="3" 
+                 Grid.Column="2" 
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Bottom" 
+                 Width="210" 
+                 Height="30"
+                 FontSize="16"
+        />
+        <PasswordBox Grid.Row="4" 
+                     Grid.Column="2" 
+                     HorizontalAlignment="Right"  
+                     VerticalAlignment="Bottom" 
+                     Width="210" 
+                     Height="30" 
+                     FontSize="16"
+        />
+        <Button Grid.Row="5" 
+                Grid.Column="2" 
+                Content="Зарегистрироваться" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" 
+                Width="175" 
+                Height="30" 
+                FontSize="15"
+                Click="RegButton_Click" 
+        />
+        <Button Grid.Row="5" 
+                Grid.Column="1" 
+                Grid.ColumnSpan="2"
+                Content="Вернуться" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom"
+                Width="115" 
+                Height="30" 
+                FontSize="15"
+                Click="BackButton_Click"
+        />
     </Grid>
 </Page>

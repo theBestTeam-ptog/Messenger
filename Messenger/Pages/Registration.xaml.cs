@@ -14,9 +14,9 @@ namespace Messenger.Pages
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            Application.Current.MainWindow.Height = MinHeight;
-            Application.Current.MainWindow.Width = MinWidth;
-            Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+            Application.Current.MainWindow.Height = 330;
+            Application.Current.MainWindow.Width = 415;
+            //Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
