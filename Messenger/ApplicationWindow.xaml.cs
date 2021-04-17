@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using DataAccess.Mappers;
 using Domain.Mappers;
 using Domain.Models;
 using Grpc.Core;
@@ -17,7 +16,7 @@ using Message = Domain.Models.Message;
 
 namespace Messenger
 {
-    public partial class ApplicationWindow : Window
+    public partial class ApplicationWindow
     {
         private readonly IDialogListViewModel _dialogList;
         private readonly ISearchResultViewModel _searchResult;

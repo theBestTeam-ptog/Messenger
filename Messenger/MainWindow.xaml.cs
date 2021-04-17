@@ -1,13 +1,11 @@
-﻿using System;
-using System.Windows;
-using Api.Helpers;
+﻿using System.Windows;
 using JetBrains.Annotations;
 using Messenger.Pages;
 
 namespace Messenger
 {
     [UsedImplicitly]
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -27,12 +25,6 @@ namespace Messenger
                 Frame.Navigate((new Authorization(this)));
             else 
                 Frame.Navigate(new Registration(this));
-        }
-        
-        private void test(object sender, RoutedEventArgs e)
-        {
-            App.InitApp();
-            Close();
         }
     }
 }

@@ -16,34 +16,34 @@ namespace Messenger.Pages
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            Application.Current.MainWindow.Height = 330;
-            Application.Current.MainWindow.Width = 415;
+            App.Current.MainWindow.Height = 330;
+            App.Current.MainWindow.Width = 415;
             //Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.OpenPage(MainWindow.Pages.Registration);
         }
-        private async void LogButton_Click(object sender, RoutedEventArgs e)
+        private void LogButton_Click(object sender, RoutedEventArgs e)
         {
-            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            var reply =  await client.TakeUserAsync(new PickUpUser {Login = LoginBox.Text, Password = PasswordBox.Password});
-            var userReply = reply.User; 
-            
-            var chatReply = await client.TakeChatsAsync(new TakeChatRequest {UserId = reply.User.Id});
-            
-            var mapper = Bootstrapper.Container.GetInstance<ChatViewModelMapper>();
-            var chatViewModels = chatReply.Chats.Select(x => mapper.Map(x));
-
-            var user = new UserViewModel
-            {
-                Chats = chatViewModels.ToList(),
-                Id = Guid.Parse(userReply.Id),
-                InNetwork = userReply.InNetwork,
-                UserName = userReply.UserName
-            };
-
-            App.CurrentUser = user;
+            // var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+            // var reply =  await client.TakeUserAsync(new PickUpUser {Login = LoginBox.Text, Password = PasswordBox.Password});
+            // var userReply = reply.User; 
+            //
+            // var chatReply = await client.TakeChatsAsync(new TakeChatRequest {UserId = reply.User.Id});
+            //
+            // var mapper = Bootstrapper.Container.GetInstance<ChatViewModelMapper>();
+            // var chatViewModels = chatReply.Chats.Select(x => mapper.Map(x));
+            //
+            // var user = new UserViewModel
+            // {
+            //     Chats = chatViewModels.ToList(),
+            //     Id = Guid.Parse(userReply.Id),
+            //     InNetwork = userReply.InNetwork,
+            //     UserName = userReply.UserName
+            // };
+            //
+            // App.CurrentUser = user;
             App.InitApp();
         }
     }

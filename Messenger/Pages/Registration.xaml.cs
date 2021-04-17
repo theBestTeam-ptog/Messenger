@@ -20,23 +20,23 @@ namespace Messenger.Pages
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
-            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-
-            var chatReply = client.CreateUser(new UserCreate
-            {
-                User = new User
-                {
-                    Authorize = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
-                    InNetwork = true,
-                    HasImage = false,
-                    Id = Guid.NewGuid().ToString(),
-                    Login = LoginBox.Text,
-                    Password = PasswordBox.Password,
-                    Private = false,
-                    Registration = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
-                    UserName = UserNameBox.Text
-                }
-            });
+            // var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+            //
+            // var chatReply = client.CreateUser(new UserCreate
+            // {
+            //     User = new User
+            //     {
+            //         Authorize = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
+            //         InNetwork = true,
+            //         HasImage = false,
+            //         Id = Guid.NewGuid().ToString(),
+            //         Login = LoginBox.Text,
+            //         Password = PasswordBox.Password,
+            //         Private = false,
+            //         Registration = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
+            //         UserName = UserNameBox.Text
+            //     }
+            // });
 
             _mainWindow.OpenPage(MainWindow.Pages.Authorization);
         }
