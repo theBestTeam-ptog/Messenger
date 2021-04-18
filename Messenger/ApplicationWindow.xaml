@@ -96,7 +96,7 @@
                           Width="50" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Stretch"
-                          Background="#FF31577E"
+                          Background="#FF512DA8"
                           >
                         <Grid.Effect>
                             <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"/>
@@ -140,7 +140,7 @@
                                 </Button>
                             </Grid>
                             <ListView x:Name="ListViewMenu" 
-                                      Foreground="#FF5C99D6" 
+                                      Foreground="White" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                                       SelectionChanged="ListViewMenu_SelectionChanged"
                                       Width="280" 

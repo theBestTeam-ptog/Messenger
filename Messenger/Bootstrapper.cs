@@ -21,8 +21,6 @@ namespace Messenger
                 x.AddRegistry<CoreRegistry>();
                 x.AddRegistry<DataAccessRegistry>();
                 x.AddRegistry<ApiRegistry>();
-                x.For<Authorization>().Use<Authorization>().Singleton();
-                x.For<Registration>().Use<Registration>().Singleton();
                 x.For<ApplicationWindow>().Use<ApplicationWindow>();
                 x.For<MainWindow>().Use<MainWindow>();
                 x.ForSingletonOf<IDialogListViewModel>().Use<DialogListViewModel>();

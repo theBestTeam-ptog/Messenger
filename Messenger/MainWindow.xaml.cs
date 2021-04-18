@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using JetBrains.Annotations;
 using Messenger.Pages;
 
@@ -15,10 +16,12 @@ namespace Messenger
 
         public void OpenPage(Utils.Pages pages)
         {
+            // Bootstrapper.Container.GetInstance<Authorization>()
+            // Bootstrapper.Container.GetInstance<Registration>()
             if (pages == Utils.Pages.Authorization)
-                Frame.Navigate(Bootstrapper.Container.GetInstance<Authorization>());
+                Frame.Navigate(new Authorization(this));
             else
-                Frame.Navigate(Bootstrapper.Container.GetInstance<Registration>());
+                Frame.Navigate(new Registration(this));
         }
     }
 }

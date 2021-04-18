@@ -14,11 +14,10 @@ namespace Messenger.Pages
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            Application.Current.MainWindow.Height = 330;
+            Application.Current.MainWindow.Height = 400;
             Application.Current.MainWindow.Width = 415;
-            //Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
         }
-        private void RegButton_Click(object sender, RoutedEventArgs e)
+        private async void RegButton_Click(object sender, RoutedEventArgs e)
         {
             // var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
             //
@@ -40,7 +39,7 @@ namespace Messenger.Pages
 
             _mainWindow.OpenPage(Utils.Pages.Authorization);
         }
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.OpenPage(Utils.Pages.Authorization);
         }

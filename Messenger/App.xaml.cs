@@ -22,7 +22,7 @@ namespace Messenger
         {
             var applicationWindow = Bootstrapper.Container.GetInstance<ApplicationWindow>();
             applicationWindow.Show();
-            Current.MainWindow.Close();
+            Current.MainWindow?.Close();
         }
     }
 }

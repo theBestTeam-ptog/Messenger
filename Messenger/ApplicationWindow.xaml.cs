@@ -10,6 +10,7 @@ using Domain.Models;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Messenger.ChatService.Protos;
+using Messenger.Utils;
 using Messenger.ViewModels;
 using Chat = Messenger.ChatService.Protos.Chat;
 using Message = Domain.Models.Message;
@@ -27,21 +28,25 @@ namespace Messenger
             ISearchResultViewModel searchResult, 
             IMapper<Chat, ChatViewModel> chatViewModelMapper)
         {
-            var chats = new ObservableCollection<ChatViewModel>();
             _dialogList = dialogList;
             _searchResult = searchResult;
             _chatViewModelMapper = chatViewModelMapper;
 
             InitializeComponent();
             
-            _dialogList.Chats = App.CurrentUser.Chats;
+            var chats = new List<ChatViewModel>
+            {
+                new ChatViewModel {ChatName = "chat1"},
+                new ChatViewModel {ChatName = "chat2"},
+                new ChatViewModel {ChatName = "chat3"},
+            };
 
-            _dialogList.Chats.ForEach(x => chats.Add(x));
-
+            _dialogList.Chats = chats;//App.CurrentUser.Chats;
+            
             list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
             list.DataContext = _dialogList.Chats;
 
-            dialogFrame.Navigate(new Uri("Pages/PageNoDialog.xaml", UriKind.Relative));
+            dialogFrame.Navigate(new Uri(Constants.PagesUris.EmptyDialog, UriKind.Relative));
         }
 
         private void Search(object sender, TextChangedEventArgs e)
@@ -52,7 +57,6 @@ namespace Messenger
                 list.DataContext = _dialogList.Chats;
                 return;
             }
-            
             
             var users = new List<UserViewModel>
             {
@@ -69,26 +73,27 @@ namespace Messenger
 
         private async void OpenDialog(object sender, MouseButtonEventArgs e)
         {
-            var chatId = ((sender as ListBoxItem).DataContext as ChatViewModel).ChatId;
-            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            var reply = client.JoinChat(new TakeChat()
-            {
-                ChatId = chatId
-            });
-            var messages = new ObservableCollection<Message>();
-            var token = new CancellationTokenSource().Token;
-            while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
-            await foreach(var message in reply.ResponseStream.ReadAllAsync())
-            {
-                messages.Add(new Message
-                {
-                    AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
-                    Content = message.Content,
-                    Time = message.Time.ToDateTime()
-                });
-            }
+            // todo убрать клиент в поле App, инициализировать в OnStartUp()
+            // var chatId = ((sender as ListBoxItem).DataContext as ChatViewModel).ChatId;
+            // var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+            // var reply = client.JoinChat(new TakeChat()
+            // {
+            //     ChatId = chatId
+            // });
+            // var messages = new ObservableCollection<Message>();
+            // var token = new CancellationTokenSource().Token;
+            // while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
+            // await foreach(var message in reply.ResponseStream.ReadAllAsync())
+            // {
+            //     messages.Add(new Message
+            //     {
+            //         AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
+            //         Content = message.Content,
+            //         Time = message.Time.ToDateTime()
+            //     });
+            // }
             
-            dialogFrame.Navigate(new Uri("Pages/Dialog.xaml", UriKind.Relative));
+            dialogFrame.Navigate(new Uri(Constants.PagesUris.Dialog, UriKind.Relative));
         }
 
         /// <summary>

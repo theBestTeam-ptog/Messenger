@@ -10,12 +10,12 @@ namespace Messenger.Pages
             InitializeComponent();
         }
 
-        private void UIElement_OnMouseUp(object sender, MouseButtonEventArgs e)
+        private void SendMessage(object sender, MouseButtonEventArgs e)
         {
             message.Text = "its work";
         }
 
-        private void UIElement_OnMouseUp2(object sender, MouseButtonEventArgs e)
+        private void LinkDocument(object sender, MouseButtonEventArgs e)
         {
             message.Text = "";
         }
