@@ -5,26 +5,20 @@ using Messenger.Pages;
 namespace Messenger
 {
     [UsedImplicitly]
-    public partial class MainWindow
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            OpenPage(Pages.Authorization);
+            OpenPage(Utils.Pages.Authorization);
         }
-        
-        public enum Pages
+
+        public void OpenPage(Utils.Pages pages)
         {
-            Authorization,
-            Registration
-        }
-        
-        public void OpenPage(Pages pages)
-        {
-            if (pages == Pages.Authorization)
-                Frame.Navigate((new Authorization(this)));
-            else 
-                Frame.Navigate(new Registration(this));
+            if (pages == Utils.Pages.Authorization)
+                Frame.Navigate(Bootstrapper.Container.GetInstance<Authorization>());
+            else
+                Frame.Navigate(Bootstrapper.Container.GetInstance<Registration>());
         }
     }
 }

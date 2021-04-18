@@ -3,9 +3,9 @@ using Core;
 using DataAccess;
 using DataAccess.Mappers;
 using JetBrains.Annotations;
+using Messenger.Pages;
 using Messenger.ViewModels;
 using StructureMap;
-using StructureMap.Pipeline;
 
 namespace Messenger
 {
@@ -21,11 +21,13 @@ namespace Messenger
                 x.AddRegistry<CoreRegistry>();
                 x.AddRegistry<DataAccessRegistry>();
                 x.AddRegistry<ApiRegistry>();
-                // x.For<ApplicationWindow>().Use<ApplicationWindow>().Singleton();
-                x.For<MainWindow>().Use<MainWindow>().Transient();
-                x.For<IDialogListViewModel>().Use<DialogListViewModel>().Singleton();
-                x.For<ISearchResultViewModel>().Use<SearchResultViewModel>().Singleton();
-                x.For(typeof(ApplicationWindow)).Use(typeof(ApplicationWindow)).Transient();
+                x.For<Authorization>().Use<Authorization>().Singleton();
+                x.For<Registration>().Use<Registration>().Singleton();
+                x.For<ApplicationWindow>().Use<ApplicationWindow>();
+                x.For<MainWindow>().Use<MainWindow>();
+                x.ForSingletonOf<IDialogListViewModel>().Use<DialogListViewModel>();
+                x.ForSingletonOf<ISearchResultViewModel>().Use<SearchResultViewModel>();
+                //x.ForSingletonOf().Singleton();
             });
         }
     }
