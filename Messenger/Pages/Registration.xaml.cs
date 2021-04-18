@@ -38,11 +38,11 @@ namespace Messenger.Pages
                 }
             });
 
-            _mainWindow.OpenPage(MainWindow.Pages.Authorization);
+            _mainWindow.OpenPage(Utils.Pages.Authorization);
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.OpenPage(MainWindow.Pages.Authorization);
+            _mainWindow.OpenPage(Utils.Pages.Authorization);
         }
     }
 }

@@ -12,27 +12,15 @@ namespace Messenger
         public MainWindow()
         {
             InitializeComponent();
-            OpenPage(Pages.Authorization);
+            OpenPage(Utils.Pages.Authorization);
         }
-        
-        public enum Pages
+
+        public void OpenPage(Utils.Pages pages)
         {
-            Authorization,
-            Registration
-        }
-        
-        public void OpenPage(Pages pages)
-        {
-            if (pages == Pages.Authorization)
-                Frame.Navigate((new Authorization(this)));
-            else 
-                Frame.Navigate(new Registration(this));
-        }
-        
-        private void test(object sender, RoutedEventArgs e)
-        {
-            App.InitApp();
-            Close();
+            if (pages == Utils.Pages.Authorization)
+                Frame.Navigate(Bootstrapper.Container.GetInstance<Authorization>());
+            else
+                Frame.Navigate(Bootstrapper.Container.GetInstance<Registration>());
         }
     }
 }

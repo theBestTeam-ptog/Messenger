@@ -3,6 +3,7 @@ using Core;
 using DataAccess;
 using DataAccess.Mappers;
 using JetBrains.Annotations;
+using Messenger.Pages;
 using Messenger.ViewModels;
 using StructureMap;
 
@@ -20,11 +21,13 @@ namespace Messenger
                 x.AddRegistry<CoreRegistry>();
                 x.AddRegistry<DataAccessRegistry>();
                 x.AddRegistry<ApiRegistry>();
-                x.ForSingletonOf<ApplicationWindow>().Use<ApplicationWindow>();
-                x.ForSingletonOf<MainWindow>().Use<MainWindow>();
+                x.For<Authorization>().Use<Authorization>().Singleton();
+                x.For<Registration>().Use<Registration>().Singleton();
+                x.For<ApplicationWindow>().Use<ApplicationWindow>();
+                x.For<MainWindow>().Use<MainWindow>();
                 x.ForSingletonOf<IDialogListViewModel>().Use<DialogListViewModel>();
                 x.ForSingletonOf<ISearchResultViewModel>().Use<SearchResultViewModel>();
-                // x.ForSingletonOf(typeof(ChatViewModelMapper)).Singleton();
+                //x.ForSingletonOf().Singleton();
             });
         }
     }
