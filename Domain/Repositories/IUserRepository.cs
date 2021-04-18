@@ -12,6 +12,6 @@ namespace Domain.Repositories
         Task<User> GetUserValidationAsync([NotNull] string login, [NotNull] string password);
         Task CreateUserAsync([NotNull] User user);
         IEnumerable<User> GetUsersByNameAsync([NotNull] string name);
-        IEnumerable<User> SearchAsync([NotNull] string suggest);
+        IEnumerable<User> SearchSync([NotNull] string suggest);
     }
 }

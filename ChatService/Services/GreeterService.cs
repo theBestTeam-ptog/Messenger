@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Repositories;
 using Google.Protobuf.Collections;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Messenger.ChatService.Protos;
 using Microsoft.Extensions.Logging;
@@ -74,6 +75,23 @@ namespace ChatService
             });
             
             return new Reply { Response = Response.Ok };
+        }
+
+        public override async Task<Reply> CreateMessage(SendMessage request, ServerCallContext context)
+        {
+            await _chatRepository.AddMessageAsync(request.ChatId, request.Message);
+
+            return new Reply {Response = Response.Ok};
+        }
+
+        public override async Task JoinChat(TakeChat request, IServerStreamWriter<Message> responseStream, ServerCallContext context)
+        {
+            var messages = await _chatRepository.GetChatAsync(request.ChatId);
+
+            foreach (var message in messages.History)
+            {
+                await responseStream.WriteAsync(message);
+            }
         }
     }
 }

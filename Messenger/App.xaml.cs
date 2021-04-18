@@ -5,7 +5,7 @@ namespace Messenger
 {
     public partial class App
     {
-        public readonly UserViewModel CurrentUser;
+        public static UserViewModel CurrentUser;
         
         public App()
         {
@@ -22,7 +22,7 @@ namespace Messenger
         {
             var applicationWindow = Bootstrapper.Container.GetInstance<ApplicationWindow>();
             applicationWindow.Show();
-            Current.MainWindow.Close();
+            Current.MainWindow?.Close();
         }
     }
 }

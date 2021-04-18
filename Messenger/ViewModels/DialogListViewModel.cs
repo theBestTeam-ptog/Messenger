@@ -8,6 +8,6 @@ namespace Messenger.ViewModels
     [PutInIoC, UsedImplicitly]
     public sealed class DialogListViewModel : IDialogListViewModel
     {
-        public List<UserViewModel> Users { get; set; } 
+        public List<ChatViewModel> Chats { get; set; } 
     }
 }

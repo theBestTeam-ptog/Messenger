@@ -17,6 +17,13 @@
             <DataTemplate x:Key="itemTemplate">
                 <materialDesign:Card>
                     <ListBoxItem MouseUp="OpenDialog" Height="50px">
+                        <TextBlock Text="{Binding ChatName}"></TextBlock>
+                    </ListBoxItem>
+                </materialDesign:Card>
+            </DataTemplate>
+            <DataTemplate x:Key="searchItemTemplate">
+                <materialDesign:Card>
+                    <ListBoxItem>
                         <TextBlock Text="{Binding UserName}"></TextBlock>
                     </ListBoxItem>
                 </materialDesign:Card>
@@ -52,7 +59,7 @@
             <ListBox Name="list"
                      Style="{DynamicResource MaterialDesignCardsListBox}" 
                      ItemTemplate="{Binding Source={StaticResource itemTemplate}}"
-                     ItemsSource="{Binding Users}" 
+                     ItemsSource="{Binding }" 
                      Margin="58,50,0,0"
             />
         </Grid>
@@ -185,6 +192,6 @@
             </Grid>
         </Grid>
         <!-- Правая часть -->
-        <Frame Grid.Column="1" x:Name="dialogFrame" x:FieldModifier="public" NavigationUIVisibility="Hidden" Grid.RowSpan="2"></Frame>
+        <Frame Grid.Column="1" x:Name="dialogFrame" NavigationUIVisibility="Hidden" Grid.RowSpan="2"></Frame>
     </Grid>
 </Window>

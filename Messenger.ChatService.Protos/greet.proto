@@ -12,6 +12,8 @@ service Greeter {
   rpc TakeChats (TakeChatRequest) returns (TakeChatReply);
   rpc CreateUser (UserCreate) returns (Reply);
   rpc CreateChat (ChatCreate) returns (Reply);
+  rpc CreateMessage (SendMessage) returns (Reply);
+  rpc JoinChat (TakeChat) returns (stream Message);
 }
 
 message PickUpUser {
@@ -67,8 +69,17 @@ message Message{
   google.protobuf.Timestamp Time = 3;
 }
 
+message SendMessage{
+  Message message = 1;
+  string ChatId = 2;
+}
+
 message Reply{
  Response response = 1; 
+}
+
+message TakeChat{
+  string ChatId = 1;
 }
 
 enum Response{
