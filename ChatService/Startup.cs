@@ -8,8 +8,6 @@ using DataAccess.Repositories;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using Domain.Repositories;
-using DataAccess.Repositories.Chats;
-using DataAccess.Repositories.Users;
 
 
 namespace ChatService

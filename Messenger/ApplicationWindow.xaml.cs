@@ -9,10 +9,10 @@ using Domain.Mappers;
 using Domain.Models;
 using Grpc.Core;
 using Grpc.Net.Client;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 using Messenger.Utils;
 using Messenger.ViewModels;
-using Chat = Messenger.ChatService.Protos.Chat;
+using Chat = Domain.Protos.Chat;
 using Message = Domain.Models.Message;
 
 namespace Messenger
@@ -28,20 +28,21 @@ namespace Messenger
             ISearchResultViewModel searchResult, 
             IMapper<Chat, ChatViewModel> chatViewModelMapper)
         {
+            var chats1 = new ObservableCollection<ChatViewModel>();
             _dialogList = dialogList;
             _searchResult = searchResult;
             _chatViewModelMapper = chatViewModelMapper;
 
             InitializeComponent();
             
-            var chats = new List<ChatViewModel>
+            var chats2 = new List<ChatViewModel>
             {
                 new ChatViewModel {ChatName = "chat1"},
                 new ChatViewModel {ChatName = "chat2"},
                 new ChatViewModel {ChatName = "chat3"},
             };
 
-            _dialogList.Chats = chats;//App.CurrentUser.Chats;
+            _dialogList.Chats = chats2;//App.CurrentUser.Chats;
             
             list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
             list.DataContext = _dialogList.Chats;
@@ -58,6 +59,7 @@ namespace Messenger
                 return;
             }
             
+            
             var users = new List<UserViewModel>
             {
                 new UserViewModel{UserName = "user1"},
@@ -73,25 +75,24 @@ namespace Messenger
 
         private async void OpenDialog(object sender, MouseButtonEventArgs e)
         {
-            // todo убрать клиент в поле App, инициализировать в OnStartUp()
-            // var chatId = ((sender as ListBoxItem).DataContext as ChatViewModel).ChatId;
-            // var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            // var reply = client.JoinChat(new TakeChat()
-            // {
-            //     ChatId = chatId
-            // });
-            // var messages = new ObservableCollection<Message>();
-            // var token = new CancellationTokenSource().Token;
-            // while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
-            // await foreach(var message in reply.ResponseStream.ReadAllAsync())
-            // {
-            //     messages.Add(new Message
-            //     {
-            //         AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
-            //         Content = message.Content,
-            //         Time = message.Time.ToDateTime()
-            //     });
-            // }
+            var chatId = ((sender as ListBoxItem).DataContext as ChatViewModel).ChatId;
+            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+            var reply = client.JoinChat(new GetChat
+            {
+                ChatId = chatId
+            });
+            var messages = new ObservableCollection<Message>();
+            var token = new CancellationTokenSource().Token;
+            while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
+            await foreach(var message in reply.ResponseStream.ReadAllAsync())
+            {
+                messages.Add(new Message
+                {
+                    AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
+                    Content = message.Content,
+                    Time = message.Time.ToDateTime()
+                });
+            }
             
             dialogFrame.Navigate(new Uri(Constants.PagesUris.Dialog, UriKind.Relative));
         }

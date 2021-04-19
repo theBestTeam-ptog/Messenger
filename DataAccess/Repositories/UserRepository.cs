@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Core.IoC;
 using DataAccess.DbModels;
 using Domain.Constants;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 using Domain.Repositories;
 using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using AutoMapper;
 
-namespace DataAccess.Repositories.Users
+namespace DataAccess.Repositories
 {
     [PutInIoC, UsedImplicitly]
     public sealed class UserRepository : IUserRepository

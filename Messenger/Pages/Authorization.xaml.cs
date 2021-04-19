@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Domain.Models;
 using Grpc.Net.Client;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 
 namespace Messenger.Pages
 {
@@ -27,7 +27,7 @@ namespace Messenger.Pages
         private async void LogButton_Click(object sender, RoutedEventArgs e)
         {
             var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            var reply =  await client.TakeUserAsync(new PickUpUser {Login = LoginBox.Text, Password = PasswordBox.Password});
+            var reply =  await client.AuthorizationAsync(new GetUser {Login = LoginBox.Text, Password = PasswordBox.Password});
             var userReply = reply.User; 
             
             // todo убрать это в App.OnStartUp()

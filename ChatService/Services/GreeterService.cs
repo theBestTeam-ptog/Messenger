@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Repositories;
 using Google.Protobuf.Collections;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 using Microsoft.Extensions.Logging;
 
 namespace ChatService
@@ -26,41 +27,46 @@ namespace ChatService
             _chatRepository = chatRepository;
         }
 
-        public override async Task<PickUpUserReply> TakeUser(PickUpUser request, ServerCallContext context)
+        public override async Task<GetUserReply> Authorization(GetUser request, ServerCallContext context)
         {
-            _logger.LogInformation($"Started search User: {request.Login}");
+            _logger.LogInformation($"Started search User: [{request.Login}]");
             var user = await _userRepository.GetUserValidationAsync(request.Login, request.Password);
             
             if (user is null)
             {
-                _logger.LogError($"There is no user with this Login: {request.Login}, or you made a mistake when entering the data");
-                return new PickUpUserReply { Response = Response.Error };
+                _logger.LogError($"There is no user with this Login: [{request.Login}], or you made a mistake when entering the data");
+                return new GetUserReply { Response = Response.Error };
             }
             
-            _logger.LogInformation($"User: {request.Login} found, await response");
-            return new PickUpUserReply { User = _mapper.Map<User>(user) };
+            _logger.LogInformation($"User: [{request.Login}] found, await response");
+            return new GetUserReply { User = _mapper.Map<User>(user) };
         }
 
-        public override async Task<TakeChatReply> TakeChats(TakeChatRequest request, ServerCallContext context)
+        public override async Task<GetChatReply> TakeChats(GetChats request, ServerCallContext context)
         {
             _logger.LogInformation("Chats search started");
             var chats = await _chatRepository.GetChatsAsync(request.UserId);
-
+            
             if (chats is null)
             {
                 _logger.LogError("No chat found");
-                return new TakeChatReply { Response = Response.Error };
+                return new GetChatReply { Response = Response.Error };
             }
             
             _logger.LogInformation("Chat(s) found await reply");
-            return new TakeChatReply {
+            return new GetChatReply {
                 Response = Response.Ok,
                 Chats = { _mapper.Map<RepeatedField<Chat>>(chats) }
             };
         }
 
-        public override async Task<Reply> CreateUser(UserCreate request, ServerCallContext context)
+        public override async Task<Reply> RegistrationUser(UserCreate request, ServerCallContext context)
         {
+            if (request?.User is null)
+            {
+                _logger.LogError($"");
+            }
+            _logger.LogInformation($"Starting registration User [{request.User.UserName}]");
             await _userRepository.CreateUserAsync(request.User);
             return new Reply { Response = Response.Ok };
         }
@@ -77,21 +83,38 @@ namespace ChatService
             return new Reply { Response = Response.Ok };
         }
 
-        public override async Task<Reply> CreateMessage(SendMessage request, ServerCallContext context)
+        public override async Task<Reply> SendMessage(MessageCreate request, ServerCallContext context)
         {
             await _chatRepository.AddMessageAsync(request.ChatId, request.Message);
 
             return new Reply {Response = Response.Ok};
         }
 
-        public override async Task JoinChat(TakeChat request, IServerStreamWriter<Message> responseStream, ServerCallContext context)
+        public override async Task JoinChat(GetChat request, IServerStreamWriter<Message> responseStream, ServerCallContext context)
         {
-            var messages = await _chatRepository.GetChatAsync(request.ChatId);
+            var listMessages = new List<Message>();
 
-            foreach (var message in messages.History)
+            while(context.CancellationToken.IsCancellationRequested)
             {
-                await responseStream.WriteAsync(message);
+                var chat = await _chatRepository.GetChatAsync(request.ChatId);
+                listMessages = chat.History.Except(listMessages).ToList();
+                foreach (var message in listMessages)
+                {
+                    await responseStream.WriteAsync(message);
+                }
             }
+        }
+
+        public override async Task GetUsers(GetUsersByName request, IServerStreamWriter<GetUserReply> responseStream, ServerCallContext context)
+        {
+            // while (context.CancellationToken.IsCancellationRequested)
+            // {
+            //     foreach (var user in _userRepository.GetUsersByNameAsync(request.Name))
+            //     {
+            //         
+            //     }
+            // }
+            // return 
         }
     }
 }

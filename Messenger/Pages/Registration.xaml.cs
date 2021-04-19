@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 
 namespace Messenger.Pages
 {
@@ -19,23 +19,23 @@ namespace Messenger.Pages
         }
         private async void RegButton_Click(object sender, RoutedEventArgs e)
         {
-            // var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            //
-            // var chatReply = client.CreateUser(new UserCreate
-            // {
-            //     User = new User
-            //     {
-            //         Authorize = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
-            //         InNetwork = true,
-            //         HasImage = false,
-            //         Id = Guid.NewGuid().ToString(),
-            //         Login = LoginBox.Text,
-            //         Password = PasswordBox.Password,
-            //         Private = false,
-            //         Registration = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
-            //         UserName = UserNameBox.Text
-            //     }
-            // });
+            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+
+            var chatReply = await client.RegistrationUserAsync(new UserCreate
+            {
+                User = new User
+                {
+                    Authorize = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
+                    InNetwork = true,
+                    HasImage = false,
+                    Id = Guid.NewGuid().ToString(),
+                    Login = login.Text,
+                    Password = password.Password,
+                    Private = false,
+                    Registration = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime()),
+                    UserName = userName.Text
+                }
+            });
 
             _mainWindow.OpenPage(Utils.Pages.Authorization);
         }

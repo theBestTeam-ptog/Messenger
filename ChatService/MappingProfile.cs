@@ -2,7 +2,7 @@
 using AutoMapper;
 using DataAccess.DbModels;
 using Google.Protobuf.WellKnownTypes;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 
 namespace ChatService
 {

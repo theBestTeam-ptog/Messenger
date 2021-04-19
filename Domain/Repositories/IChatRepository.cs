@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 
 namespace Domain.Repositories
 {

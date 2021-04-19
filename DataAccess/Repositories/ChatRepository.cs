@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.IoC;
 using DataAccess.DbModels;
 using Domain.Constants;
+using Domain.Protos;
 using Domain.Repositories;
 using JetBrains.Annotations;
 using MongoDB.Driver;
-using Messenger.ChatService.Protos;
 
-namespace DataAccess.Repositories.Chats
+namespace DataAccess.Repositories
 {
     [PutInIoC, UsedImplicitly]
     public sealed class ChatRepository : IChatRepository

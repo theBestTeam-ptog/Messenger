@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Linq;
 using Core.IoC;
 using Domain.Mappers;
 using Domain.Models;
 using JetBrains.Annotations;
-using Chat = Messenger.ChatService.Protos.Chat;
+using System.Linq;
 
 namespace DataAccess.Mappers
 {
     [PutInIoC, UsedImplicitly]
-    public sealed class ChatViewModelMapper : IMapper<Chat, ChatViewModel>
+    public sealed class ChatViewModelMapper : IMapper<Domain.Protos.Chat, ChatViewModel>
     {
         [NotNull]
-        public ChatViewModel Map(Chat source) =>
+        public ChatViewModel Map(Domain.Protos.Chat source) =>
             new ChatViewModel
             {
                 ChatName = source.History.Select(HelpChat).Last().Content,
@@ -20,7 +19,7 @@ namespace DataAccess.Mappers
                 ChatId = source.Id
             };
 
-        private static Message HelpChat(Messenger.ChatService.Protos.Message message) =>
+        private static Message HelpChat(Domain.Protos.Message message) =>
             new Message
             {
                 AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),

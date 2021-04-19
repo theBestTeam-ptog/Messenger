@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Messenger.ChatService.Protos;
+using Domain.Protos;
 using JetBrains.Annotations;
 
 namespace Domain.Repositories

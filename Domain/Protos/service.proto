@@ -1,19 +1,19 @@
-syntax = "proto3";
+﻿syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/empty.proto";
 
-option csharp_namespace = "Messenger.ChatService.Protos";
+option csharp_namespace = "Domain.Protos";
 
-package greet;
+package service;
 
 service Greeter {
-  rpc TakeUser (GetUser) returns (GetUserReply);
+  rpc Authorization (GetUser) returns (GetUserReply);
   rpc TakeChats (GetChats) returns (GetChatReply);
+  rpc GetUsers (GetUsersByName) returns (stream GetUserReply);
   rpc RegistrationUser (UserCreate) returns (Reply);
   rpc CreateChat (ChatCreate) returns (Reply);
   rpc SendMessage (MessageCreate) returns (Reply);
-  rpc JoinChat (TakeChat) returns (stream Message);
+  rpc JoinChat (GetChat) returns (stream Message);
 }
 
 message GetUser {
@@ -75,11 +75,15 @@ message MessageCreate{
 }
 
 message Reply{
- Response response = 1; 
+  Response response = 1;
 }
 
-message TakeChat{
+message GetChat{
   string ChatId = 1;
+}
+
+message GetUsersByName{
+  string Name = 1;
 }
 
 enum Response{

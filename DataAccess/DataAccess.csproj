@@ -32,4 +32,10 @@
       <None Remove="obj\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\Domain\Protos\service.proto">
+        <Link>Protos\service.proto</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>
