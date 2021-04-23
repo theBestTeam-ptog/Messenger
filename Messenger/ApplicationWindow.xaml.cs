@@ -35,17 +35,17 @@ namespace Messenger
 
             InitializeComponent();
             
-            var chats2 = new List<ChatViewModel>
-            {
-                new ChatViewModel {ChatName = "chat1"},
-                new ChatViewModel {ChatName = "chat2"},
-                new ChatViewModel {ChatName = "chat3"},
-            };
-
-            _dialogList.Chats = chats2;//App.CurrentUser.Chats;
-            
-            list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
-            list.DataContext = _dialogList.Chats;
+            // var chats2 = new List<ChatViewModel>
+            // {
+            //     new ChatViewModel {ChatName = "chat1"},
+            //     new ChatViewModel {ChatName = "chat2"},
+            //     new ChatViewModel {ChatName = "chat3"},
+            // };
+            //
+            // _dialogList.Chats = chats2;//App.CurrentUser.Chats;
+            //
+            // list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
+            // list.DataContext = _dialogList.Chats;
 
             dialogFrame.Navigate(new Uri(Constants.PagesUris.EmptyDialog, UriKind.Relative));
         }
@@ -84,15 +84,15 @@ namespace Messenger
             var messages = new ObservableCollection<Message>();
             var token = new CancellationTokenSource().Token;
             while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
-            await foreach(var message in reply.ResponseStream.ReadAllAsync())
-            {
-                messages.Add(new Message
+                await foreach(var message in reply.ResponseStream.ReadAllAsync(token))
                 {
-                    AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
-                    Content = message.Content,
-                    Time = message.Time.ToDateTime()
-                });
-            }
+                    messages.Add(new Message
+                    {
+                        AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
+                        Content = message.Content,
+                        Time = message.Time.ToDateTime()
+                    });
+                }
             
             dialogFrame.Navigate(new Uri(Constants.PagesUris.Dialog, UriKind.Relative));
         }
