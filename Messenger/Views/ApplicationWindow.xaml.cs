@@ -28,7 +28,7 @@ namespace Messenger
             ISearchResultViewModel searchResult, 
             IMapper<Chat, ChatViewModel> chatViewModelMapper)
         {
-            var chats1 = new ObservableCollection<ChatViewModel>();
+            // var chats1 = new ObservableCollection<ChatViewModel>();
             _dialogList = dialogList;
             _searchResult = searchResult;
             _chatViewModelMapper = chatViewModelMapper;
@@ -52,48 +52,48 @@ namespace Messenger
 
         private void Search(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Searcher.Text.Trim()))
-            {
-                list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
-                list.DataContext = _dialogList.Chats;
-                return;
-            }
-            
-            
-            var users = new List<UserViewModel>
-            {
-                new UserViewModel{UserName = "user1"},
-                new UserViewModel{UserName = "user2"},
-                new UserViewModel{UserName = "user3"},
-            };
-            
-            list.ItemTemplate = (DataTemplate) list.FindResource("searchItemTemplate");
-            _searchResult.Users?.Clear();
-            _searchResult.Users = users;
-            list.DataContext = _searchResult.Users;
+            // if (string.IsNullOrEmpty(Searcher.Text.Trim()))
+            // {
+            //     list.ItemTemplate = (DataTemplate) list.FindResource("itemTemplate");
+            //     list.DataContext = _dialogList.Chats;
+            //     return;
+            // }
+            //
+            //
+            // var users = new List<UserViewModel>
+            // {
+            //     new UserViewModel{UserName = "user1"},
+            //     new UserViewModel{UserName = "user2"},
+            //     new UserViewModel{UserName = "user3"},
+            // };
+            //
+            // list.ItemTemplate = (DataTemplate) list.FindResource("searchItemTemplate");
+            // _searchResult.Users?.Clear();
+            // _searchResult.Users = users;
+            // list.DataContext = _searchResult.Users;
         }
 
         private async void OpenDialog(object sender, MouseButtonEventArgs e)
         {
-            var chatId = ((sender as ListBoxItem).DataContext as ChatViewModel).ChatId;
-            var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
-            var reply = client.JoinChat(new GetChat
-            {
-                ChatId = chatId
-            });
-            var messages = new ObservableCollection<Message>();
-            var token = new CancellationTokenSource().Token;
-            while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
-                await foreach(var message in reply.ResponseStream.ReadAllAsync(token))
-                {
-                    messages.Add(new Message
-                    {
-                        AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
-                        Content = message.Content,
-                        Time = message.Time.ToDateTime()
-                    });
-                }
-            
+            // var chatId = ((sender as ListBoxItem).DataContext as ChatViewModel).ChatId;
+            // var client = new Greeter.GreeterClient(GrpcChannel.ForAddress("https://localhost:5001"));
+            // var reply = client.JoinChat(new GetChat
+            // {
+            //     ChatId = chatId
+            // });
+            // var messages = new ObservableCollection<Message>();
+            // var token = new CancellationTokenSource().Token;
+            // while(await reply.ResponseStream.MoveNext(token) && token.IsCancellationRequested)
+            //     await foreach(var message in reply.ResponseStream.ReadAllAsync(token))
+            //     {
+            //         messages.Add(new Message
+            //         {
+            //             AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
+            //             Content = message.Content,
+            //             Time = message.Time.ToDateTime()
+            //         });
+            //     }
+
             dialogFrame.Navigate(new Uri(Constants.PagesUris.Dialog, UriKind.Relative));
         }
 

@@ -24,6 +24,6 @@ namespace DataAccess.DbModels
         [BsonIgnoreIfDefault]
         public DateTime Authorize { get; set; }
         [BsonIgnoreIfDefault]
-        public bool InNetwork { get; set; } // зашел или вышел из аккаунта
+        public bool InNetwork { get; set; } = false; // зашел или вышел из аккаунта
     }
 }

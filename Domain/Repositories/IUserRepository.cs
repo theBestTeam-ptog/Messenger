@@ -10,7 +10,7 @@ namespace Domain.Repositories
         Task<User> GetUserAsync([NotNull] string id);
         Task<bool> CheckLoginAsync([NotNull] string login);
         Task<User> GetUserValidationAsync([NotNull] string login, [NotNull] string password);
-        Task CreateUserAsync([NotNull] User user);
+        Task CreateUserAsync([NotNull] string userName, string login, string password);
         IEnumerable<User> GetUsersByNameAsync([NotNull] string name);
         IEnumerable<User> SearchSync([NotNull] string suggest);
     }

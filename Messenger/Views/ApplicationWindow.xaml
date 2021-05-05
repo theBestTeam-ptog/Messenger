@@ -4,30 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        xmlns:local="clr-namespace:Messenger"
+        xmlns:local="clr-namespace:Messenger.ViewModels"
         mc:Ignorable="d"
         Title="ApplicationWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280" WindowStartupLocation="CenterScreen">
-    <Grid ShowGridLines="False">
+    <Window.DataContext>
+        <local:MainPageViewModel/>
+    </Window.DataContext>
+    <Grid>
         <Grid.Resources>
-            <DataTemplate x:Key="itemTemplate">
-                <materialDesign:Card>
-                    <ListBoxItem MouseUp="OpenDialog" Height="50px">
-                        <TextBlock Text="{Binding ChatName}"></TextBlock>
-                    </ListBoxItem>
-                </materialDesign:Card>
-            </DataTemplate>
-            <DataTemplate x:Key="searchItemTemplate">
-                <materialDesign:Card>
-                    <ListBoxItem>
-                        <TextBlock Text="{Binding UserName}"></TextBlock>
-                    </ListBoxItem>
-                </materialDesign:Card>
-            </DataTemplate>
+            <!-- <DataTemplate x:Key="itemTemplate"> -->
+            <!--     <materialDesign:Card> -->
+            <!--         <ListBoxItem Height="50px"> -->
+            <!--             <TextBlock Text="{Binding DialogName}"></TextBlock> -->
+            <!--         </ListBoxItem> -->
+            <!--     </materialDesign:Card> -->
+            <!-- </DataTemplate> -->
+            <!-- <DataTemplate x:Key="searchItemTemplate"> -->
+            <!--     <materialDesign:Card> -->
+            <!--         <ListBoxItem> -->
+            <!--             <TextBlock Text="{Binding UserName}"></TextBlock> -->
+            <!--         </ListBoxItem> -->
+            <!--     </materialDesign:Card> -->
+            <!-- </DataTemplate> -->
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="270px"/>
@@ -56,12 +60,18 @@
                 />
             </Grid>
             <!--Body Список диалогов-->
-            <ListBox Name="list"
-                     Style="{DynamicResource MaterialDesignCardsListBox}" 
-                     ItemTemplate="{Binding Source={StaticResource itemTemplate}}"
-                     ItemsSource="{Binding }" 
-                     Margin="58,50,0,0"
-            />
+            <ListBox Name="list" Style="{DynamicResource MaterialDesignCardsListBox}"
+                     SelectedItem="{Binding SelectedDialog}"
+                     ItemsSource="{Binding ChatsViewModels}" Margin="58,50,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction
+                            Command="{Binding OpenDialog}"
+                            CommandParameter="{Binding ElementName=dialogFrame}">
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
         </Grid>
         <Grid Grid.Column="0">
             <!-- Шапка -->

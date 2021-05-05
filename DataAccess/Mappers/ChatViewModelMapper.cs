@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Core.IoC;
 using Domain.Mappers;
 using Domain.Models;
@@ -15,7 +16,7 @@ namespace DataAccess.Mappers
             new ChatViewModel
             {
                 ChatName = source.History.Select(HelpChat).Last().Content,
-                History = source.History.Select(HelpChat).ToList(),
+                History = new ObservableCollection<Message>(source.History.Select(HelpChat)),
                 ChatId = source.Id
             };
 

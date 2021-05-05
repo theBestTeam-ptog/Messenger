@@ -53,7 +53,6 @@ namespace DataAccess.Repositories
         public async Task AddMessageAsync(string chatId, Message message)
         {
             var filter = Builders<ChatDocument>.Filter.Eq(c => c.Id, chatId);
-                
             var update = Builders<ChatDocument>.Update.Push(c => c.History, _mapper.Map<Domain.Models.Message>(message));
             await Chats.UpdateOneAsync(filter, update);
         }

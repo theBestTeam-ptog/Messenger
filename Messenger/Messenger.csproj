@@ -11,6 +11,7 @@
       <PackageReference Include="MaterialDesignColors" Version="2.0.0" />
       <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.11" />
+      <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
       <PackageReference Include="structuremap" Version="4.7.1" />
     </ItemGroup>
 
@@ -28,6 +29,13 @@
       <Content Include="..\Domain\Protos\service.proto">
         <Link>Protos\service.proto</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ApplicationDefinition Remove="App.xaml" />
+      <ApplicationDefinition Include="Views\App.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </ApplicationDefinition>
     </ItemGroup>
 
 </Project>

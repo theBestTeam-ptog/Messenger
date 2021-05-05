@@ -9,7 +9,7 @@ package service;
 service Greeter {
   rpc Authorization (GetUser) returns (GetUserReply);
   rpc TakeChats (GetChats) returns (GetChatReply);
-  rpc GetUsers (GetUsersByName) returns (stream GetUserReply);
+  rpc GetUsers (GetUsersByName) returns (GetUsersReply);
   rpc RegistrationUser (UserCreate) returns (Reply);
   rpc CreateChat (ChatCreate) returns (Reply);
   rpc SendMessage (MessageCreate) returns (Reply);
@@ -21,18 +21,24 @@ message GetUser {
   string Password = 2;
 }
 
-message GetUserReply {
+message GetUsersReply {
+  repeated User user = 1;
+  Response response = 2;
+}
+
+message GetUserReply{
   User user = 1;
   Response response = 2;
 }
 
 message UserCreate{
-  User user = 1;
+  string Login = 1;
+  string Password = 2;
+  string UserName = 3;
 }
 
 message ChatCreate{
-  repeated string UserIds = 2;
-  repeated Message History = 3;
+  Chat chat = 1;
 }
 
 message User{

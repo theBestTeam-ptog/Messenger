@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using DataAccess.DbModels;
 using Domain.Constants;
 using Domain.Protos;
 using Domain.Repositories;
+using Google.Protobuf.WellKnownTypes;
 using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -54,8 +56,21 @@ namespace DataAccess.Repositories
             return _mapper.Map<User>(UserIsValidAsync(user, password));
         }
 
-        public async Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(string userName, string login, string password)
         {
+            var user = new User
+            {
+                Authorize = Timestamp.FromDateTime(DateTime.UtcNow),
+                HasImage = false,
+                Id = Guid.NewGuid().ToString(),
+                InNetwork = true,
+                Login = login,
+                Password = password,
+                Private = false,
+                Registration = Timestamp.FromDateTime(DateTime.UtcNow),
+                UserName = userName
+            };
+            
             await Users.InsertOneAsync(_mapper.Map<UserDocument>(user));
         }
 

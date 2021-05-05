@@ -4,11 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:db="clr-namespace:Messenger.ViewModels"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d">
+    <Page.DataContext>
+        <db:MainPageViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50px" />
@@ -31,15 +35,14 @@
         </materialDesign:ColorZone>
         <!-- Body Диалог -->
         <Grid Grid.Row="1" materialDesign:ColorZoneAssist.Mode="SecondaryMid">
+            <!-- Source - property Messages -->
             <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"
                      Focusable="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <ListBoxItem>
                             <Border>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock />
-                                    <TextBlock />
+                                <StackPanel VerticalAlignment="Bottom">
                                 </StackPanel>
                             </Border>
                         </ListBoxItem>
