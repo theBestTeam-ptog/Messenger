@@ -12,19 +12,20 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:local="clr-namespace:Messenger.ViewModels"
         mc:Ignorable="d"
-        Title="ApplicationWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280" WindowStartupLocation="CenterScreen">
+        Title="ApplicationWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <local:MainPageViewModel/>
+        <local:MainPageViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.Resources>
-            <!-- <DataTemplate x:Key="itemTemplate"> -->
-            <!--     <materialDesign:Card> -->
-            <!--         <ListBoxItem Height="50px"> -->
-            <!--             <TextBlock Text="{Binding DialogName}"></TextBlock> -->
-            <!--         </ListBoxItem> -->
-            <!--     </materialDesign:Card> -->
-            <!-- </DataTemplate> -->
+            <DataTemplate x:Key="itemTemplate">
+                <materialDesign:Card>
+                    <ListBoxItem Height="50px">
+                        <TextBlock Text="{Binding ChatName}" />
+                    </ListBoxItem>
+                </materialDesign:Card>
+            </DataTemplate>
             <!-- <DataTemplate x:Key="searchItemTemplate"> -->
             <!--     <materialDesign:Card> -->
             <!--         <ListBoxItem> -->
@@ -32,37 +33,37 @@
             <!--         </ListBoxItem> -->
             <!--     </materialDesign:Card> -->
             <!-- </DataTemplate> -->
+
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="270px"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="270px" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid VerticalAlignment="Top" Height="50px" Margin="55,0,0,0">
                 <TextBox x:Name="Searcher"
-                            TextWrapping="Wrap"
-                            Width="179"
-                            Height="30"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            TextChanged="Search"
-                            Background="Azure"
-                            Foreground="Black"
-                            FontSize="17"
-                            FontWeight="Regular"
-                />
-                <materialDesign:PackIcon 
-                        Kind="Search"
-                        Width="36"
-                        Height="30"
-                        HorizontalAlignment="Right"
-                        Margin="0 10 0 0"
-                />
+                         TextWrapping="Wrap"
+                         Width="179"
+                         Height="30"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         TextChanged="Search"
+                         Background="Azure"
+                         Foreground="Black"
+                         FontSize="17"
+                         FontWeight="Regular" />
+                <materialDesign:PackIcon
+                    Kind="Search"
+                    Width="36"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    Margin="0 10 0 0" />
             </Grid>
             <!--Body Список диалогов-->
             <ListBox Name="list" Style="{DynamicResource MaterialDesignCardsListBox}"
                      SelectedItem="{Binding SelectedDialog}"
-                     ItemsSource="{Binding ChatsViewModels}" Margin="58,50,0,0">
+                     ItemsSource="{Binding ChatsViewModels}"
+                     Margin="58,50,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction
@@ -71,6 +72,21 @@
                         </i:InvokeCommandAction>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <!-- <ListBox.ItemTemplate> -->
+                <!--     <DataTemplate> -->
+                <!--         <materialDesign:Card> -->
+                <!--             <StackPanel Height="50"> -->
+                <!--                 <ListBoxItem Height="50"> -->
+                <!--                     <TextBlock Text="{Binding ChatName}"/> -->
+                <!--                 </ListBoxItem> -->
+                <!--                 <StackPanel.InputBindings> -->
+                <!--                     <MouseBinding MouseAction="LeftClick" -->
+                <!--                                   Command="{Binding Path=" CommandParameter="{Binding ElementName=dialogFrame}"/> -->
+                <!--                 </StackPanel.InputBindings> -->
+                <!--             </StackPanel> -->
+                <!--         </materialDesign:Card> -->
+                <!--     </DataTemplate> -->
+                <!-- </ListBox.ItemTemplate> -->
             </ListBox>
         </Grid>
         <Grid Grid.Column="0">
@@ -80,15 +96,17 @@
                     <!--Анимация-->
                     <UserControl.Resources>
                         <Storyboard x:Key="OpenMenu">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                                <EasingDoubleKeyFrame KeyTime="0" Value="46"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="280"/>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                                           Storyboard.TargetName="GridMenu">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="46" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="280" />
                             </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                         <Storyboard x:Key="CloseMenu">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                                <EasingDoubleKeyFrame KeyTime="0" Value="280"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="46"/>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                                           Storyboard.TargetName="GridMenu">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="280" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="46" />
                             </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </UserControl.Resources>
@@ -96,100 +114,102 @@
                     <!--Запуск анимации-->
                     <UserControl.Triggers>
                         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
-                            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+                            <BeginStoryboard Storyboard="{StaticResource OpenMenu}" />
                         </EventTrigger>
                         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
-                            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+                            <BeginStoryboard Storyboard="{StaticResource CloseMenu}" />
                         </EventTrigger>
                     </UserControl.Triggers>
-                    <Grid x:Name="GridMenu" 
-                          Width="50" 
-                          HorizontalAlignment="Left" 
+                    <Grid x:Name="GridMenu"
+                          Width="50"
+                          HorizontalAlignment="Left"
                           VerticalAlignment="Stretch"
-                          Background="#FF512DA8"
-                          >
+                          Background="#FF512DA8">
                         <Grid.Effect>
-                            <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"/>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE" />
                         </Grid.Effect>
                         <StackPanel HorizontalAlignment="Left" Width="280">
                             <!--Кнопка открытия-закрытия-->
                             <Grid Height="85" RenderTransformOrigin="0.5,0.5">
                                 <Grid.RenderTransform>
                                     <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
+                                        <ScaleTransform />
+                                        <SkewTransform />
+                                        <RotateTransform />
+                                        <TranslateTransform />
                                     </TransformGroup>
                                 </Grid.RenderTransform>
-                                <Button x:Name="ButtonOpenMenu" 
-                                        Height="40" 
-                                        Width="40" 
-                                        HorizontalAlignment="Left" 
-                                        VerticalAlignment="Top" 
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-                                        Background="{x:Null}" 
-                                        BorderBrush="{x:Null}" 
-                                        Click="OpenMenu_Click" 
-                                        Cursor="Hand"
-                                        >
-                                    <materialDesign:PackIcon Kind="Menu" Width="30" Height="30" HorizontalAlignment="Center"/>
+                                <Button x:Name="ButtonOpenMenu"
+                                        Height="40"
+                                        Width="40"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
+                                        Click="OpenMenu_Click"
+                                        Cursor="Hand">
+                                    <materialDesign:PackIcon Kind="Menu" Width="30" Height="30"
+                                                             HorizontalAlignment="Center" />
                                 </Button>
-                                <Button x:Name="ButtonCloseMenu" 
-                                        Visibility="Collapsed" 
-                                        Height="40" Width="40" 
-                                        HorizontalAlignment="Left" 
-                                        VerticalAlignment="Top" 
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-                                        Background="{x:Null}" 
-                                        BorderBrush="{x:Null}" 
+                                <Button x:Name="ButtonCloseMenu"
+                                        Visibility="Collapsed"
+                                        Height="40" Width="40"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
                                         Click="CloseMenu_Click"
-                                        Cursor="Hand"
-                                        >
-                                    <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
+                                        Cursor="Hand">
+                                    <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25" />
                                 </Button>
                             </Grid>
-                            <ListView x:Name="ListViewMenu" 
-                                      Foreground="White" 
-                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                            <ListView x:Name="ListViewMenu"
+                                      Foreground="White"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                       SelectionChanged="ListViewMenu_SelectionChanged"
-                                      Width="280" 
-                                      >
+                                      Width="280">
                                 <!--Account info-->
-                                <ListViewItem x:Name="Profile" Height="60" Cursor="Hand" >
+                                <ListViewItem x:Name="Profile" Height="60" Cursor="Hand">
                                     <!--Лучше здесь еще добавить аватарку-->
                                     <!--<Image Name="Avatar" Width="25" VerticalAlignment="Bottom"></Image>-->
                                     <TextBlock Text="Name" FontSize="14" HorizontalAlignment="Left" />
                                 </ListViewItem>
                                 <!--Наполнение-->
-                                <ListViewItem x:Name="Friends" Height="60" Cursor="Hand" >
+                                <ListViewItem x:Name="Friends" Height="60" Cursor="Hand">
                                     <StackPanel Orientation="Horizontal" Width="280">
-                                        <materialDesign:PackIcon Kind= "People" Height="25" Width="25" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Friends" Margin="20 10"/>
+                                        <materialDesign:PackIcon Kind="People" Height="25" Width="25"
+                                                                 HorizontalAlignment="Center" />
+                                        <TextBlock Text="Friends" Margin="20 10" />
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem x:Name="Groups" Height="60" Cursor="Hand" >
+                                <ListViewItem x:Name="Groups" Height="60" Cursor="Hand">
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="PeopleGroup" Height="25" Width="25" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Groups" Margin="20 10"/>
+                                        <materialDesign:PackIcon Kind="PeopleGroup" Height="25" Width="25"
+                                                                 HorizontalAlignment="Center" />
+                                        <TextBlock Text="Groups" Margin="20 10" />
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem x:Name="Settings" Height="60" Cursor="Hand" >
+                                <ListViewItem x:Name="Settings" Height="60" Cursor="Hand">
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="Settings" Height="25" Width="25" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Settings"  Margin="20 10"/>
+                                        <materialDesign:PackIcon Kind="Settings" Height="25" Width="25"
+                                                                 HorizontalAlignment="Center" />
+                                        <TextBlock Text="Settings" Margin="20 10" />
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem x:Name="Help" Height="60" Cursor="Hand" >
+                                <ListViewItem x:Name="Help" Height="60" Cursor="Hand">
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="Help" Height="25" Width="25" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Help" Margin="20 10"/>
+                                        <materialDesign:PackIcon Kind="Help" Height="25" Width="25"
+                                                                 HorizontalAlignment="Center" />
+                                        <TextBlock Text="Help" Margin="20 10" />
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem x:Name="ChangeTheme" Height="60" Cursor="Hand" IsManipulationEnabled="False">
+                                <ListViewItem x:Name="ChangeTheme" Height="60" Cursor="Hand"
+                                              IsManipulationEnabled="False">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <ToggleButton x:Name="ToggleTheme"/>
-                                        <TextBlock Text="Сменить тему" Margin="10 10"/>
+                                        <ToggleButton x:Name="ToggleTheme" />
+                                        <TextBlock Text="Сменить тему" Margin="10 10" />
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>
@@ -200,6 +220,6 @@
             </Grid>
         </Grid>
         <!-- Правая часть -->
-        <Frame Grid.Column="1" x:Name="dialogFrame" NavigationUIVisibility="Hidden" Grid.RowSpan="2"></Frame>
+        <Frame Grid.Column="1" x:Name="dialogFrame" NavigationUIVisibility="Hidden" Grid.RowSpan="2" />
     </Grid>
 </Window>

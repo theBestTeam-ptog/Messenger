@@ -72,16 +72,20 @@ namespace Messenger.ViewModels
             {
                 ChatId = SelectedDialog.ChatId
             }, cancellationToken: _cancellationTS.Token);
-
-            await foreach (var message in reply.ResponseStream.ReadAllAsync().WithCancellation(_cancellationTS.Token))
+            try
             {
-                Messages.Add(new Domain.Models.Message
+                await foreach (var message in reply.ResponseStream.ReadAllAsync())
                 {
-                    AuthorId = Guid.Parse(message.AuthorId),
-                    Content = message.Content,
-                    Time = message.Time.ToDateTime()
-                });
+                    Messages.Add(new Domain.Models.Message
+                    {
+                        AuthorId = Guid.Parse(message.AuthorId),
+                        Content = message.Content,
+                        Time = message.Time.ToDateTime()
+                    });
+                }
             }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
+            { }
         }
     }
 }
