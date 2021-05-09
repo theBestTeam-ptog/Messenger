@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using JetBrains.Annotations;
 using Messenger.Pages;
 
-namespace Messenger
+namespace Messenger.Views
 {
     [UsedImplicitly]
     public partial class MainWindow : Window

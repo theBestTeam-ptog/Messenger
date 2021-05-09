@@ -11,13 +11,13 @@ namespace DataAccess.Mappers
     [PutInIoC, UsedImplicitly]
     public sealed class ChatViewModelMapper : IMapper<Domain.Protos.Chat, ChatViewModel>
     {
-        [NotNull]
-        public ChatViewModel Map(Domain.Protos.Chat source) =>
-            new ChatViewModel
+        public ChatViewModel Map(Domain.Protos.Chat source) => source == null
+            ? null
+            : new ChatViewModel
             {
                 ChatName = source.History.Select(HelpChat).Last().Content,
                 History = new ObservableCollection<Message>(source.History.Select(HelpChat)),
-                ChatId = source.Id
+                ChatId = source.Id,
             };
 
         private static Message HelpChat(Domain.Protos.Message message) =>
@@ -25,7 +25,8 @@ namespace DataAccess.Mappers
             {
                 AuthorId = Guid.Parse((ReadOnlySpan<char>) message.AuthorId),
                 Content = message.Content,
-                Time = message.Time.ToDateTime()
+                Time = message.Time.ToDateTime(),
+                AuthorName = message.AuthorName,
             };
     }
 }

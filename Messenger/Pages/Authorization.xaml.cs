@@ -1,12 +1,11 @@
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using Domain.Models;
-using Grpc.Net.Client;
-using Domain.Protos;
+using JetBrains.Annotations;
+using Messenger.Views;
 
 namespace Messenger.Pages
 {
+    [UsedImplicitly]
     public partial class Authorization : Page
     {
         private readonly MainWindow _mainWindow;

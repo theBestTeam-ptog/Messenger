@@ -4,16 +4,17 @@ using System.Windows.Input;
 
 namespace Messenger
 {
-    public class RelayCommand : ICommand
+    public sealed class RelayCommand : ICommand
     {
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        private readonly Action<object> _execute;
+        private readonly Predicate<object> _canExecute;
         
         public RelayCommand(Action<object> execute) : this(execute, null) { }
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+
+        private RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
             _execute = execute ?? throw new
-                ArgumentNullException("execute"); _canExecute = canExecute;
+                ArgumentNullException(nameof(execute)); _canExecute = canExecute;
         }
 
         [DebuggerStepThrough]

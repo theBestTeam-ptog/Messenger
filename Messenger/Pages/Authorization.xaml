@@ -12,7 +12,7 @@
       mc:Ignorable="d"
       Title="Authorization" Height="320" Width="400">
     <Page.DataContext>
-        <local:AuthorizationControlPage/>
+        <local:AuthorizationControlPage />
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -23,17 +23,46 @@
             <RowDefinition Height="70" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="1" Content="Вход" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="26"/>
-        <TextBox Grid.Row="2" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Логин"
-                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="50" FontSize="15" Text="{Binding LoginInfo, UpdateSourceTrigger=PropertyChanged}"/>
-        <PasswordBox Grid.Row="3" x:Name="PasswordBox" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" materialDesign:HintAssist.Hint="Пароль"
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="50" FontSize="15"/>
-        <StackPanel Grid.Row="4" Margin="0 5 0 0" Orientation="Horizontal">
-            <Button Content="Регистрация" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Height="30"
-                    FontSize="15" Margin="60 5 5 5" Click="RegButton_Click" />
-            <Button Content="Войти" HorizontalAlignment="Right" VerticalAlignment="Center" Width="140" Height="30" FontSize="15"
-                    Margin="5" Command="{Binding AuthorizationCommand}"
-                    CommandParameter="{Binding ElementName=PasswordBox}"/>
+        <Label
+            Grid.Row="1"
+            Content="Вход"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top" FontSize="26" />
+        <TextBox
+            Grid.Row="2"
+            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            materialDesign:HintAssist.Hint="Логин"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="210" Height="50" FontSize="15"
+            Text="{Binding LoginInfo, UpdateSourceTrigger=PropertyChanged}" />
+        <PasswordBox
+            Grid.Row="3"
+            x:Name="PasswordBox"
+            Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+            materialDesign:HintAssist.Hint="Пароль"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="210" Height="50" FontSize="15" />
+        <StackPanel
+            Grid.Row="4"
+            Margin="0 5 0 0"
+            Orientation="Horizontal">
+            <Button
+                Content="Регистрация"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center" Width="140" Height="30"
+                FontSize="15"
+                Margin="60 5 5 5"
+                Click="RegButton_Click" />
+            <Button
+                Content="Войти"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center" Width="140" Height="30"
+                FontSize="15"
+                Margin="5"
+                Command="{Binding AuthorizationCommand}"
+                CommandParameter="{Binding ElementName=PasswordBox}" />
         </StackPanel>
     </Grid>
 </Page>

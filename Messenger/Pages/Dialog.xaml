@@ -11,24 +11,57 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d">
     <Page.DataContext>
-        <db:MainPageViewModel/>
+        <db:MainPageViewModel />
     </Page.DataContext>
     <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="messageTemplate">
+                <materialDesign:Card>
+                    <StackPanel
+                        MinWidth="100px"
+                        MaxWidth="250px"
+                        MinHeight="30px"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical"
+                        Focusable="False">
+                        <Label
+                            FontWeight="Bold"
+                            FontSize="10"
+                            Content="{Binding AuthorName}" />
+                        <TextBlock
+                            TextAlignment="Justify"
+                            Padding="3px"
+                            VerticalAlignment="Center"
+                            TextWrapping="Wrap"
+                            Text="{Binding Content}" />
+                        <Label
+                            Height="15px"
+                            Margin="0 -10 0 0"
+                            FontSize="7"
+                            Content="{Binding Time}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top" />
+                    </StackPanel>
+                </materialDesign:Card>
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="50px" />
             <RowDefinition Height="*" />
             <RowDefinition Height="50px" />
         </Grid.RowDefinitions>
         <!-- Шапка  -->
-        <materialDesign:ColorZone Grid.Row="0"
-                                  Mode="PrimaryDark"
-                                  Height="50"
-                                  materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                  CornerRadius="3">
+        <materialDesign:ColorZone
+            Grid.Row="0"
+            Mode="PrimaryDark"
+            Height="50"
+            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            CornerRadius="3">
             <DockPanel>
                 <!--todo будет PopupBox справа-->
-                <StackPanel Orientation="Horizontal"
-                            VerticalAlignment="Center">
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
                     <TextBlock Text="Какой-то юзер" />
                 </StackPanel>
             </DockPanel>
@@ -36,26 +69,27 @@
         <!-- Body Диалог -->
         <Grid Grid.Row="1" materialDesign:ColorZoneAssist.Mode="SecondaryMid">
             <!-- Source - property Messages -->
-            <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"
-                     Focusable="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <ListBoxItem>
-                            <Border>
-                                <StackPanel VerticalAlignment="Bottom">
-                                </StackPanel>
-                            </Border>
-                        </ListBoxItem>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+            <ListBox
+                x:Name="messagesList"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.CanContentScroll="True"
+                Focusable="False"
+                HorizontalAlignment="Stretch"
+                ItemTemplate="{Binding Source={StaticResource messageTemplate}}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel VerticalAlignment="Bottom" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
             </ListBox>
         </Grid>
         <!-- Footer Message -->
-        <materialDesign:ColorZone Grid.Row="2"
-                                  Mode="PrimaryDark"
-                                  Height="50"
-                                  materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                  CornerRadius="3">
+        <materialDesign:ColorZone
+            Grid.Row="2"
+            Mode="PrimaryDark"
+            Height="50"
+            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            CornerRadius="3">
             <Grid>
                 <!--todo запихнуть все ниже в StackPanel-->
                 <Grid>
@@ -65,41 +99,46 @@
                         <ColumnDefinition MaxWidth="60px" />
                     </Grid.ColumnDefinitions>
                     <!-- PackIcon - как ни странно иконка; Foreground до конца не понял как настраивать  -->
-                    <materialDesign:Card Grid.Column="0"
-                                         MouseUp="LinkDocument"
-                                         Cursor="Hand"
-                                         Background="#6746c3"
-                                         Height="40"
-                                         Width="40"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Center">
-                    <materialDesign:PackIcon
-                        Kind="LinkVariantPlus"
-                        Foreground="{DynamicResource MaterialDesignBody}"
-                        Height="30"
-                        Width="30"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        
+                    <materialDesign:Card
+                        Grid.Column="0"
+                        MouseUp="LinkDocument"
+                        OpacityMask="Black"
+                        Cursor="Hand"
+                        Background="#6746c3"
+                        Height="40"
+                        Width="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <materialDesign:PackIcon
+                            Kind="LinkVariantPlus"
+                            Foreground="{DynamicResource MaterialDesignBody}"
+                            Height="30"
+                            Width="30"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
                     </materialDesign:Card>
                     <materialDesign:Card Grid.Column="1" Margin="3">
-                        <TextBox x:Name="message"
-                                 TextAlignment="Justify"
-                                 Padding="2"
-                                 Margin="2"
-                                 Style="{DynamicResource MaterialDesignTextBox}"
-                                 Foreground="White"
-                                 FontWeight="Regular"
-                                 FontSize="17" />
+                        <TextBox
+                            x:Name="message"
+                            materialDesign:HintAssist.Hint="Введите сообщение..."
+                            TextAlignment="Justify"
+                            Padding="2"
+                            Margin="2"
+                            TextWrapping="Wrap"
+                            Style="{DynamicResource MaterialDesignTextBox}"
+                            Foreground="White"
+                            FontWeight="Regular"
+                            FontSize="16" />
                     </materialDesign:Card>
-                    <materialDesign:Card Grid.Column="2"
-                                         MouseUp="SendMessage"
-                                         Cursor="Hand"
-                                         Background="#6746c3"
-                                         Height="40"
-                                         Width="40"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Center">
+                    <materialDesign:Card
+                        Grid.Column="2"
+                        MouseUp="SendMessage"
+                        Cursor="Hand"
+                        Background="#6746c3"
+                        Height="40"
+                        Width="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
                         <materialDesign:PackIcon
                             Kind="Send"
                             Foreground="{DynamicResource MaterialDesignBody}"

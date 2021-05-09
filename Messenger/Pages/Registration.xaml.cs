@@ -4,9 +4,12 @@ using System.Windows.Controls;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Domain.Protos;
+using JetBrains.Annotations;
+using Messenger.Views;
 
 namespace Messenger.Pages
 {
+    [UsedImplicitly]
     public partial class Registration : Page
     {
         private readonly MainWindow _mainWindow;

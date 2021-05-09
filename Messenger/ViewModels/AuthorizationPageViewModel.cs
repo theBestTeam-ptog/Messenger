@@ -6,6 +6,7 @@ using Domain.Models;
 using Domain.Protos;
 using Messenger.Service;
 using Messenger.ViewModels.Base;
+using Messenger.Views;
 
 namespace Messenger.ViewModels
 {

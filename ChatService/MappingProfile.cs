@@ -3,9 +3,11 @@ using AutoMapper;
 using DataAccess.DbModels;
 using Google.Protobuf.WellKnownTypes;
 using Domain.Protos;
+using JetBrains.Annotations;
 
 namespace ChatService
 {
+    [UsedImplicitly]
     public class MappingProfile : Profile
     {
         public MappingProfile()
@@ -65,8 +67,9 @@ namespace ChatService
             CreateMap<Message, Domain.Models.Message>()
                 .ForMember(c => c.Content, op => op.MapFrom(src => src.Content))
                 .ForMember(c => c.Time, op => op.MapFrom(src => src.Time.ToDateTime()))
-                .ForMember(c => c.AuthorId, op => op.MapFrom(src => Guid.Parse(src.AuthorId)));
-            
+                .ForMember(c => c.AuthorId, op => op.MapFrom(src => Guid.Parse(src.AuthorId)))
+                .ForMember(c => c.AuthorName, op => op.MapFrom(src => src.AuthorName));
+
             CreateMap<Domain.Models.Message, Message>()
                 .ForMember(c => c.Content, op => op.MapFrom(src => src.Content))
                 .ForMember(c => c.Time, op => op.MapFrom(src => Timestamp.FromDateTime(new DateTime(
@@ -78,7 +81,8 @@ namespace ChatService
                     src.Time.Second,
                     DateTimeKind.Utc
                 ))))
-                .ForMember(c => c.AuthorId, op => op.MapFrom(src => src.AuthorId.ToString()));
+                .ForMember(c => c.AuthorId, op => op.MapFrom(src => src.AuthorId.ToString()))
+                .ForMember(c => c.AuthorName, op => op.MapFrom(src => src.AuthorName));
         }
     }
 }

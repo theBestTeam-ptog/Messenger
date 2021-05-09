@@ -1,11 +1,10 @@
 ﻿using Api;
 using Core;
 using DataAccess;
-using DataAccess.Mappers;
 using JetBrains.Annotations;
-using Messenger.Pages;
 using Messenger.Service;
 using Messenger.ViewModels;
+using Messenger.Views;
 using StructureMap;
 
 namespace Messenger
@@ -26,7 +25,6 @@ namespace Messenger
                 x.For<MainWindow>().Use<MainWindow>();
                 x.ForSingletonOf<IDialogListViewModel>().Use<DialogListViewModel>();
                 x.ForSingletonOf<ISearchResultViewModel>().Use<SearchResultViewModel>();
-                x.ForSingletonOf<ChatClient>().Use<ChatClient>();
                 //x.ForSingletonOf().Singleton();
             });
         }

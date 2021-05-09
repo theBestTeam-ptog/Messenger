@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 using Domain.Models;
-using Messenger.ViewModels;
 
-namespace Messenger
+namespace Messenger.Views
 {
     public partial class App
     {
