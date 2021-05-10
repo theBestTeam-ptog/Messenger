@@ -74,7 +74,8 @@
             <!-- Source - property Messages -->
             <ListBox
                 x:Name="messagesList"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.CanContentScroll="True"
                 Focusable="False"
                 HorizontalAlignment="Stretch"

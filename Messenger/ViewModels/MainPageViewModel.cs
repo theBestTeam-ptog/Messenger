@@ -65,9 +65,9 @@ namespace Messenger.ViewModels
             var frame = x as Frame;
             Messages.Clear();
 
-            var selectedChat = CurrentUser.Chats.Find(x => x.ChatId == SelectedDialog.ChatId);
+            var selectedChat = CurrentUser.Chats.Find(c => c.ChatId == SelectedDialog.ChatId);
             Teamate.UserName = selectedChat?.UserInfos
-                .First(x => Guid.Parse(x.Id) != CurrentUser.Id)
+                .First(u => Guid.Parse(u.Id) != CurrentUser.Id)
                 .UserName;
             
             await LoadChatAsync();
