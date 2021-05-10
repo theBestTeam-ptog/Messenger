@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:db="clr-namespace:Messenger.ViewModels"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
@@ -139,6 +140,11 @@
                         Width="40"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
+                        <!-- <i:Interaction.Triggers> -->
+                        <!--     <i:EventTrigger EventName="PreviewMouseLeftButtonDown"> -->
+                        <!--         <i:InvokeCommandAction Command="{Binding OpenDialog}" /> -->
+                        <!--     </i:EventTrigger> -->
+                        <!-- </i:Interaction.Triggers> -->
                         <materialDesign:PackIcon
                             Kind="Send"
                             Foreground="{DynamicResource MaterialDesignBody}"

@@ -34,15 +34,15 @@ namespace Messenger.ViewModels
             set => Set(ref _chatsViewModels, value);
         }
 
-        private ObservableCollection<Message> _messages = new ObservableCollection<Message>()
-        {
-            new Message
-                {Content = "123", AuthorId = Guid.Parse("664ee829-4d3e-4f07-a88f-9406c91f85ee")},
-            new Message
-                {Content = "123", AuthorId = Guid.Parse("4a98ac74-b5ea-4e5d-ae74-aa6cd1667204")},
-            new Message
-                {Content = "123", AuthorId = Guid.Parse("664ee829-4d3e-4f07-a88f-9406c91f85ee")},
-        };
+        private ObservableCollection<Message> _messages = new ObservableCollection<Message>();
+        // {
+        //     new Message
+        //         {Content = "123", AuthorId = Guid.Parse("664ee829-4d3e-4f07-a88f-9406c91f85ee"), AuthorName = "kirill"},
+        //     new Message
+        //         {Content = "123", AuthorId = Guid.Parse("4a98ac74-b5ea-4e5d-ae74-aa6cd1667204"), AuthorName = "kirill"},
+        //     new Message
+        //         {Content = "123", AuthorId = Guid.Parse("664ee829-4d3e-4f07-a88f-9406c91f85ee"), AuthorName = "kirill"},
+        // };
 
         public ObservableCollection<Message> Messages
         {
@@ -64,11 +64,12 @@ namespace Messenger.ViewModels
         private RelayCommand _openDialog;
         public RelayCommand OpenDialog => new RelayCommand(async x =>
         {
-            Messages = CurrentUser?.Chats?
-                .Find(x => x.ChatId == SelectedDialog.ChatId)?
-                .History ?? new ObservableCollection<Message>();
+            // Messages = CurrentUser.Chats
+            //     .Find(y => y.ChatId == SelectedDialog.ChatId)?
+            //     .History ?? new ObservableCollection<Message>();
 
             var frame = x as Frame;
+            await LoadChatAsync();
             frame?.Navigate(new Dialog(Messages, SelectedDialog.ChatId));
             // await LoadChatAsync();
         });
@@ -88,18 +89,19 @@ namespace Messenger.ViewModels
 
                 await foreach (var message in reply.ResponseStream.ReadAllAsync())
                 {
-                    messages.Add(new Message
+                    Messages.Add(new Message
                     {
                         AuthorId = Guid.Parse(message.AuthorId),
                         Content = message.Content,
-                        Time = message.Time.ToDateTime()
+                        Time = message.Time.ToDateTime(),
+                        AuthorName = message.AuthorName
                     });
                 }
 
-                if (Messages.Count == 0)
-                    Messages = messages;
-                else
-                    messages.ForAll(x => Messages.Add(x));
+                // if (Messages.Count == 0)
+                //     Messages = messages;
+                // else
+                //     messages.ForAll(x => Messages.Add(x));
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
             {

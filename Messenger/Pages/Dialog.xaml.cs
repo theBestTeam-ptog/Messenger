@@ -40,7 +40,7 @@ namespace Messenger.Pages
                     AuthorName = MainPageViewModel.CurrentUser.UserName,
                     Content = message.Text,
                 };
-                _messages.Add(newMessage);
+                //_messages.Add(newMessage);
                 _client.Client.SendMessage(new MessageCreate
                 {
                     Message = new Domain.Protos.Message
