@@ -11,5 +11,13 @@ namespace DataAccess.DbModels
         public string Id { get; set; }
         public List<string> UserIds {get;set;}
         public List<Message> History { get; set; }
+        
+        public UserInfoDocument[] UserInfos { get; set; }
     }
+
+    public sealed class UserInfoDocument
+    {
+        public string Id { get; set; }
+        public string UserName { get; set; }
+    } 
 }

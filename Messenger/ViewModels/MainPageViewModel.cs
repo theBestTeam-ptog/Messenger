@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -11,15 +12,16 @@ using Messenger.Pages;
 using Messenger.Service;
 using Messenger.ViewModels.Base;
 using Message = Domain.Models.Message;
+using User = Domain.Protos.User;
 
 namespace Messenger.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
         public static UserViewModel CurrentUser;
+        public UserViewModel Teamate { get; set; } = new UserViewModel();
 
         private CancellationTokenSource _cancellationTs;
-        private ObservableCollection<ChatViewModel> _chatsViewModels = new ObservableCollection<ChatViewModel>();
         private readonly ChatClient _client;
 
         public MainPageViewModel()
@@ -28,6 +30,8 @@ namespace Messenger.ViewModels
             CurrentUser.Chats.ForEach(x => { ChatsViewModels.Add(x); });
         }
 
+        private ObservableCollection<ChatViewModel> _chatsViewModels = new ObservableCollection<ChatViewModel>();
+
         public ObservableCollection<ChatViewModel> ChatsViewModels
         {
             get => _chatsViewModels;
@@ -35,14 +39,6 @@ namespace Messenger.ViewModels
         }
 
         private ObservableCollection<Message> _messages = new ObservableCollection<Message>();
-        // {
-        //     new Message
-        //         {Content = "123", AuthorId = Guid.Parse("664ee829-4d3e-4f07-a88f-9406c91f85ee"), AuthorName = "kirill"},
-        //     new Message
-        //         {Content = "123", AuthorId = Guid.Parse("4a98ac74-b5ea-4e5d-ae74-aa6cd1667204"), AuthorName = "kirill"},
-        //     new Message
-        //         {Content = "123", AuthorId = Guid.Parse("664ee829-4d3e-4f07-a88f-9406c91f85ee"), AuthorName = "kirill"},
-        // };
 
         public ObservableCollection<Message> Messages
         {
@@ -55,6 +51,7 @@ namespace Messenger.ViewModels
         }
 
         private ChatViewModel _selectedDialog;
+
         public ChatViewModel SelectedDialog
         {
             get => _selectedDialog;
@@ -62,16 +59,19 @@ namespace Messenger.ViewModels
         }
 
         private RelayCommand _openDialog;
+
         public RelayCommand OpenDialog => new RelayCommand(async x =>
         {
-            // Messages = CurrentUser.Chats
-            //     .Find(y => y.ChatId == SelectedDialog.ChatId)?
-            //     .History ?? new ObservableCollection<Message>();
-
             var frame = x as Frame;
+            Messages.Clear();
+
+            var selectedChat = CurrentUser.Chats.Find(x => x.ChatId == SelectedDialog.ChatId);
+            Teamate.UserName = selectedChat?.UserInfos
+                .First(x => Guid.Parse(x.Id) != CurrentUser.Id)
+                .UserName;
+            
             await LoadChatAsync();
-            frame?.Navigate(new Dialog(Messages, SelectedDialog.ChatId));
-            // await LoadChatAsync();
+            frame?.Navigate(new Dialog(Messages, SelectedDialog.ChatId, Teamate));
         });
 
         private async Task LoadChatAsync()
@@ -85,8 +85,6 @@ namespace Messenger.ViewModels
             }, cancellationToken: _cancellationTs.Token);
             try
             {
-                var messages = new ObservableCollection<Message>();
-
                 await foreach (var message in reply.ResponseStream.ReadAllAsync())
                 {
                     Messages.Add(new Message
@@ -97,11 +95,6 @@ namespace Messenger.ViewModels
                         AuthorName = message.AuthorName
                     });
                 }
-
-                // if (Messages.Count == 0)
-                //     Messages = messages;
-                // else
-                //     messages.ForAll(x => Messages.Add(x));
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
             {

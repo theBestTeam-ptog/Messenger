@@ -14,6 +14,7 @@ service Greeter {
   rpc CreateChat (ChatCreate) returns (Reply);
   rpc SendMessage (MessageCreate) returns (Reply);
   rpc JoinChat (GetChat) returns (stream Message);
+  rpc GetUserById (User) returns (User);
 }
 
 message GetUser {
@@ -67,6 +68,12 @@ message Chat{
   string Id = 1;
   repeated string UserIds = 2;
   repeated Message History = 3;
+  repeated UserInfo UserInfos = 4;
+}
+
+message UserInfo{
+  string Id = 1;
+  string UserName = 2;
 }
 
 message Message{

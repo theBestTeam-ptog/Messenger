@@ -18,6 +18,7 @@ namespace DataAccess.Mappers
                 ChatName = source.History.Select(HelpChat).Last().Content,
                 History = new ObservableCollection<Message>(source.History.Select(HelpChat)),
                 ChatId = source.Id,
+                UserInfos = source.UserInfos.Select(Map).ToArray(),
             };
 
         private static Message HelpChat(Domain.Protos.Message message) =>
@@ -27,6 +28,14 @@ namespace DataAccess.Mappers
                 Content = message.Content,
                 Time = message.Time.ToDateTime(),
                 AuthorName = message.AuthorName,
+            };
+
+        private static UserInfo Map(Domain.Protos.UserInfo s) => s == null
+            ? null
+            : new UserInfo
+            {
+                Id = s.Id,
+                UserName = s.UserName,
             };
     }
 }

@@ -32,6 +32,7 @@
                         <TextBlock
                             TextAlignment="Justify"
                             Padding="3px"
+                            Margin="0 -5 0 2"
                             VerticalAlignment="Center"
                             TextWrapping="Wrap"
                             Text="{Binding Content}" />
@@ -61,9 +62,10 @@
             <DockPanel>
                 <!--todo будет PopupBox справа-->
                 <StackPanel
+                    Margin="10 0 0 0"
                     Orientation="Horizontal"
                     VerticalAlignment="Center">
-                    <TextBlock Text="Какой-то юзер" />
+                    <TextBlock x:Name="InfoBar" FontSize="17" />
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
@@ -76,6 +78,7 @@
                 ScrollViewer.CanContentScroll="True"
                 Focusable="False"
                 HorizontalAlignment="Stretch"
+                materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
                 ItemTemplate="{Binding Source={StaticResource messageTemplate}}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

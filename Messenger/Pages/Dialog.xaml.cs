@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using AutoMapper;
+using Domain.Models;
 using Domain.Protos;
 using Google.Protobuf.WellKnownTypes;
 using JetBrains.Annotations;
@@ -19,12 +20,13 @@ namespace Messenger.Pages
         private readonly string _uid;
         private readonly ChatClient _client;
 
-        public Dialog(ObservableCollection<Message> messages, string uid)
+        public Dialog(ObservableCollection<Message> messages, string uid, UserViewModel teamate)
         {
             _messages = messages;
             _uid = uid;
             InitializeComponent();
             _client = Bootstrapper.Container.GetInstance<ChatClient>();
+            InfoBar.Text = teamate.UserName;
 
             messagesList.ItemsSource = _messages;
         }
