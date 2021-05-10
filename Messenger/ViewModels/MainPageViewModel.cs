@@ -64,7 +64,7 @@ namespace Messenger.ViewModels
         private RelayCommand _openDialog;
         public RelayCommand OpenDialog => new RelayCommand(async x =>
         {
-            Messages = CurrentUser.Chats
+            Messages = CurrentUser?.Chats?
                 .Find(x => x.ChatId == SelectedDialog.ChatId)?
                 .History ?? new ObservableCollection<Message>();
 
