@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using AutoMapper;
 using Domain.Models;
 using Domain.Protos;
 using Google.Protobuf.WellKnownTypes;
@@ -19,7 +18,7 @@ namespace Messenger.Pages
         private readonly ObservableCollection<Message> _messages;
         private readonly string _uid;
         private readonly ChatClient _client;
-
+        
         public Dialog(ObservableCollection<Message> messages, string uid, UserViewModel teamate)
         {
             _messages = messages;
@@ -27,8 +26,8 @@ namespace Messenger.Pages
             InitializeComponent();
             _client = Bootstrapper.Container.GetInstance<ChatClient>();
             InfoBar.Text = teamate.UserName;
-
             messagesList.ItemsSource = _messages;
+            ScrollViewer.ScrollToBottom();
         }
 
         private async void SendMessage(object sender, MouseButtonEventArgs e)
@@ -42,7 +41,7 @@ namespace Messenger.Pages
                     AuthorName = MainPageViewModel.CurrentUser.UserName,
                     Content = message.Text,
                 };
-                //_messages.Add(newMessage);
+                
                 _client.Client.SendMessage(new MessageCreate
                 {
                     Message = new Domain.Protos.Message
@@ -54,13 +53,20 @@ namespace Messenger.Pages
                     },
                     ChatId = _uid,
                 });
+                ScrollViewer.ScrollToBottom();
             }
 
             message.Text = string.Empty;
         }
 
         private void LinkDocument(object sender, MouseButtonEventArgs e)
+        { }
+
+        private void MessagesScroll_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            var scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
         }
     }
 }

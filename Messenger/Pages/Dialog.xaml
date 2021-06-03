@@ -72,21 +72,19 @@
         <!-- Body Диалог -->
         <Grid Grid.Row="1" materialDesign:ColorZoneAssist.Mode="SecondaryMid">
             <!-- Source - property Messages -->
-            <ListBox
-                x:Name="messagesList"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.CanContentScroll="True"
-                Focusable="False"
-                HorizontalAlignment="Stretch"
-                materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
-                ItemTemplate="{Binding Source={StaticResource messageTemplate}}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel VerticalAlignment="Bottom" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
+            <ScrollViewer x:Name="ScrollViewer" PreviewMouseWheel="MessagesScroll_OnPreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+                <ListBox
+                    x:Name="messagesList"
+                    Focusable="False"
+                    HorizontalAlignment="Stretch"
+                    ItemTemplate="{Binding Source={StaticResource messageTemplate}}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel VerticalAlignment="Bottom" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </ScrollViewer>
         </Grid>
         <!-- Footer Message -->
         <materialDesign:ColorZone

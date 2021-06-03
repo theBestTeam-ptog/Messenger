@@ -67,27 +67,30 @@
                      ItemsSource="{Binding ChatsViewModels}"
                      Margin="58,50,0,0">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:EventTrigger EventName="MouseUp">
                         <i:InvokeCommandAction
                             Command="{Binding OpenDialog}"
                             CommandParameter="{Binding ElementName=dialogFrame}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <!-- <ListBox.ItemTemplate> -->
-                <!--     <DataTemplate> -->
-                <!--         <materialDesign:Card> -->
-                <!--             <StackPanel Height="50"> -->
-                <!--                 <ListBoxItem Height="50"> -->
-                <!--                     <TextBlock Text="{Binding ChatName}"/> -->
-                <!--                 </ListBoxItem> -->
-                <!--                 <StackPanel.InputBindings> -->
-                <!--                     <MouseBinding MouseAction="LeftClick" -->
-                <!--                                   Command="{Binding Path=" CommandParameter="{Binding ElementName=dialogFrame}"/> -->
-                <!--                 </StackPanel.InputBindings> -->
-                <!--             </StackPanel> -->
-                <!--         </materialDesign:Card> -->
-                <!--     </DataTemplate> -->
-                <!-- </ListBox.ItemTemplate> -->
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card Height="50" Background="{DynamicResource PrimaryHueLightBrush}"
+                                             Foreground="{DynamicResource PrimaryHueLightForegroundBrush}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Stretch="None"/>
+                                <DockPanel Grid.Column="1">
+                                    <Label DockPanel.Dock="Top" Content="{Binding ChatName}" Height="25"/>
+                                    <Label Content="{Binding History[1].Content}" Height="25" />
+                                </DockPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
         <Grid Grid.Column="0">

@@ -184,6 +184,9 @@ namespace ChatService.Services
                 if (listMessages.Count != 0 || prevMessages.Count == 0)
                     prevMessages.AddRange(listMessages);
             }
+            
+            listMessages.Clear();
+            prevMessages.Clear();
         }
 
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using AutoMapper.Internal;
 using Domain.Models;
 using Domain.Protos;
 using Grpc.Core;
@@ -12,7 +11,6 @@ using Messenger.Pages;
 using Messenger.Service;
 using Messenger.ViewModels.Base;
 using Message = Domain.Models.Message;
-using User = Domain.Protos.User;
 
 namespace Messenger.ViewModels
 {
@@ -43,11 +41,7 @@ namespace Messenger.ViewModels
         public ObservableCollection<Message> Messages
         {
             get => _messages;
-            set
-            {
-                _messages = value;
-                NotifyPropertyChanged(nameof(Messages));
-            }
+            set => Set(ref _messages, value);
         }
 
         private ChatViewModel _selectedDialog;
@@ -95,10 +89,10 @@ namespace Messenger.ViewModels
                         AuthorName = message.AuthorName
                     });
                 }
+                
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
-            {
-            }
+            { }
         }
     }
 }
