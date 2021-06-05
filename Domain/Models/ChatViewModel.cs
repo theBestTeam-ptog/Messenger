@@ -9,6 +9,7 @@ namespace Domain.Models
         public string ChatId { get; set; }
         
         public UserInfo[] UserInfos { get; set; }
+        
     }
 
     public sealed class UserInfo
