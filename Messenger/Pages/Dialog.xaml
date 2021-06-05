@@ -100,12 +100,11 @@
                         <ColumnDefinition MaxWidth="60px" />
                     </Grid.ColumnDefinitions>
                     <!-- PackIcon - как ни странно иконка; Foreground до конца не понял как настраивать  -->
-                    <materialDesign:Card
+                    <Border
                         Grid.Column="0"
                         MouseUp="LinkDocument"
                         OpacityMask="Black"
                         Cursor="Hand"
-                        Background="#6746c3"
                         Height="40"
                         Width="40"
                         HorizontalAlignment="Center"
@@ -116,8 +115,9 @@
                             Height="30"
                             Width="30"
                             VerticalAlignment="Center"
-                            HorizontalAlignment="Center" />
-                    </materialDesign:Card>
+                            HorizontalAlignment="Center"
+                            MouseEnter="PackIcon_MouseEnter" MouseLeave="PackIcon_MouseLeave"/>
+                    </Border>
                     <materialDesign:Card Grid.Column="1" Margin="3">
                         <TextBox
                             x:Name="message"
@@ -131,11 +131,10 @@
                             FontWeight="Regular"
                             FontSize="16" />
                     </materialDesign:Card>
-                    <materialDesign:Card
+                    <Border
                         Grid.Column="2"
                         MouseUp="SendMessage"
                         Cursor="Hand"
-                        Background="#6746c3"
                         Height="40"
                         Width="40"
                         HorizontalAlignment="Center"
@@ -145,14 +144,11 @@
                         <!--         <i:InvokeCommandAction Command="{Binding OpenDialog}" /> -->
                         <!--     </i:EventTrigger> -->
                         <!-- </i:Interaction.Triggers> -->
-                        <materialDesign:PackIcon
-                            Kind="Send"
-                            Foreground="{DynamicResource MaterialDesignBody}"
-                            Height="30"
-                            Width="30"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" />
-                    </materialDesign:Card>
+                        <materialDesign:PackIcon Kind="Send" Foreground="{DynamicResource MaterialDesignBody}"
+                                                 Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                 MouseEnter="PackIcon_MouseEnter" MouseLeave="PackIcon_MouseLeave">
+                        </materialDesign:PackIcon>
+                    </Border>
                 </Grid>
             </Grid>
         </materialDesign:ColorZone>
