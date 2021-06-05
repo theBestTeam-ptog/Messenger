@@ -43,11 +43,7 @@ namespace Messenger.ViewModels
         public ObservableCollection<Message> Messages
         {
             get => _messages;
-            set
-            {
-                _messages = value;
-                NotifyPropertyChanged(nameof(Messages));
-            }
+            set => Set(ref _messages, value);
         }
 
         private ChatViewModel _selectedDialog;
@@ -97,8 +93,7 @@ namespace Messenger.ViewModels
                 }
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
-            {
-            }
+            { }
         }
     }
 }

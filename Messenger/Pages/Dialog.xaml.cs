@@ -43,7 +43,7 @@ namespace Messenger.Pages
                     Content = message.Text,
                 };
                 //_messages.Add(newMessage);
-                _client.Client.SendMessage(new MessageCreate
+                await _client.Client.SendMessageAsync(new MessageCreate
                 {
                     Message = new Domain.Protos.Message
                     {
