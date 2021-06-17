@@ -60,6 +60,7 @@ namespace Messenger.ViewModels
             Messages.Clear();
 
             var selectedChat = CurrentUser.Chats.Find(c => c.ChatId == SelectedDialog.ChatId);
+            
             Teamate.UserName = selectedChat?.UserInfos
                 .First(u => Guid.Parse(u.Id) != CurrentUser.Id)
                 .UserName;

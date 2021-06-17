@@ -2,12 +2,16 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using AutoMapper;
 using Domain.Models;
 using Domain.Protos;
 using Google.Protobuf.WellKnownTypes;
 using JetBrains.Annotations;
+using MaterialDesignThemes.Wpf;
 using Messenger.Service;
 using Messenger.ViewModels;
+using Messenger.Views;
 using Message = Domain.Models.Message;
 
 namespace Messenger.Pages
@@ -63,10 +67,28 @@ namespace Messenger.Pages
         { }
 
         private void MessagesScroll_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        { }
+
+        private void MessagesScroll_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
+        }
+
+        private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+            var icon = (PackIcon)sender;
+            icon.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void PackIcon_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var icon = (PackIcon) sender;
+            icon.Foreground = new SolidColorBrush(Colors.White);
         }
     }
 }
