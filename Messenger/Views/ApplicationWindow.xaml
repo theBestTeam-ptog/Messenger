@@ -174,8 +174,10 @@
                                 <!--Account info-->
                                 <ListViewItem x:Name="Profile" Height="60" Cursor="Hand">
                                     <!--Лучше здесь еще добавить аватарку-->
-                                    <!--<Image Name="Avatar" Width="25" VerticalAlignment="Bottom"></Image>-->
-                                    <TextBlock Text="Name" FontSize="14" HorizontalAlignment="Left" />
+                                    <DockPanel>
+                                        <Image DockPanel.Dock="Right" Name="Avatar" Width="auto" Height="auto"/>
+                                        <TextBlock DockPanel.Dock="Left" Text="Name" FontSize="14" Height="auto" Width="auto" HorizontalAlignment="Left" />
+                                    </DockPanel>
                                 </ListViewItem>
                                 <!--Наполнение-->
                                 <ListViewItem x:Name="Friends" Height="60" Cursor="Hand">

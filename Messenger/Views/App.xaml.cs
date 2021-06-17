@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Domain.Models;
+using Messenger.ViewModels;
 
 namespace Messenger.Views
 {

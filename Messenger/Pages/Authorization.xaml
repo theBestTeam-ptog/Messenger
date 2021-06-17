@@ -10,17 +10,17 @@
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d"
-      Title="Authorization" Height="320" Width="400">
+      Title="Authorization">
     <Page.DataContext>
         <local:AuthorizationControlPage />
     </Page.DataContext>
-    <Grid>
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="50" />
             <RowDefinition Height="60" />
             <RowDefinition Height="60" />
-            <RowDefinition Height="70" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label
@@ -44,25 +44,25 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Width="210" Height="50" FontSize="15" />
-        <StackPanel
-            Grid.Row="4"
-            Margin="0 5 0 0"
-            Orientation="Horizontal">
+        
+            <Label
+                Grid.Row="5"
+                Content="Зарегистрироваться"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top" Width="auto"
+                FontSize="14"
+                Margin="0"
+                Cursor="Hand"
+                MouseDown="RegButton_Click" />
             <Button
-                Content="Регистрация"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center" Width="140" Height="30"
-                FontSize="15"
-                Margin="60 5 5 5"
-                Click="RegButton_Click" />
-            <Button
+                Grid.Row="4"
                 Content="Войти"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center" Width="140" Height="30"
                 FontSize="15"
-                Margin="5"
+                Margin="0 5 0 0"
                 Command="{Binding AuthorizationCommand}"
                 CommandParameter="{Binding ElementName=PasswordBox}" />
-        </StackPanel>
+        
     </Grid>
 </Page>
