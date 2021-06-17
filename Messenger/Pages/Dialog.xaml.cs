@@ -34,7 +34,40 @@ namespace Messenger.Pages
             ScrollViewer.ScrollToBottom();
         }
 
-        private async void SendMessage(object sender, MouseButtonEventArgs e)
+        private async void SendMessage_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SendMessage();
+        }
+
+        private void LinkDocument(object sender, MouseButtonEventArgs e)
+        { }
+
+        private void MessagesScroll_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
+
+        private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var icon = (PackIcon)sender;
+            icon.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void PackIcon_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var icon = (PackIcon) sender;
+            icon.Foreground = new SolidColorBrush(Colors.White);
+        }
+
+        private void SendMessage_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+                SendMessage();
+        }
+
+        private async void SendMessage()
         {
             if (message.Text.Trim() != string.Empty)
             {
@@ -61,28 +94,6 @@ namespace Messenger.Pages
             }
 
             message.Text = string.Empty;
-        }
-
-        private void LinkDocument(object sender, MouseButtonEventArgs e)
-        { }
-
-        private void MessagesScroll_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
-        }
-
-        private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
-        {
-            var icon = (PackIcon)sender;
-            icon.Foreground = new SolidColorBrush(Colors.Black);
-        }
-
-        private void PackIcon_MouseLeave(object sender, MouseEventArgs e)
-        {
-            var icon = (PackIcon) sender;
-            icon.Foreground = new SolidColorBrush(Colors.White);
         }
     }
 }
