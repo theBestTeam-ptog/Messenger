@@ -2,7 +2,6 @@
 using Core;
 using DataAccess;
 using JetBrains.Annotations;
-using Messenger.Service;
 using Messenger.ViewModels;
 using Messenger.Views;
 using StructureMap;

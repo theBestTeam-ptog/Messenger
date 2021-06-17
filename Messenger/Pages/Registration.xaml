@@ -11,26 +11,37 @@
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d"
-      Title="Registration" Height="320" Width="400">
+      Title="Registration">
     <Page.DataContext>
         <local:RegistrationViewModel />
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="45" />
             <RowDefinition Height="60" />
             <RowDefinition Height="60" />
             <RowDefinition Height="60" />
             <RowDefinition Height="70" />
-            <RowDefinition Height="*" />
+
         </Grid.RowDefinitions>
+        <Border
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Cursor="Hand"
+            MouseDown="BackButton_Click" Height="30" Width="30">
+            <materialDesign:PackIcon
+            Height="30px"
+            Width="30px"
+            Kind="ArrowLeft"/>
+        </Border>
+
         <Label
             Grid.Row="1" 
             Content="Регистрация" 
             HorizontalAlignment="Center" 
-            VerticalAlignment="Top" 
-            FontSize="26" />
+            VerticalAlignment="Center" 
+            FontSize="26" Height="40" Width="164" />
         <TextBox
             Grid.Row="2"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -57,26 +68,14 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Width="210" Height="50" FontSize="15" />
-        <StackPanel
+        <Button
             Grid.Row="5"
-            Margin="0 5 0 0"
-            Orientation="Horizontal">
-            <Button
-                Content="Вернуться"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center" Width="110" Height="30"
-                Margin="60 5 5 5"
-                FontSize="15"
-                Click="BackButton_Click" />
-            <Button
-                Content="Зарегистрироваться"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center" Width="180"
-                Height="30"
-                Margin="5"
-                FontSize="15"
-                Command="{Binding RegistrationCommand}"
-                CommandParameter="{Binding ElementName=PasswordBox}" />
-        </StackPanel>
+            Content="Зарегистрироваться"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" Width="180"
+            Height="30"
+            FontSize="15"
+            Command="{Binding RegistrationCommand}"
+            CommandParameter="{Binding ElementName=PasswordBox}" />
     </Grid>
 </Page>

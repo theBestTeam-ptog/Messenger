@@ -11,6 +11,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:local="clr-namespace:Messenger"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="MainWindow" Height="560" Width="820" MinWidth="350px" MinHeight="280" WindowStartupLocation="CenterScreen">
     <Grid ShowGridLines="False">
         <Frame NavigationUIVisibility="Hidden" x:Name="Frame"></Frame>
