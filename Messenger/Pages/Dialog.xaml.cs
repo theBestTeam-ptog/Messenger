@@ -67,9 +67,6 @@ namespace Messenger.Pages
         { }
 
         private void MessagesScroll_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        { }
-
-        private void MessagesScroll_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
@@ -78,9 +75,6 @@ namespace Messenger.Pages
 
         private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
         {
-            var scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
             var icon = (PackIcon)sender;
             icon.Foreground = new SolidColorBrush(Colors.Black);
         }
