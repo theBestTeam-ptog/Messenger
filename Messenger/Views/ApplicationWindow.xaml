@@ -179,7 +179,7 @@
                                     <!--Лучше здесь еще добавить аватарку-->
                                     <DockPanel>
                                         <Image DockPanel.Dock="Right" Name="Avatar" Width="auto" Height="auto"/>
-                                        <TextBlock DockPanel.Dock="Left" Text="Name" FontSize="14" Height="auto" Width="auto" HorizontalAlignment="Left" />
+                                        <TextBlock DockPanel.Dock="Left" Text="Здесь должно быть имя юзера" FontSize="14" Height="auto" Width="auto" HorizontalAlignment="Left" />
                                     </DockPanel>
                                 </ListViewItem>
                                 <!--Наполнение-->

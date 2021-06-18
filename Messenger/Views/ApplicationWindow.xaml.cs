@@ -122,7 +122,7 @@ namespace Messenger.Views
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UserControl usc = null;
-            GridMenu.Children.Clear();
+            //GridMenu.Children.Clear();
 
             switch (((ListViewItem) ((ListView) sender).SelectedItem).Name)
             {
