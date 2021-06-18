@@ -12,8 +12,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:local="clr-namespace:Messenger.ViewModels"
         mc:Ignorable="d"
-        Title="ApplicationWindow" Height="560" Width="820" MinWidth="500px" MinHeight="280"
-        WindowStartupLocation="CenterScreen">
+        Title="Aramzamzam" Height="560" Width="820" MinWidth="500px" MinHeight="280"
+        WindowStartupLocation="CenterScreen" Icon="../Images/backlajan.png">
     <Window.DataContext>
         <local:MainPageViewModel />
     </Window.DataContext>

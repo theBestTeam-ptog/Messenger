@@ -38,4 +38,9 @@
       </ApplicationDefinition>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Images\backlajan.png" />
+      <Resource Include="Images\backlajan.png" />
+    </ItemGroup>
+
 </Project>
