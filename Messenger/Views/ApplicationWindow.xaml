@@ -197,46 +197,32 @@
                                         <TextBlock Text="Groups" Margin="20 10" />
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem x:Name="Searching" Height="60" Cursor="Hand">
+                                <ListViewItem x:Name="Settings" Height="60" Cursor="Hand">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Search" Height="25" Width="25"
                                                                  HorizontalAlignment="Center" />
                                         <TextBlock Text="Settings" Margin="20 10" />
                                     </StackPanel>
                                 </ListViewItem>
-                                <!-- <ListViewItem x:Name="Settings" Height="60" Cursor="Hand"> -->
-                                <!--     <StackPanel Orientation="Horizontal"> -->
-                                <!--         <materialDesign:PackIcon Kind="Settings" Height="25" Width="25" -->
-                                <!--                                  HorizontalAlignment="Center" /> -->
-                                <!--         <TextBlock Text="Settings" Margin="20 10" /> -->
-                                <!--     </StackPanel> -->
-                                <!-- </ListViewItem> -->
-                                <!-- <ListViewItem x:Name="Help" Height="60" Cursor="Hand"> -->
-                                <!--     <StackPanel Orientation="Horizontal"> -->
-                                <!--         <materialDesign:PackIcon Kind="Help" Height="25" Width="25" -->
-                                <!--                                  HorizontalAlignment="Center" /> -->
-                                <!--         <TextBlock Text="Help" Margin="20 10" /> -->
-                                <!--     </StackPanel> -->
-                                <!-- </ListViewItem> -->
-                                <!-- <ListViewItem x:Name="ChangeTheme" Height="60" Cursor="Hand" -->
-                                <!--               IsManipulationEnabled="False"> -->
-                                <!--     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"> -->
-                                <!--         <ToggleButton x:Name="ToggleTheme" /> -->
-                                <!--         <TextBlock Text="Сменить тему" Margin="10 10" /> -->
-                                <!--     </StackPanel> -->
-                                <!-- </ListViewItem> -->
+                                <StackPanel
+                                    x:Name="ChangeTheme"
+                                    Height="60"
+                                    Cursor="Hand"
+                                    Margin="10 0 0 0"
+                                    IsManipulationEnabled="False"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Left">
+                                    <ToggleButton x:Name="ToggleTheme" />
+                                    <TextBlock Text="Сменить тему" Margin="10 20 0 10" />
+                                </StackPanel>
+                                <ListViewItem x:Name="LogOut" Height="60" Cursor="Hand">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Logout" Height="25" Width="25"
+                                                                 HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Logout" Margin="20 10"></TextBlock>
+                                    </StackPanel>
+                                </ListViewItem>
                             </ListView>
-                            <StackPanel
-                                x:Name="ChangeTheme"
-                                Height="60"
-                                Cursor="Hand"
-                                Margin="10 0 0 0"
-                                IsManipulationEnabled="False"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Left">
-                                <ToggleButton x:Name="ToggleTheme" />
-                                <TextBlock Text="Сменить тему" Margin="10 20 0 10" />
-                            </StackPanel>
                             <!--Собственно само меню-->
                         </StackPanel>
                     </Grid>

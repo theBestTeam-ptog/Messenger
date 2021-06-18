@@ -1,14 +1,17 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Domain.Mappers;
 using Domain.Models;
 using Domain.Protos;
+using MaterialDesignThemes.Wpf;
+using Messenger.Pages;
 using Messenger.Service;
-using Messenger.Utils;
 using Messenger.ViewModels;
 using Chat = Domain.Protos.Chat;
+using Constants = Messenger.Utils.Constants;
 
 namespace Messenger.Views
 {
@@ -140,6 +143,11 @@ namespace Messenger.Views
                 case "Help":
                     usc = new UserControl();
                     GridMenu.Children.Add(usc);
+                    break;
+                case "LogOut":
+                    var a = new MainWindow();
+                    Close();
+                    a.Show();
                     break;
             }
         }
