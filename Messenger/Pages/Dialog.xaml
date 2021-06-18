@@ -118,6 +118,7 @@
                     </Border>
                     <materialDesign:Card Grid.Column="1" Margin="3">
                         <TextBox
+                            PreviewKeyDown="SendMessage_OnKeyDown"
                             x:Name="message"
                             materialDesign:HintAssist.Hint="Введите сообщение..."
                             TextAlignment="Justify"
@@ -131,7 +132,7 @@
                     </materialDesign:Card>
                     <Border
                         Grid.Column="2"
-                        MouseUp="SendMessage"
+                        MouseUp="SendMessage_OnMouseUp"
                         Cursor="Hand"
                         Height="40"
                         Width="40"
